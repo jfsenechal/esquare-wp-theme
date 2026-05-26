@@ -1,53 +1,53 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","align":"full","layout":{"type":"constrained"}} -->
-<main class="wp-block-group alignfull">
+<!-- wp:html -->
+<main id="contenu">
 
-    <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|50","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}},"color":{"background":"#FAF8F3"}},"layout":{"type":"constrained"}} -->
-    <section class="wp-block-group alignfull has-background" style="background-color:#FAF8F3;padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--40)">
-        <!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"0.8125rem","fontWeight":"600","letterSpacing":"0.2em","textTransform":"uppercase"},"color":{"text":"var:preset|color|yellow"}}} -->
-        <p class="has-text-align-center" style="color:var(--wp--preset--color--yellow);font-size:0.8125rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase">Actualités</p>
-        <!-- /wp:paragraph -->
-        <!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}}} -->
-        <h1 class="wp-block-heading has-text-align-center" style="margin-top:var(--wp--preset--spacing--20)">Les nouvelles de l'e-Square</h1>
-        <!-- /wp:heading -->
-    </section>
-    <!-- /wp:group -->
-
-    <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
-    <section class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--40)">
-
-        <!-- wp:query {"queryId":2,"query":{"perPage":9,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true},"align":"wide"} -->
-        <div class="wp-block-query alignwide">
-            <!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
-                <!-- wp:group {"style":{"border":{"radius":"20px","width":"1px","color":"#E2E8F0"},"spacing":{"padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
-                <div class="wp-block-group" style="border-color:#E2E8F0;border-width:1px;border-radius:20px;padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
-                    <!-- wp:post-featured-image {"isLink":true,"aspectRatio":"3/2","style":{"border":{"radius":"12px"}}} /-->
-                    <!-- wp:post-date {"style":{"typography":{"fontSize":"0.8125rem"},"color":{"text":"#4A5568"}}} /-->
-                    <!-- wp:post-title {"isLink":true,"level":3,"style":{"typography":{"fontSize":"1.25rem"}}} /-->
-                    <!-- wp:post-excerpt {"moreText":"Lire la suite →","showMoreOnNewLine":true} /-->
+    <section class="px-6 py-20 lg:px-8 lg:py-24">
+        <div class="mx-auto max-w-7xl">
+            <div class="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                    <p class="inline-flex items-center gap-2 [font-family:var(--font-figtree)] text-xs font-bold text-navy/70 uppercase tracking-widest">
+                        <span aria-hidden="true" class="inline-block size-2 rounded-full bg-yellow"></span>
+                        Actualités
+                    </p>
+                    <h1 class="mt-3 [font-family:var(--font-figtree)] text-3xl font-bold tracking-tight text-balance text-navy md:text-4xl">Nos événements &amp; ateliers.</h1>
                 </div>
-                <!-- /wp:group -->
-            <!-- /wp:post-template -->
+            </div>
+<!-- /wp:html -->
 
-            <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
-                <!-- wp:query-pagination-previous /-->
-                <!-- wp:query-pagination-numbers /-->
-                <!-- wp:query-pagination-next /-->
-            <!-- /wp:query-pagination -->
+            <!-- wp:query {"queryId":1,"query":{"perPage":12,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true},"className":"mt-10"} -->
+            <div class="wp-block-query mt-10">
+                <!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+                    <!-- wp:group {"tagName":"article","className":"group block","layout":{"type":"constrained"}} -->
+                    <article class="wp-block-group group block">
+                        <!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3","className":"overflow-hidden rounded-3xl"} /-->
+                        <!-- wp:post-date {"format":"j F Y","className":"mt-5 font-mono text-[11px] font-semibold uppercase tracking-[0.22em]","style":{"color":{"text":"#0E1F3399"}}} /-->
+                        <!-- wp:post-title {"isLink":true,"level":3,"className":"mt-2 max-w-[28ch] [font-family:var(--font-figtree)] text-xl font-bold tracking-tight text-balance text-navy"} /-->
+                        <!-- wp:post-excerpt {"showMoreOnNewLine":false,"moreText":"Lire la suite →","className":"mt-3 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70"} /-->
+                    </article>
+                    <!-- /wp:group -->
+                <!-- /wp:post-template -->
 
-            <!-- wp:query-no-results -->
-                <!-- wp:paragraph {"align":"center","style":{"color":{"text":"#4A5568"}}} -->
-                <p class="has-text-align-center" style="color:#4A5568">Aucune actualité pour le moment.</p>
-                <!-- /wp:paragraph -->
-            <!-- /wp:query-no-results -->
+                <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"},"className":"mt-12"} -->
+                    <!-- wp:query-pagination-previous /-->
+                    <!-- wp:query-pagination-numbers /-->
+                    <!-- wp:query-pagination-next /-->
+                <!-- /wp:query-pagination -->
+
+                <!-- wp:query-no-results -->
+                    <!-- wp:paragraph {"align":"center","className":"py-20 text-navy/60"} -->
+                    <p class="has-text-align-center py-20 text-navy/60">Aucune actualité pour le moment.</p>
+                    <!-- /wp:paragraph -->
+                <!-- /wp:query-no-results -->
+            </div>
+            <!-- /wp:query -->
+
+<!-- wp:html -->
         </div>
-        <!-- /wp:query -->
-
     </section>
-    <!-- /wp:group -->
 
 </main>
-<!-- /wp:group -->
+<!-- /wp:html -->
 
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

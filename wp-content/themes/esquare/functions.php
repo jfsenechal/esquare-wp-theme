@@ -2,26 +2,9 @@
 
 declare(strict_types=1);
 
-use Symfony\Component\Dotenv\Dotenv;
-
 if (! defined('ABSPATH')) {
     exit;
 }
-
-$esquareAutoload = dirname(__DIR__, 3) . '/vendor/autoload.php';
-if (! is_file($esquareAutoload)) {
-    throw new RuntimeException(
-        'Esquare theme: composer dependencies are missing. Run `composer install` at the repo root.'
-    );
-}
-require_once $esquareAutoload;
-
-$esquareEnvFile = dirname(__DIR__, 3) . '/.env';
-if (is_file($esquareEnvFile)) {
-    (new Dotenv())->loadEnv($esquareEnvFile);
-}
-
-unset($esquareAutoload, $esquareEnvFile);
 
 add_action('after_setup_theme', static function (): void {
     add_theme_support('wp-block-styles');

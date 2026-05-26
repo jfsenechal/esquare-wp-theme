@@ -1,0 +1,134 @@
+Let's do a wordpress theme for my site
+
+it's about:
+
+"e-Square MARCHE-EN-FAMENNE
+
+SI VOUS AVEZ ENVIE D'ENTREPRENDRE, DE CRÉER OU DE CO-CRÉER,
+VOUS ÊTES AU BON ENDROIT !
+
+L'E-SQUARE ...
+est un espace collaboratif, qui propose de l’information ainsi que des opportunités de formations, d’animations et d’accompagnements dans divers domaines tels que le numérique, le social, l’écologie et l’économie.
+Axé sur le bien-être, il se veut accueillant, ouvert et moteur de changements par une mise en commun des ressources (espaces de travail , équipements et connaissances) dans le but de faire émerger des projets collectifs pour répondre aux enjeux futurs.
+"
+
+Main menu
+
+top-menu = [
+LOUER UNE SALLE
+COWORKING
+FABLAB
+E-CUBE
+EPN
+GAMING
+SERVICES VILLE
+A PROPOS
+CONTACT
+]
+
+social networks = [https://www.facebook.com/LeSquareMarche/,https://www.instagram.com/esquare_marche/,https://www.linkedin.com/company/102780902]
+
+NOS SERVICES [
+Salles de réunion
+Location de salles de réunion
+
+Coworking
+10 postes de travail
+
+Fablab
+Laboratoire de fabrication numérique
+
+e-Cube
+Accompagnement des entrepreneurs et porteurs de projet
+
+EPN
+Espace Public Numérique
+
+Gaming
+L'apprentissage par le jeu vidéo
+
+Services Ville
+Les différents services ville présents à l'e-Square
+
+A propos
+En savoir plus sur l'e-Square
+]
+
+logo in data directory and some images
+
+Graphic chart
+Background color pages is white
+The main and secondary colors is black and yellow as logo
+pickup color from esquare logo
+
+the site must respect european Web accessibility
+
+SKILLS
+
+use skills for wordpress in /home/jfsenechal/.claude/skills/wp-*
+
+with /ui command ask to create a Create a modern, responsive website design for a professional SaaS/company website.
+
+Style:
+
+Clean, elegant, minimal, and premium
+
+Modern UI/UX inspired by Apple, Stripe, Linear, and Notion
+
+Soft shadows, rounded corners, subtle gradients
+
+Smooth animations and micro-interactions
+
+Mobile-first responsive layout
+
+the legacy project is https://e-square.marche.be/
+
+first create a homepage and general layout
+after create a article page
+
+PARTENAIRES
+
+<section class="elementor-section elementor-inner-section elementor-element elementor-element-8da296f elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="8da296f" data-element_type="section" data-e-type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-31e8cb93 animated fadeIn" data-id="31e8cb93" data-element_type="column" data-e-type="column" data-settings="{&quot;animation&quot;:&quot;fadeIn&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-4aa4dfc elementor-widget elementor-widget-image" data-id="4aa4dfc" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+																<a href="https://www.marche.be/" target="_blank">
+							<img loading="lazy" decoding="async" width="400" height="400" src="https://e-square.marche.be/wp-content/uploads/2018/10/logo.jpg" class="attachment-large size-large wp-image-2308" alt="" srcset="https://e-square.marche.be/wp-content/uploads/2018/10/logo.jpg 400w, https://e-square.marche.be/wp-content/uploads/2018/10/elementor/thumbs/logo-nxnsfqr6y3lf5by6u6m6mf8mq65nwz2ec077siq5yo.jpg 120w" sizes="(max-width: 400px) 100vw, 400px">								</a>
+															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-6b50313 animated fadeIn" data-id="6b50313" data-element_type="column" data-e-type="column" data-settings="{&quot;animation&quot;:&quot;fadeIn&quot;,&quot;animation_delay&quot;:60}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-908fa6f elementor-widget elementor-widget-image" data-id="908fa6f" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+																<a href="https://adl.marche.be/" target="_blank">
+							<img loading="lazy" decoding="async" width="640" height="640" src="https://e-square.marche.be/wp-content/uploads/2023/06/ADL_Logo-Baseline-Carre_Noir.png" class="attachment-large size-large wp-image-4468" alt="" srcset="https://e-square.marche.be/wp-content/uploads/2023/06/ADL_Logo-Baseline-Carre_Noir.png 886w, https://e-square.marche.be/wp-content/uploads/2023/06/ADL_Logo-Baseline-Carre_Noir-700x700.png 700w, https://e-square.marche.be/wp-content/uploads/2023/06/ADL_Logo-Baseline-Carre_Noir-450x450.png 450w, https://e-square.marche.be/wp-content/uploads/2023/06/ADL_Logo-Baseline-Carre_Noir-768x768.png 768w" sizes="(max-width: 640px) 100vw, 640px">								</a>
+															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-1aeb472f animated fadeIn" data-id="1aeb472f" data-element_type="column" data-e-type="column" data-settings="{&quot;animation&quot;:&quot;fadeIn&quot;,&quot;animation_delay&quot;:45}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-37e9ca0e elementor-widget elementor-widget-image" data-id="37e9ca0e" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+																<a href="http://www.paysdefamenne.be/" target="_blank">
+							<img loading="lazy" decoding="async" width="400" height="400" src="https://e-square.marche.be/wp-content/uploads/2018/10/galromana.jpg" class="attachment-large size-large wp-image-2309" alt="">								</a>
+															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-b0c0151 animated fadeIn" data-id="b0c0151" data-element_type="column" data-e-type="column" data-settings="{&quot;animation&quot;:&quot;fadeIn&quot;,&quot;animation_delay&quot;:15}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-6fd1f3b elementor-widget elementor-widget-image" data-id="6fd1f3b" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+																<a href="https://www.wallonie.be/fr/plans-wallons/plan-de-relance-de-la-wallonie" target="_blank">
+							<img loading="lazy" decoding="async" width="640" height="647" src="https://e-square.marche.be/wp-content/uploads/2025/03/WR-complete-inblock-positif.png" class="attachment-large size-large wp-image-4823" alt="" srcset="https://e-square.marche.be/wp-content/uploads/2025/03/WR-complete-inblock-positif.png 875w, https://e-square.marche.be/wp-content/uploads/2025/03/WR-complete-inblock-positif-693x700.png 693w, https://e-square.marche.be/wp-content/uploads/2025/03/WR-complete-inblock-positif-768x776.png 768w" sizes="(max-width: 640px) 100vw, 640px">								</a>
+															</div>
+				</div>
+					</div>
+		</div>
+					</div>
+		</section>

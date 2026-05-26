@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="fr" class="antialiased scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>e-Square — Homepage explorations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;600;700;800;900&family=Geist+Mono:wght@400;600&display=swap" />
+    <link rel="preload" as="image" href="../../wp-content/uploads/2026/05/Home.webp" fetchpriority="high" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            /* Tinted neutrals (warm off-white / warm off-black) */
+            --color-white: oklch(0.992 0.004 78);
+            --color-black: oklch(0.18 0.012 250);
+            /* Brand */
+            --color-navy: #0E1F33;
+            --color-navy-soft: #1A2D4A;
+            --color-navy-deep: #081523;
+            --color-yellow: #F2B33D;
+            --color-yellow-soft: #FDE3A6;
+            --color-cream: #FAF8F3;
+            --color-stone-warm: #F1ECE3;
+            /* Type roles */
+            --font-sans: "Figtree", system-ui, sans-serif;
+            --font-serif: "Instrument Serif", Georgia, serif;
+            --font-figtree: "Figtree", system-ui, sans-serif;
+            --font-mono: "Geist Mono", ui-monospace, monospace;
+        }
+        @utility grid-mesh {
+            background-image:
+                radial-gradient(circle at 20% 0%, color-mix(in oklch, var(--color-yellow) 18%, transparent), transparent 45%),
+                radial-gradient(circle at 80% 30%, color-mix(in oklch, var(--color-yellow) 12%, transparent), transparent 50%),
+                linear-gradient(color-mix(in oklch, var(--color-white) 4%, transparent) 1px, transparent 1px),
+                linear-gradient(90deg, color-mix(in oklch, var(--color-white) 4%, transparent) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 56px 56px, 56px 56px;
+        }
+        @utility poster-grid {
+            background-image:
+                linear-gradient(color-mix(in oklch, var(--color-navy-deep) 50%, transparent) 1px, transparent 1px),
+                linear-gradient(90deg, color-mix(in oklch, var(--color-navy-deep) 50%, transparent) 1px, transparent 1px);
+            background-size: 88px 88px;
+        }
+        /* Skip link — visible only on focus */
+        .skip-link {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            z-index: 100;
+            padding: 0.75rem 1rem;
+            background: var(--color-yellow);
+            color: var(--color-navy-deep);
+            font-family: var(--font-figtree);
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-radius: 0.25rem;
+            transform: translateY(-150%);
+            transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .skip-link:focus-visible {
+            transform: translateY(0);
+            outline: 2px solid var(--color-navy-deep);
+            outline-offset: 2px;
+        }
+    </style>
+    <style>
+        @keyframes esq-marquee {
+            from { transform: translate3d(0, 0, 0); }
+            to   { transform: translate3d(-50%, 0, 0); }
+        }
+
+        /* Footer Services nav — numbered Civic Index, 2-col on lg */
+        .footer-services-nav { font-family: var(--font-figtree); font-size: 14px; color: var(--color-white); }
+        .footer-services-list { list-style: none; margin: 0.75rem 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; row-gap: 4px; column-gap: 16px; counter-reset: services-counter; }
+        .footer-services-item { display: flex; align-items: baseline; gap: 8px; counter-increment: services-counter; }
+        .footer-services-num { font-family: var(--font-mono); font-size: 10px; color: color-mix(in oklch, var(--color-yellow) 80%, transparent); letter-spacing: 0.08em; min-width: 1.8em; font-variant-numeric: tabular-nums; }
+        .footer-services-num::before { content: counter(services-counter, decimal-leading-zero); }
+        .footer-services-link { color: var(--color-white); min-height: 36px; display: inline-flex; align-items: center; text-decoration: none; transition: color 200ms cubic-bezier(0.22, 1, 0.36, 1); }
+        .footer-services-link:hover, .footer-services-link:focus-visible { color: var(--color-yellow); }
+
+        /* Header nav — hierarchy polish: seated bar, active-page wayfinding */
+        .esq-nav { min-height: 76px; border-bottom: 1px solid color-mix(in oklch, var(--color-white) 12%, transparent); }
+        .esq-nav-link { position: relative; }
+        .esq-nav-link[aria-current="page"] { color: #fff; }
+        .esq-nav-link[aria-current="page"]::after {
+            content: ""; position: absolute; left: 0.875rem; right: 0.875rem; bottom: 0.4375rem;
+            height: 1.5px; background: var(--color-yellow);
+        }
+        .esq-nav a:focus-visible, .esq-nav button:focus-visible {
+            outline: 2px solid var(--color-yellow); outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-navy isolate">
+
+<!--
+  ============================================================
+  HOMEPAGE EXPLORATIONS — pick one direction to port back to
+  WordPress block patterns. Each variant is a complete mock.
+  ============================================================
+-->
+
+<div data-uidotsh-pick="Homepage style" class="contents">
+
+<!-- ============================================================ -->
+<!-- OPTION 1 — EDITORIAL MINIMAL                                 -->
+<!-- ============================================================ -->
+<div data-uidotsh-option="Editorial Minimal" class="contents" hidden>
+
+    <!-- Header -->
+    <header class="border-b border-black/5">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
+            <a href="/" aria-label="Homepage" class="flex items-center gap-3">
+                <img src="../../wp-content/uploads/2026/05/EsquareLogo512.png" alt="e-Square" class="size-9" />
+                <span class="font-serif text-2xl text-navy">e-Square</span>
+            </a>
+            <nav class="hidden items-center gap-8 text-sm text-navy/70 lg:flex">
+                <a href="#services" class="hover:text-navy">Services</a>
+                <a href="#actualites" class="hover:text-navy">Actualités</a>
+                <a href="#partenaires" class="hover:text-navy">Partenaires</a>
+                <a href="#contact" class="hover:text-navy">Contact</a>
+            </nav>
+            <a href="/louer-une-salle/" class="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2 text-sm font-medium text-white ring-1 ring-navy hover:bg-navy-soft">Louer une salle <span aria-hidden="true">→</span></a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="px-6 pt-20 pb-12 lg:px-10 lg:pt-32 lg:pb-20">
+        <div class="mx-auto max-w-7xl">
+            <p class="font-mono text-xs tracking-widest text-navy/50 uppercase">Marche-en-Famenne · Espace collaboratif</p>
+            <h1 class="mt-8 max-w-[20ch] font-serif text-6xl leading-[1.02] text-balance text-navy md:text-7xl lg:text-[112px]">
+                Entreprendre,<br>créer,<br><em class="italic text-yellow">co-créer.</em>
+            </h1>
+            <p class="mt-10 max-w-[48ch] text-pretty text-lg text-navy/70">
+                Un espace au cœur de la Famenne pour faire émerger des projets : coworking, fablab, accompagnement, formations, événements. Ouvert à tous.
+            </p>
+            <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+                <a href="#services" class="inline-flex items-center gap-2 rounded-full bg-yellow px-6 py-3 text-sm font-semibold text-navy hover:bg-yellow-soft">Découvrir les services <span aria-hidden="true">→</span></a>
+                <a href="/contact/" class="text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:decoration-navy">Prendre rendez-vous</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wide photo band -->
+    <div class="px-6 lg:px-10">
+        <div class="mx-auto max-w-7xl overflow-hidden rounded-3xl">
+            <img src="../../wp-content/uploads/2026/05/Home.webp" alt="Entrée de l'e-Square Marche-en-Famenne" class="aspect-[21/9] w-full object-cover" />
+        </div>
+    </div>
+
+    <!-- Services as numbered list -->
+    <section id="services" class="px-6 pt-24 pb-24 lg:px-10 lg:pt-32 lg:pb-32">
+        <div class="mx-auto max-w-7xl">
+            <div class="grid gap-x-16 gap-y-6 lg:grid-cols-[1fr_2fr]">
+                <div>
+                    <p class="font-mono text-xs tracking-widest text-navy/50 uppercase">Sept services</p>
+                    <h2 class="mt-4 max-w-[20ch] font-serif text-5xl leading-[1.04] text-balance text-navy lg:text-6xl">Un lieu, sept manières d'avancer.</h2>
+                </div>
+                <p class="max-w-[48ch] text-pretty text-lg text-navy/70 lg:pt-12">L'e-Square met en commun espaces, équipements et savoirs pour répondre aux enjeux d'aujourd'hui et de demain — du numérique à l'écologie en passant par le social et l'économie.</p>
+            </div>
+
+            <dl class="mt-20 grid gap-x-16 gap-y-0 lg:grid-cols-2" role="list">
+                <div class="group grid grid-cols-[auto_1fr] gap-x-6 border-t border-navy/15 py-8 hover:bg-cream/40">
+                    <dt class="font-mono text-xs tracking-widest text-yellow self-start pt-1.5">01</dt>
+                    <div>
+                        <dt class="font-serif text-3xl text-navy">Louer une salle</dt>
+                        <dd class="mt-3 max-w-[40ch] text-pretty text-navy/70">De 2 à 60 personnes, planning et réservation en ligne. Toutes nos salles sont accessibles aux PMR.</dd>
+                        <a href="/louer-une-salle/" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:text-yellow hover:decoration-yellow">Réserver →</a>
+                    </div>
+                </div>
+                <div class="group grid grid-cols-[auto_1fr] gap-x-6 border-t border-navy/15 py-8 hover:bg-cream/40">
+                    <dt class="font-mono text-xs tracking-widest text-yellow self-start pt-1.5">02</dt>
+                    <div>
+                        <dt class="font-serif text-3xl text-navy">Coworking</dt>
+                        <dd class="mt-3 max-w-[40ch] text-pretty text-navy/70">10 postes équipés, wifi, imprimante, cuisine partagée. Pour lancer et développer votre activité.</dd>
+                        <a href="/coworking/" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:text-yellow hover:decoration-yellow">En savoir plus →</a>
+                    </div>
+                </div>
+                <div class="group grid grid-cols-[auto_1fr] gap-x-6 border-t border-navy/15 py-8 hover:bg-cream/40">
+                    <dt class="font-mono text-xs tracking-widest text-yellow self-start pt-1.5">03</dt>
+                    <div>
+                        <dt class="font-serif text-3xl text-navy">Fablab</dt>
+                        <dd class="mt-3 max-w-[40ch] text-pretty text-navy/70">Un atelier partagé de fabrication numérique : prototypage, ateliers, machines-outils.</dd>
+                        <a href="/fablab/" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:text-yellow hover:decoration-yellow">Découvrir →</a>
+                    </div>
+                </div>
+                <div class="group grid grid-cols-[auto_1fr] gap-x-6 border-t border-navy/15 py-8 hover:bg-cream/40">
+                    <dt class="font-mono text-xs tracking-widest text-yellow self-start pt-1.5">04</dt>
+                    <div>
+                        <dt class="font-serif text-3xl text-navy">e-Cube</dt>
+                        <dd class="mt-3 max-w-[40ch] text-pretty text-navy/70">Accompagnement des entrepreneurs et porteurs de projet : idéation, réseautage, prototypage.</dd>
+                        <a href="/e-cube/" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:text-yellow hover:decoration-yellow">Demander une rencontre →</a>
+                    </div>
+                </div>
+                <div class="group grid grid-cols-[auto_1fr] gap-x-6 border-t border-navy/15 py-8 hover:bg-cream/40">
+                    <dt class="font-mono text-xs tracking-widest text-yellow self-start pt-1.5">05</dt>
+                    <div>
+                        <dt class="font-serif text-3xl text-navy">EPN</dt>
+                        <dd class="mt-3 max-w-[40ch] text-pretty text-navy/70">Espace Public Numérique : accès libre aux ordinateurs, wifi, impression, médiation.</dd>
+                        <a href="/epn/" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:text-yellow hover:decoration-yellow">Voir les horaires →</a>
+                    </div>
+                </div>
+                <div class="group grid grid-cols-[auto_1fr] gap-x-6 border-t border-navy/15 py-8 hover:bg-cream/40">
+                    <dt class="font-mono text-xs tracking-widest text-yellow self-start pt-1.5">06</dt>
+                    <div>
+                        <dt class="font-serif text-3xl text-navy">Gaming</dt>
+                        <dd class="mt-3 max-w-[40ch] text-pretty text-navy/70">L'apprentissage par le jeu vidéo : serious gaming, gamification, e-sport.</dd>
+                        <a href="/gaming/" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:text-yellow hover:decoration-yellow">Découvrir →</a>
+                    </div>
+                </div>
+                <div class="group grid grid-cols-[auto_1fr] gap-x-6 border-t border-b border-navy/15 py-8 hover:bg-cream/40">
+                    <dt class="font-mono text-xs tracking-widest text-yellow self-start pt-1.5">07</dt>
+                    <div>
+                        <dt class="font-serif text-3xl text-navy">Services Ville</dt>
+                        <dd class="mt-3 max-w-[40ch] text-pretty text-navy/70">Les différents services de la Ville présents à l'e-Square : ADL, et plus encore.</dd>
+                        <a href="/services-ville/" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:text-yellow hover:decoration-yellow">Voir les services →</a>
+                    </div>
+                </div>
+            </dl>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section id="partenaires" class="border-t border-black/5 px-6 py-16 lg:px-10">
+        <div class="mx-auto max-w-7xl">
+            <p class="font-mono text-xs tracking-widest text-navy/50 uppercase text-center">Avec le soutien de</p>
+            <div class="mt-10 grid grid-cols-2 items-center justify-items-center gap-12 md:grid-cols-4">
+                <a href="https://www.marche.be/" target="_blank" rel="noopener" class="opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition"><img src="../../wp-content/uploads/2026/05/marche.jpg" alt="Ville de Marche-en-Famenne" class="h-16 w-auto" /></a>
+                <a href="https://adl.marche.be/" target="_blank" rel="noopener" class="opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition"><img src="../../wp-content/uploads/2026/05/adl.png" alt="ADL" class="h-16 w-auto" /></a>
+                <a href="https://www.paysdefamenne.be/" target="_blank" rel="noopener" class="opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition"><img src="../../wp-content/uploads/2026/05/paysfamenne.jpg" alt="Pays de Famenne" class="h-16 w-auto" /></a>
+                <a href="https://www.wallonie.be/" target="_blank" rel="noopener" class="opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition"><img src="../../wp-content/uploads/2026/05/wallonie.png" alt="Wallonie" class="h-16 w-auto" /></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section id="contact" class="bg-cream px-6 py-24 lg:px-10 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+            <p class="font-mono text-xs tracking-widest text-navy/50 uppercase">Contact</p>
+            <h2 class="mt-6 font-serif text-5xl leading-[1.04] text-balance text-navy lg:text-6xl">Passez nous voir.<br>On vous fait visiter.</h2>
+            <p class="mx-auto mt-8 max-w-[48ch] text-pretty text-lg text-navy/70">Rue Victor Libert 36 J, 6900 Marche-en-Famenne · <a href="tel:+3284327054" class="underline decoration-navy/30 underline-offset-4 hover:decoration-navy">+32 (0)84 32 70 54</a> · <a href="mailto:info@esquare.be" class="underline decoration-navy/30 underline-offset-4 hover:decoration-navy">info@esquare.be</a></p>
+            <a href="/contact/" class="mt-10 inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-white hover:bg-navy-soft">Nous écrire <span aria-hidden="true">→</span></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-black/5 bg-white px-6 py-12 lg:px-10">
+        <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 text-sm text-navy/60">
+            <p class="font-serif text-xl text-navy">e-Square</p>
+            <nav class="flex gap-6">
+                <a href="/mentions-legales/" class="hover:text-navy">Mentions légales</a>
+                <a href="/cookies/" class="hover:text-navy">Cookies</a>
+            </nav>
+            <p>© e-Square Marche-en-Famenne</p>
+        </div>
+    </footer>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- OPTION 2 — APPLE CONFIDENT                                   -->
+<!-- ============================================================ -->
+<div data-uidotsh-option="Apple Confident" class="contents" hidden>
+
+    <!-- Header (frosted, sticky) -->
+    <header class="sticky top-0 z-40 border-b border-black/5 bg-white/80 backdrop-blur-xl">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
+            <a href="/" aria-label="Homepage" class="flex items-center gap-2.5">
+                <img src="../../wp-content/uploads/2026/05/EsquareLogo512.png" alt="e-Square" class="size-8" />
+                <span class="font-geist text-xl font-semibold tracking-tight text-navy">e-Square</span>
+            </a>
+            <nav class="hidden items-center gap-1 text-sm font-medium text-navy/70 md:flex">
+                <a href="/louer-une-salle/" class="rounded-full px-3 py-1.5 hover:bg-navy/5 hover:text-navy">Louer une salle</a>
+                <a href="/coworking/" class="rounded-full px-3 py-1.5 hover:bg-navy/5 hover:text-navy">Coworking</a>
+                <a href="/fablab/" class="rounded-full px-3 py-1.5 hover:bg-navy/5 hover:text-navy">Fablab</a>
+                <a href="/e-cube/" class="rounded-full px-3 py-1.5 hover:bg-navy/5 hover:text-navy">e-Cube</a>
+                <a href="/a-propos/" class="rounded-full px-3 py-1.5 hover:bg-navy/5 hover:text-navy">À propos</a>
+            </nav>
+            <a href="/contact/" class="rounded-full bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-soft">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="px-6 pt-20 pb-12 text-center lg:px-10 lg:pt-28 lg:pb-20">
+        <div class="mx-auto max-w-7xl">
+            <p class="font-geist text-sm font-medium text-yellow">Marche-en-Famenne · 2026</p>
+            <h1 class="mx-auto mt-6 max-w-[20ch] font-geist text-6xl leading-[1.04] tracking-tight text-balance text-navy md:text-7xl lg:text-[88px]">Entreprendre, créer, co-créer.</h1>
+            <p class="mx-auto mt-8 max-w-[48ch] text-pretty text-xl text-navy/70">Un espace collaboratif au cœur de la Famenne : coworking, fablab, accompagnement, formations et événements pour faire émerger des projets collectifs.</p>
+            <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+                <a href="#services" class="inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-navy/20 ring-1 ring-navy hover:bg-navy-soft">Découvrir nos services</a>
+                <a href="/contact/" class="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-navy ring-1 ring-black/10 hover:bg-navy/5">Nous contacter <span aria-hidden="true">→</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero photo card -->
+    <div class="px-6 lg:px-10">
+        <div class="mx-auto max-w-7xl">
+            <div class="overflow-hidden rounded-[28px] shadow-2xl shadow-navy/10 ring-1 ring-black/5">
+                <img src="../../wp-content/uploads/2026/05/Home.webp" alt="Entrée de l'e-Square Marche-en-Famenne" class="aspect-[16/9] w-full object-cover" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Services grid -->
+    <section id="services" class="px-6 pt-24 pb-16 lg:px-10 lg:pt-32 lg:pb-20">
+        <div class="mx-auto max-w-7xl">
+            <div class="text-center">
+                <p class="font-geist text-sm font-medium text-yellow">Nos services</p>
+                <h2 class="mx-auto mt-3 max-w-[24ch] font-geist text-4xl font-semibold tracking-tight text-balance text-navy md:text-5xl">Un lieu, sept manières d'avancer.</h2>
+            </div>
+
+            <dl class="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" role="list">
+                <div class="group rounded-3xl bg-white p-8 ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/8">
+                    <dt class="font-geist text-xl font-semibold tracking-tight text-navy">Louer une salle</dt>
+                    <dd class="mt-3 text-pretty text-navy/70">De 2 à 60 personnes, planning et réservation en ligne. Accessibles PMR.</dd>
+                    <a href="/louer-une-salle/" class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-navy group-hover:gap-2 transition-all">Réserver <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="group rounded-3xl bg-white p-8 ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/8">
+                    <dt class="font-geist text-xl font-semibold tracking-tight text-navy">Coworking</dt>
+                    <dd class="mt-3 text-pretty text-navy/70">10 postes équipés, wifi, imprimante et cuisine partagée.</dd>
+                    <a href="/coworking/" class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-navy group-hover:gap-2 transition-all">En savoir plus <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="group rounded-3xl bg-white p-8 ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/8">
+                    <dt class="font-geist text-xl font-semibold tracking-tight text-navy">Fablab</dt>
+                    <dd class="mt-3 text-pretty text-navy/70">Un atelier partagé de fabrication numérique, ouvert à tous.</dd>
+                    <a href="/fablab/" class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-navy group-hover:gap-2 transition-all">Découvrir <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="group rounded-3xl bg-white p-8 ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/8">
+                    <dt class="font-geist text-xl font-semibold tracking-tight text-navy">e-Cube</dt>
+                    <dd class="mt-3 text-pretty text-navy/70">Accompagnement des entrepreneurs et porteurs de projet.</dd>
+                    <a href="/e-cube/" class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-navy group-hover:gap-2 transition-all">Demander une rencontre <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="group rounded-3xl bg-white p-8 ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/8">
+                    <dt class="font-geist text-xl font-semibold tracking-tight text-navy">EPN</dt>
+                    <dd class="mt-3 text-pretty text-navy/70">Espace Public Numérique : accès libre, wifi et médiation.</dd>
+                    <a href="/epn/" class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-navy group-hover:gap-2 transition-all">Voir les horaires <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="group rounded-3xl bg-white p-8 ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/8">
+                    <dt class="font-geist text-xl font-semibold tracking-tight text-navy">Gaming</dt>
+                    <dd class="mt-3 text-pretty text-navy/70">Serious gaming, gamification et e-sport.</dd>
+                    <a href="/gaming/" class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-navy group-hover:gap-2 transition-all">Découvrir <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="group rounded-3xl bg-navy p-8 text-white transition hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/30 sm:col-span-2 xl:col-span-2">
+                    <dt class="font-geist text-xl font-semibold tracking-tight">Services Ville</dt>
+                    <dd class="mt-3 text-pretty text-white/75">Les différents services de la Ville présents à l'e-Square : ADL et plus encore.</dd>
+                    <a href="/services-ville/" class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-yellow group-hover:gap-2 transition-all">Voir les services <span aria-hidden="true">→</span></a>
+                </div>
+            </dl>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section id="partenaires" class="px-6 py-20 lg:px-10">
+        <div class="mx-auto max-w-7xl">
+            <p class="text-center font-geist text-sm font-medium text-navy/60">Ils nous accompagnent</p>
+            <div class="mt-10 grid grid-cols-2 items-center justify-items-center gap-12 md:grid-cols-4">
+                <img src="../../wp-content/uploads/2026/05/marche.jpg" alt="Ville de Marche-en-Famenne" class="h-20 w-auto" />
+                <img src="../../wp-content/uploads/2026/05/adl.png" alt="ADL" class="h-20 w-auto" />
+                <img src="../../wp-content/uploads/2026/05/paysfamenne.jpg" alt="Pays de Famenne" class="h-20 w-auto" />
+                <img src="../../wp-content/uploads/2026/05/wallonie.png" alt="Wallonie" class="h-20 w-auto" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section id="contact" class="px-6 pb-24 lg:px-10 lg:pb-32">
+        <div class="mx-auto max-w-7xl overflow-hidden rounded-[28px] bg-linear-to-br from-navy via-navy to-navy-soft px-6 py-16 text-center text-white lg:px-12 lg:py-24">
+            <h2 class="mx-auto max-w-[24ch] font-geist text-4xl font-semibold tracking-tight text-balance md:text-5xl">Envie d'en savoir plus ?</h2>
+            <p class="mx-auto mt-6 max-w-[48ch] text-pretty text-lg text-white/75">Passez nous voir, écrivez-nous, ou appelez. On vous fait visiter.</p>
+            <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+                <a href="/contact/" class="inline-flex items-center gap-2 rounded-full bg-yellow px-6 py-3 text-sm font-semibold text-navy hover:bg-yellow-soft">Nous écrire</a>
+                <a href="tel:+3284327054" class="inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-white ring-1 ring-white/20 hover:bg-white/15">+32 (0)84 32 70 54</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-black/5 bg-white px-6 py-12 lg:px-10">
+        <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 text-sm text-navy/60">
+            <p class="font-geist text-lg font-semibold tracking-tight text-navy">e-Square</p>
+            <nav class="flex gap-6">
+                <a href="/mentions-legales/" class="hover:text-navy">Mentions légales</a>
+                <a href="/cookies/" class="hover:text-navy">Cookies</a>
+            </nav>
+            <p>© e-Square Marche-en-Famenne</p>
+        </div>
+    </footer>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- OPTION 3 — WARM PHOTO-FORWARD                                -->
+<!-- ============================================================ -->
+<div data-uidotsh-option="Warm Photo-forward" class="contents" hidden>
+
+    <!-- Header -->
+    <header class="bg-stone-warm">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
+            <a href="/" aria-label="Homepage" class="flex items-center gap-2.5">
+                <img src="../../wp-content/uploads/2026/05/EsquareLogo512.png" alt="e-Square" class="size-9" />
+                <span class="[font-family:var(--font-figtree)] text-xl font-semibold text-navy">e-Square</span>
+            </a>
+            <nav class="hidden items-center gap-7 [font-family:var(--font-figtree)] text-sm font-medium text-navy/70 lg:flex">
+                <a href="#services" class="hover:text-navy">Nos services</a>
+                <a href="#actualites" class="hover:text-navy">Actualités</a>
+                <a href="#partenaires" class="hover:text-navy">Partenaires</a>
+                <a href="#contact" class="hover:text-navy">Contact</a>
+            </nav>
+            <a href="/louer-une-salle/" class="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2 [font-family:var(--font-figtree)] text-sm font-semibold text-white hover:bg-navy-soft">Louer une salle</a>
+        </div>
+    </header>
+
+    <!-- Hero — full-bleed photo with masthead -->
+    <section class="relative isolate">
+        <img src="../../wp-content/uploads/2026/05/Home.webp" alt="Entrée de l'e-Square Marche-en-Famenne" class="aspect-[16/9] w-full object-cover lg:aspect-[21/9] lg:min-h-[720px]" />
+        <div class="absolute inset-0 bg-linear-to-t from-navy via-navy/60 to-transparent"></div>
+        <div class="absolute inset-x-0 bottom-0 px-6 pb-12 lg:px-10 lg:pb-16">
+            <div class="mx-auto max-w-7xl">
+                <p class="[font-family:var(--font-figtree)] text-sm font-semibold text-yellow uppercase tracking-widest">Marche-en-Famenne</p>
+                <h1 class="mt-4 max-w-[20ch] [font-family:var(--font-figtree)] text-5xl font-bold leading-[1.05] text-balance text-white md:text-6xl lg:text-7xl">Entreprendre, créer, co-créer.</h1>
+                <p class="mt-6 max-w-[52ch] [font-family:var(--font-figtree)] text-pretty text-lg text-white/85">Un espace au cœur de la Famenne. Information, formations, animations, accompagnements — pour faire émerger les projets de demain.</p>
+                <div class="mt-8 flex flex-wrap gap-3">
+                    <a href="#services" class="inline-flex items-center gap-2 rounded-full bg-yellow px-6 py-3 [font-family:var(--font-figtree)] text-sm font-semibold text-navy hover:bg-yellow-soft">Découvrir nos services</a>
+                    <a href="/contact/" class="inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 [font-family:var(--font-figtree)] text-sm font-semibold text-white ring-1 ring-white/30 backdrop-blur hover:bg-white/20">Nous contacter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services — bento grid -->
+    <section id="services" class="bg-cream px-6 py-24 lg:px-10 lg:py-32">
+        <div class="mx-auto max-w-7xl">
+            <div class="grid gap-x-12 gap-y-4 lg:grid-cols-[2fr_3fr]">
+                <div>
+                    <p class="[font-family:var(--font-figtree)] text-sm font-semibold text-yellow uppercase tracking-widest">Nos services</p>
+                    <h2 class="mt-3 max-w-[20ch] [font-family:var(--font-figtree)] text-4xl font-bold tracking-tight text-balance text-navy lg:text-5xl">Un lieu, sept manières d'avancer.</h2>
+                </div>
+                <p class="max-w-[52ch] [font-family:var(--font-figtree)] text-pretty text-lg text-navy/70 lg:pt-12">Espaces, équipements et savoirs — mis en commun pour répondre aux enjeux du numérique, du social, de l'écologie et de l'économie.</p>
+            </div>
+
+            <dl class="mt-16 grid grid-cols-2 gap-5 lg:grid-cols-4 lg:grid-rows-2" role="list">
+                <!-- Feature card -->
+                <div class="group relative col-span-2 row-span-2 overflow-hidden rounded-3xl bg-navy p-10 text-white lg:p-12">
+                    <img src="../../wp-content/uploads/2026/05/240620-Mind-Market-0028-scaled-1.webp" alt="" class="absolute inset-0 size-full object-cover opacity-30 transition group-hover:opacity-40" />
+                    <div class="relative">
+                        <p class="[font-family:var(--font-figtree)] text-sm font-semibold text-yellow uppercase tracking-widest">À ne pas manquer</p>
+                        <h3 class="mt-4 [font-family:var(--font-figtree)] text-4xl font-bold tracking-tight text-balance lg:text-5xl">Louer une salle</h3>
+                        <p class="mt-4 max-w-[36ch] [font-family:var(--font-figtree)] text-pretty text-lg text-white/85">De 2 à 60 personnes, planning et réservation en ligne. Toutes nos salles sont accessibles aux PMR.</p>
+                        <a href="/louer-une-salle/" class="mt-8 inline-flex items-center gap-2 rounded-full bg-yellow px-5 py-2.5 [font-family:var(--font-figtree)] text-sm font-semibold text-navy hover:bg-yellow-soft">Réserver une salle <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+                <!-- Small cards -->
+                <div class="group rounded-3xl bg-white p-6 ring-1 ring-navy/5 hover:ring-yellow">
+                    <dt class="[font-family:var(--font-figtree)] text-lg font-semibold text-navy">Coworking</dt>
+                    <dd class="mt-2 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">10 postes équipés.</dd>
+                    <a href="/coworking/" class="mt-4 inline-flex [font-family:var(--font-figtree)] text-sm font-semibold text-navy group-hover:text-yellow">En savoir plus →</a>
+                </div>
+                <div class="group rounded-3xl bg-white p-6 ring-1 ring-navy/5 hover:ring-yellow">
+                    <dt class="[font-family:var(--font-figtree)] text-lg font-semibold text-navy">Fablab</dt>
+                    <dd class="mt-2 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">Atelier numérique.</dd>
+                    <a href="/fablab/" class="mt-4 inline-flex [font-family:var(--font-figtree)] text-sm font-semibold text-navy group-hover:text-yellow">Découvrir →</a>
+                </div>
+                <div class="group rounded-3xl bg-white p-6 ring-1 ring-navy/5 hover:ring-yellow">
+                    <dt class="[font-family:var(--font-figtree)] text-lg font-semibold text-navy">e-Cube</dt>
+                    <dd class="mt-2 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">Pour entrepreneurs.</dd>
+                    <a href="/e-cube/" class="mt-4 inline-flex [font-family:var(--font-figtree)] text-sm font-semibold text-navy group-hover:text-yellow">Rencontrer →</a>
+                </div>
+                <div class="group rounded-3xl bg-white p-6 ring-1 ring-navy/5 hover:ring-yellow">
+                    <dt class="[font-family:var(--font-figtree)] text-lg font-semibold text-navy">EPN</dt>
+                    <dd class="mt-2 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">Accès numérique libre.</dd>
+                    <a href="/epn/" class="mt-4 inline-flex [font-family:var(--font-figtree)] text-sm font-semibold text-navy group-hover:text-yellow">Horaires →</a>
+                </div>
+                <div class="group rounded-3xl bg-white p-6 ring-1 ring-navy/5 hover:ring-yellow">
+                    <dt class="[font-family:var(--font-figtree)] text-lg font-semibold text-navy">Gaming</dt>
+                    <dd class="mt-2 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">Apprendre par le jeu.</dd>
+                    <a href="/gaming/" class="mt-4 inline-flex [font-family:var(--font-figtree)] text-sm font-semibold text-navy group-hover:text-yellow">Découvrir →</a>
+                </div>
+                <div class="group rounded-3xl bg-white p-6 ring-1 ring-navy/5 hover:ring-yellow">
+                    <dt class="[font-family:var(--font-figtree)] text-lg font-semibold text-navy">Services Ville</dt>
+                    <dd class="mt-2 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">ADL, et plus encore.</dd>
+                    <a href="/services-ville/" class="mt-4 inline-flex [font-family:var(--font-figtree)] text-sm font-semibold text-navy group-hover:text-yellow">Voir →</a>
+                </div>
+            </dl>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section id="partenaires" class="bg-stone-warm px-6 py-20 lg:px-10">
+        <div class="mx-auto max-w-7xl">
+            <p class="text-center [font-family:var(--font-figtree)] text-sm font-semibold text-navy/60 uppercase tracking-widest">Avec le soutien de</p>
+            <div class="mt-10 grid grid-cols-2 items-center justify-items-center gap-12 md:grid-cols-4">
+                <img src="../../wp-content/uploads/2026/05/marche.jpg" alt="Ville de Marche-en-Famenne" class="h-20 w-auto" />
+                <img src="../../wp-content/uploads/2026/05/adl.png" alt="ADL" class="h-20 w-auto" />
+                <img src="../../wp-content/uploads/2026/05/paysfamenne.jpg" alt="Pays de Famenne" class="h-20 w-auto" />
+                <img src="../../wp-content/uploads/2026/05/wallonie.png" alt="Wallonie" class="h-20 w-auto" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA — photo split -->
+    <section id="contact" class="px-6 py-24 lg:px-10 lg:py-32">
+        <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+            <div class="overflow-hidden rounded-3xl">
+                <img src="../../wp-content/uploads/2026/05/240620-Mind-Market-0061-scaled-1.webp" alt="" class="aspect-[4/3] w-full object-cover" />
+            </div>
+            <div>
+                <p class="[font-family:var(--font-figtree)] text-sm font-semibold text-yellow uppercase tracking-widest">Contact</p>
+                <h2 class="mt-3 max-w-[20ch] [font-family:var(--font-figtree)] text-4xl font-bold tracking-tight text-balance text-navy lg:text-5xl">Envie d'en savoir plus ?</h2>
+                <p class="mt-6 max-w-[44ch] [font-family:var(--font-figtree)] text-pretty text-lg text-navy/70">Passez nous voir, écrivez-nous, ou appelez. On vous fait visiter avec plaisir.</p>
+                <dl class="mt-8 space-y-4 [font-family:var(--font-figtree)] text-base text-navy" role="list">
+                    <div class="flex items-center gap-3"><dt class="text-sm font-semibold uppercase tracking-widest text-yellow">Téléphone</dt><dd><a href="tel:+3284327054" class="font-semibold hover:text-yellow">+32 (0)84 32 70 54</a></dd></div>
+                    <div class="flex items-center gap-3"><dt class="text-sm font-semibold uppercase tracking-widest text-yellow">E-mail</dt><dd><a href="mailto:info@esquare.be" class="font-semibold hover:text-yellow">info@esquare.be</a></dd></div>
+                    <div class="flex items-center gap-3"><dt class="text-sm font-semibold uppercase tracking-widest text-yellow">Adresse</dt><dd class="font-semibold">Rue Victor Libert 36 J, 6900 Marche-en-Famenne</dd></div>
+                </dl>
+                <a href="/contact/" class="mt-8 inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 [font-family:var(--font-figtree)] text-sm font-semibold text-white hover:bg-navy-soft">Nous écrire <span aria-hidden="true">→</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy px-6 py-12 text-white/80 lg:px-10">
+        <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 [font-family:var(--font-figtree)] text-sm">
+            <p class="text-lg font-bold text-white">e-Square</p>
+            <nav class="flex gap-6">
+                <a href="/mentions-legales/" class="hover:text-yellow">Mentions légales</a>
+                <a href="/cookies/" class="hover:text-yellow">Cookies</a>
+            </nav>
+            <p>© e-Square Marche-en-Famenne</p>
+        </div>
+    </footer>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- OPTION 4 — LINEAR DARK                                       -->
+<!-- ============================================================ -->
+<div data-uidotsh-option="Linear Dark" class="contents" hidden>
+
+    <!-- Header (dark) -->
+    <header class="bg-navy-deep">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
+            <a href="/" aria-label="Homepage" class="flex items-center gap-2.5">
+                <span class="grid size-8 place-items-center rounded-lg bg-yellow font-geist text-base font-semibold text-navy">e</span>
+                <span class="font-geist text-lg font-semibold tracking-tight text-white">e-Square</span>
+            </a>
+            <nav class="hidden items-center gap-1 font-geist text-sm font-medium text-white/70 md:flex">
+                <a href="/louer-une-salle/" class="rounded-md px-3 py-1.5 hover:bg-white/5 hover:text-white">Louer une salle</a>
+                <a href="/coworking/" class="rounded-md px-3 py-1.5 hover:bg-white/5 hover:text-white">Coworking</a>
+                <a href="/fablab/" class="rounded-md px-3 py-1.5 hover:bg-white/5 hover:text-white">Fablab</a>
+                <a href="/e-cube/" class="rounded-md px-3 py-1.5 hover:bg-white/5 hover:text-white">e-Cube</a>
+                <a href="/a-propos/" class="rounded-md px-3 py-1.5 hover:bg-white/5 hover:text-white">À propos</a>
+            </nav>
+            <a href="/contact/" class="rounded-md bg-yellow px-4 py-2 font-geist text-sm font-semibold text-navy hover:bg-yellow-soft">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero — navy mesh -->
+    <section class="relative isolate overflow-hidden bg-navy-deep grid-mesh px-6 py-24 lg:px-10 lg:py-32">
+        <div class="absolute inset-x-0 -top-px h-px bg-linear-to-r from-transparent via-yellow/50 to-transparent"></div>
+        <div class="mx-auto max-w-7xl">
+            <p class="font-mono text-xs tracking-[0.3em] text-yellow uppercase">MARCHE-EN-FAMENNE · WORKSPACE</p>
+            <h1 class="mt-8 max-w-[20ch] font-geist text-6xl font-medium leading-[1.04] tracking-tight text-balance text-white md:text-7xl lg:text-[88px]">Entreprendre, créer, co-créer.</h1>
+            <p class="mt-8 max-w-[52ch] text-pretty text-xl text-white/65">Un espace collaboratif au cœur de la Famenne. Coworking, fablab, accompagnement, formations et événements — pour faire émerger des projets collectifs.</p>
+            <div class="mt-10 flex flex-wrap items-center gap-3">
+                <a href="#services" class="inline-flex items-center gap-2 rounded-md bg-yellow px-5 py-2.5 font-geist text-sm font-semibold text-navy hover:bg-yellow-soft">Découvrir les services</a>
+                <a href="/contact/" class="inline-flex items-center gap-2 rounded-md bg-white/10 px-5 py-2.5 font-geist text-sm font-semibold text-white ring-1 ring-white/20 hover:bg-white/15">Demander une visite <span aria-hidden="true">→</span></a>
+            </div>
+            <!-- Metric row -->
+            <dl class="mt-20 grid grid-cols-2 gap-y-8 border-t border-white/10 pt-12 sm:grid-cols-4" role="list">
+                <div>
+                    <dt class="font-mono text-xs tracking-widest text-white/50 uppercase">Postes coworking</dt>
+                    <dd class="mt-2 font-geist text-4xl font-medium tracking-tight text-white tabular-nums">10</dd>
+                </div>
+                <div>
+                    <dt class="font-mono text-xs tracking-widest text-white/50 uppercase">Services</dt>
+                    <dd class="mt-2 font-geist text-4xl font-medium tracking-tight text-white tabular-nums">7</dd>
+                </div>
+                <div>
+                    <dt class="font-mono text-xs tracking-widest text-white/50 uppercase">Capacité salle</dt>
+                    <dd class="mt-2 font-geist text-4xl font-medium tracking-tight text-white tabular-nums">60</dd>
+                </div>
+                <div>
+                    <dt class="font-mono text-xs tracking-widest text-white/50 uppercase">PMR</dt>
+                    <dd class="mt-2 font-geist text-4xl font-medium tracking-tight text-white">100%</dd>
+                </div>
+            </dl>
+        </div>
+        <div class="absolute inset-x-0 -bottom-px h-px bg-linear-to-r from-transparent via-yellow/30 to-transparent"></div>
+    </section>
+
+    <!-- Services on white -->
+    <section id="services" class="px-6 py-24 lg:px-10 lg:py-32">
+        <div class="mx-auto max-w-7xl">
+            <div class="flex items-baseline justify-between gap-6">
+                <div>
+                    <p class="font-mono text-xs tracking-[0.3em] text-yellow uppercase">Services</p>
+                    <h2 class="mt-3 max-w-[24ch] font-geist text-4xl font-semibold tracking-tight text-balance text-navy lg:text-5xl">Un lieu, sept manières d'avancer.</h2>
+                </div>
+                <a href="#contact" class="hidden font-geist text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:decoration-yellow hover:text-yellow md:inline">Demander une visite →</a>
+            </div>
+
+            <dl class="mt-14 grid grid-cols-1 divide-y divide-navy/10 border-y border-navy/10 sm:grid-cols-2 sm:divide-x lg:grid-cols-4" role="list">
+                <div class="group p-8 hover:bg-cream/50">
+                    <p class="font-mono text-xs tracking-widest text-yellow uppercase">01</p>
+                    <dt class="mt-3 font-geist text-xl font-semibold tracking-tight text-navy">Louer une salle</dt>
+                    <dd class="mt-2 text-pretty text-sm text-navy/70">2 à 60 personnes, réservation en ligne.</dd>
+                    <a href="/louer-une-salle/" class="mt-6 inline-flex font-geist text-sm font-medium text-navy group-hover:text-yellow">Réserver →</a>
+                </div>
+                <div class="group p-8 hover:bg-cream/50">
+                    <p class="font-mono text-xs tracking-widest text-yellow uppercase">02</p>
+                    <dt class="mt-3 font-geist text-xl font-semibold tracking-tight text-navy">Coworking</dt>
+                    <dd class="mt-2 text-pretty text-sm text-navy/70">10 postes, wifi, cuisine partagée.</dd>
+                    <a href="/coworking/" class="mt-6 inline-flex font-geist text-sm font-medium text-navy group-hover:text-yellow">En savoir plus →</a>
+                </div>
+                <div class="group p-8 hover:bg-cream/50">
+                    <p class="font-mono text-xs tracking-widest text-yellow uppercase">03</p>
+                    <dt class="mt-3 font-geist text-xl font-semibold tracking-tight text-navy">Fablab</dt>
+                    <dd class="mt-2 text-pretty text-sm text-navy/70">Atelier de fabrication numérique.</dd>
+                    <a href="/fablab/" class="mt-6 inline-flex font-geist text-sm font-medium text-navy group-hover:text-yellow">Découvrir →</a>
+                </div>
+                <div class="group p-8 hover:bg-cream/50">
+                    <p class="font-mono text-xs tracking-widest text-yellow uppercase">04</p>
+                    <dt class="mt-3 font-geist text-xl font-semibold tracking-tight text-navy">e-Cube</dt>
+                    <dd class="mt-2 text-pretty text-sm text-navy/70">Accompagnement entrepreneurs.</dd>
+                    <a href="/e-cube/" class="mt-6 inline-flex font-geist text-sm font-medium text-navy group-hover:text-yellow">Rencontrer →</a>
+                </div>
+                <div class="group p-8 hover:bg-cream/50">
+                    <p class="font-mono text-xs tracking-widest text-yellow uppercase">05</p>
+                    <dt class="mt-3 font-geist text-xl font-semibold tracking-tight text-navy">EPN</dt>
+                    <dd class="mt-2 text-pretty text-sm text-navy/70">Accès numérique libre, médiation.</dd>
+                    <a href="/epn/" class="mt-6 inline-flex font-geist text-sm font-medium text-navy group-hover:text-yellow">Horaires →</a>
+                </div>
+                <div class="group p-8 hover:bg-cream/50">
+                    <p class="font-mono text-xs tracking-widest text-yellow uppercase">06</p>
+                    <dt class="mt-3 font-geist text-xl font-semibold tracking-tight text-navy">Gaming</dt>
+                    <dd class="mt-2 text-pretty text-sm text-navy/70">Serious gaming, gamification.</dd>
+                    <a href="/gaming/" class="mt-6 inline-flex font-geist text-sm font-medium text-navy group-hover:text-yellow">Découvrir →</a>
+                </div>
+                <div class="group p-8 hover:bg-cream/50 sm:col-span-2 lg:col-span-2">
+                    <p class="font-mono text-xs tracking-widest text-yellow uppercase">07</p>
+                    <dt class="mt-3 font-geist text-xl font-semibold tracking-tight text-navy">Services Ville</dt>
+                    <dd class="mt-2 max-w-[40ch] text-pretty text-sm text-navy/70">Les différents services de la Ville présents à l'e-Square : ADL et plus encore.</dd>
+                    <a href="/services-ville/" class="mt-6 inline-flex font-geist text-sm font-medium text-navy group-hover:text-yellow">Voir les services →</a>
+                </div>
+            </dl>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section id="partenaires" class="bg-cream px-6 py-20 lg:px-10">
+        <div class="mx-auto max-w-7xl">
+            <p class="text-center font-mono text-xs tracking-[0.3em] text-navy/50 uppercase">Partenaires</p>
+            <div class="mt-10 grid grid-cols-2 items-center justify-items-center gap-12 md:grid-cols-4">
+                <img src="../../wp-content/uploads/2026/05/marche.jpg" alt="Ville de Marche-en-Famenne" class="h-16 w-auto opacity-80" />
+                <img src="../../wp-content/uploads/2026/05/adl.png" alt="ADL" class="h-16 w-auto opacity-80" />
+                <img src="../../wp-content/uploads/2026/05/paysfamenne.jpg" alt="Pays de Famenne" class="h-16 w-auto opacity-80" />
+                <img src="../../wp-content/uploads/2026/05/wallonie.png" alt="Wallonie" class="h-16 w-auto opacity-80" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA — dark -->
+    <section id="contact" class="bg-navy-deep px-6 py-24 text-white lg:px-10 lg:py-32">
+        <div class="mx-auto max-w-7xl">
+            <div class="grid items-center gap-12 lg:grid-cols-2">
+                <div>
+                    <p class="font-mono text-xs tracking-[0.3em] text-yellow uppercase">Contact</p>
+                    <h2 class="mt-4 max-w-[20ch] font-geist text-4xl font-medium tracking-tight text-balance text-white lg:text-5xl">Envie d'en savoir plus ?</h2>
+                    <p class="mt-6 max-w-[44ch] text-pretty text-lg text-white/70">Passez nous voir, écrivez-nous, ou appelez. On vous fait visiter.</p>
+                    <div class="mt-8 flex flex-wrap gap-3">
+                        <a href="/contact/" class="inline-flex items-center gap-2 rounded-md bg-yellow px-5 py-2.5 font-geist text-sm font-semibold text-navy hover:bg-yellow-soft">Nous écrire</a>
+                        <a href="tel:+3284327054" class="inline-flex items-center gap-2 rounded-md bg-white/5 px-5 py-2.5 font-geist text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/10">+32 (0)84 32 70 54</a>
+                    </div>
+                </div>
+                <dl class="grid grid-cols-1 gap-4 font-geist text-sm sm:grid-cols-2 lg:gap-6" role="list">
+                    <div class="rounded-lg bg-white/5 p-5 ring-1 ring-white/10">
+                        <dt class="font-mono text-xs tracking-widest text-yellow uppercase">Téléphone</dt>
+                        <dd class="mt-2 font-medium text-white">+32 (0)84 32 70 54</dd>
+                    </div>
+                    <div class="rounded-lg bg-white/5 p-5 ring-1 ring-white/10">
+                        <dt class="font-mono text-xs tracking-widest text-yellow uppercase">E-mail</dt>
+                        <dd class="mt-2 font-medium text-white">info@esquare.be</dd>
+                    </div>
+                    <div class="rounded-lg bg-white/5 p-5 ring-1 ring-white/10 sm:col-span-2">
+                        <dt class="font-mono text-xs tracking-widest text-yellow uppercase">Adresse</dt>
+                        <dd class="mt-2 font-medium text-white">Rue Victor Libert 36 J, 6900 Marche-en-Famenne</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-navy-deep px-6 py-12 text-white/60 lg:px-10">
+        <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 font-geist text-sm">
+            <p class="font-semibold tracking-tight text-white">e-Square</p>
+            <nav class="flex gap-6">
+                <a href="/mentions-legales/" class="hover:text-yellow">Mentions légales</a>
+                <a href="/cookies/" class="hover:text-yellow">Cookies</a>
+            </nav>
+            <p>© e-Square Marche-en-Famenne</p>
+        </div>
+    </footer>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- OPTION 5 — HYBRID (header v4 + hero/bento v3 + dark contact + warm partners + dark footer) -->
+<!-- ============================================================ -->
+<div data-uidotsh-option="Hybrid (recommended)" class="contents">
+
+    <a href="#contenu" class="skip-link">Aller au contenu</a>
+
+    <!-- Header — dark navy with full 10-item menu (CONTACT as yellow CTA) -->
+    <header class="bg-navy-deep">
+
+        <div class="esq-nav mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 lg:px-8">
+            <a href="/" aria-label="Homepage" class="flex shrink-0 items-center gap-2.5">
+                <span class="grid size-9 place-items-center rounded-lg bg-yellow [font-family:var(--font-figtree)] text-base font-black text-navy-deep">e</span>
+                <span class="[font-family:var(--font-figtree)] text-xl font-extrabold tracking-tight text-white">e-Square</span>
+            </a>
+            <nav id="primary-nav" aria-label="Principal" class="hidden items-center gap-0.5 [font-family:var(--font-figtree)] text-base font-medium text-white/70 lg:flex">
+                <a href="/" aria-current="page" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors">Home</a>
+                <a href="/louer-une-salle/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">Louer une salle</a>
+                <a href="/coworking/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">Coworking</a>
+                <a href="/fablab/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">Fablab</a>
+                <a href="/e-cube/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">e-Cube</a>
+                <a href="/epn/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">EPN</a>
+                <a href="/gaming/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">Gaming</a>
+                <a href="/services-ville/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">Services Ville</a>
+                <a href="/a-propos/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">À propos</a>
+                <span aria-hidden="true" class="mx-1.5 h-5 w-px bg-white/15"></span>
+                <a href="/contact/" class="inline-flex min-h-[44px] items-center gap-1.5 rounded-lg bg-yellow px-[18px] font-semibold text-navy-deep transition-colors hover:bg-yellow-soft">Contact <span aria-hidden="true">→</span></a>
+            </nav>
+            <button type="button" class="relative inline-flex size-11 items-center justify-center rounded-md text-white/80 hover:bg-white/5 lg:hidden" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+
+    </header>
+
+    <main id="contenu">
+
+    <!-- Hero — compact side-by-side editorial: yellow surface, type left, landscape photo right -->
+    <section class="relative isolate overflow-hidden bg-yellow text-navy-deep">
+        <div aria-hidden="true" class="poster-grid absolute inset-0 z-0 opacity-[0.14]"></div>
+        <div aria-hidden="true" class="absolute inset-0 z-0" style="background: radial-gradient(120% 80% at 0% 0%, color-mix(in oklch, var(--color-yellow-soft) 70%, transparent), transparent 55%);"></div>
+
+        <div class="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-x-10 gap-y-8 px-6 py-12 lg:grid-cols-12 lg:px-8 lg:py-16">
+            <div class="col-span-12 lg:col-span-7">
+                <p class="inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.25em] text-navy-deep">
+                    <span aria-hidden="true" class="inline-block size-1.5 rounded-full bg-navy-deep"></span>
+                    Marche-en-Famenne · Belgique
+                </p>
+                <h1 class="mt-5 max-w-[18ch] [font-family:var(--font-figtree)] font-black uppercase leading-[0.92] tracking-[-0.04em] text-balance text-navy-deep" style="font-size: clamp(2.5rem, 6vw, 5rem);">
+                    Entreprendre, créer, <em class="font-serif font-normal italic normal-case tracking-[-0.01em]">co-créer.</em>
+                </h1>
+                <p class="mt-6 max-w-[48ch] [font-family:var(--font-figtree)] text-pretty text-base text-navy-deep/85 lg:text-lg">
+                    Un espace collaboratif au cœur de la Famenne. Information, formations, animations, accompagnements pour faire émerger les projets de demain.
+                </p>
+                <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+                    <a href="#services" class="group inline-flex items-center gap-3 bg-navy-deep px-6 py-3 [font-family:var(--font-figtree)] text-sm font-bold uppercase tracking-[0.14em] text-yellow transition-colors duration-300 hover:bg-navy focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-deep">
+                        Découvrir nos services
+                        <span aria-hidden="true" class="inline-block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1.5">→</span>
+                    </a>
+                    <a href="/contact/" class="inline-flex min-h-[44px] items-center px-2 [font-family:var(--font-figtree)] text-sm font-bold uppercase tracking-[0.14em] text-navy-deep underline decoration-navy-deep decoration-[3px] underline-offset-[7px] transition-colors hover:decoration-navy/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-deep">
+                        Nous contacter
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-span-12 lg:col-span-5">
+                <img src="../../wp-content/uploads/2026/05/Home.webp" alt="Entrée de l'e-Square Marche-en-Famenne" width="900" height="675" fetchpriority="high" decoding="async" class="aspect-[4/3] w-full object-cover shadow-[0_30px_60px_-20px_color-mix(in_oklch,var(--color-navy-deep)_40%,transparent)] ring-1 ring-navy-deep/10" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Services — bento with photo cards everywhere -->
+    <section id="services" aria-labelledby="services-title" class="bg-cream px-6 py-20 lg:px-8 lg:py-24">
+        <div class="mx-auto max-w-7xl">
+            <div class="grid items-end gap-x-12 gap-y-3 lg:grid-cols-[2fr_3fr]">
+                <div>
+                    <p class="inline-flex items-center gap-2 [font-family:var(--font-figtree)] text-xs font-bold text-navy/70 uppercase tracking-widest">
+                        <span aria-hidden="true" class="inline-block size-2 rounded-full bg-yellow opacity-[0.675]"></span>
+                        Nos services
+                    </p>
+                    <h2 id="services-title" class="mt-3 max-w-[20ch] [font-family:var(--font-figtree)] text-3xl font-bold tracking-tight text-balance text-navy md:text-4xl lg:text-5xl">Un lieu, sept manières d'avancer.</h2>
+                </div>
+                <p class="max-w-[52ch] [font-family:var(--font-figtree)] text-pretty text-base text-navy/70 lg:text-lg">Espaces, équipements et savoirs : mis en commun pour répondre aux enjeux du numérique, du social, de l'écologie et de l'économie.</p>
+            </div>
+
+            <dl class="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:grid-rows-2" role="list">
+                <!-- Feature -->
+                <a href="/louer-une-salle/" class="col-span-2 row-span-2 block rounded-3xl bg-stone-warm p-8 ring-1 ring-navy/8 transition-shadow duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-[0_10px_30px_-12px_color-mix(in_oklch,var(--color-navy-deep)_18%,transparent)] lg:p-10">
+                    <p class="inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-navy/65">
+                        <span aria-hidden="true" class="inline-block size-1.5 rounded-full bg-yellow opacity-[0.675]"></span>
+                        Service phare
+                    </p>
+                    <dt class="mt-4 [font-family:var(--font-figtree)] text-3xl font-bold tracking-tight text-balance text-navy lg:text-4xl">Louer une salle</dt>
+                    <dd class="mt-3 max-w-[36ch] [font-family:var(--font-figtree)] text-pretty text-navy/70">De 2 à 60 personnes, planning et réservation en ligne. Toutes nos salles sont accessibles aux PMR.</dd>
+                    <span class="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-[color-mix(in_oklch,var(--color-yellow)_70%,var(--color-stone-warm))] px-5 py-2.5 [font-family:var(--font-figtree)] text-sm font-semibold text-navy-deep transition-colors">
+                        Réserver une salle
+                        <span aria-hidden="true">→</span>
+                    </span>
+                </a>
+                <a href="/coworking/" class="block rounded-2xl bg-stone-warm p-5 ring-1 ring-navy/8 transition-shadow duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-[0_10px_30px_-12px_color-mix(in_oklch,var(--color-navy-deep)_18%,transparent)]">
+                    <dt class="[font-family:var(--font-figtree)] text-lg font-bold text-navy">Coworking</dt>
+                    <dd class="mt-2 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">Dix postes équipés, wifi rapide, cuisine partagée.</dd>
+                    <span class="mt-4 inline-flex items-center gap-1 [font-family:var(--font-figtree)] text-xs font-semibold text-navy underline decoration-navy/30 underline-offset-4">En savoir plus →</span>
+                </a>
+                <a href="/fablab/" class="block rounded-2xl bg-stone-warm p-5 ring-1 ring-navy/8 transition-shadow duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-[0_10px_30px_-12px_color-mix(in_oklch,var(--color-navy-deep)_18%,transparent)]">
+                    <dt class="[font-family:var(--font-figtree)] text-lg font-bold text-navy">Fablab</dt>
+                    <dd class="mt-2 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">Prototypage et fabrication numérique, ouvert aux makers.</dd>
+                    <span class="mt-4 inline-flex items-center gap-1 [font-family:var(--font-figtree)] text-xs font-semibold text-navy underline decoration-navy/30 underline-offset-4">Découvrir l'atelier →</span>
+                </a>
+                <a href="/e-cube/" class="block rounded-2xl bg-stone-warm p-5 ring-1 ring-navy/8 transition-shadow duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-[0_10px_30px_-12px_color-mix(in_oklch,var(--color-navy-deep)_18%,transparent)]">
+                    <dt class="[font-family:var(--font-figtree)] text-lg font-bold text-navy">e-Cube</dt>
+                    <dd class="mt-2 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">Idéation, accompagnement et réseau pour porteurs de projet.</dd>
+                    <span class="mt-4 inline-flex items-center gap-1 [font-family:var(--font-figtree)] text-xs font-semibold text-navy underline decoration-navy/30 underline-offset-4">Rencontrer l'équipe →</span>
+                </a>
+                <a href="/epn/" class="block rounded-2xl bg-stone-warm p-5 ring-1 ring-navy/8 transition-shadow duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-[0_10px_30px_-12px_color-mix(in_oklch,var(--color-navy-deep)_18%,transparent)]">
+                    <dt class="[font-family:var(--font-figtree)] text-lg font-bold text-navy">EPN</dt>
+                    <dd class="mt-2 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">Accès libre aux ordinateurs, wifi et médiation numérique.</dd>
+                    <span class="mt-4 inline-flex items-center gap-1 [font-family:var(--font-figtree)] text-xs font-semibold text-navy underline decoration-navy/30 underline-offset-4">Voir les horaires →</span>
+                </a>
+                <a href="/gaming/" class="block rounded-2xl bg-stone-warm p-5 ring-1 ring-navy/8 transition-shadow duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-[0_10px_30px_-12px_color-mix(in_oklch,var(--color-navy-deep)_18%,transparent)]">
+                    <dt class="[font-family:var(--font-figtree)] text-lg font-bold text-navy">Gaming</dt>
+                    <dd class="mt-2 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">Serious gaming, gamification et tournois e-sport.</dd>
+                    <span class="mt-4 inline-flex items-center gap-1 [font-family:var(--font-figtree)] text-xs font-semibold text-navy underline decoration-navy/30 underline-offset-4">Voir le programme →</span>
+                </a>
+                <a href="/services-ville/" class="block rounded-2xl bg-stone-warm p-5 ring-1 ring-navy/8 transition-shadow duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-[0_10px_30px_-12px_color-mix(in_oklch,var(--color-navy-deep)_18%,transparent)]">
+                    <dt class="[font-family:var(--font-figtree)] text-lg font-bold text-navy">Services Ville</dt>
+                    <dd class="mt-2 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">ADL et autres services de la Ville sur place.</dd>
+                    <span class="mt-4 inline-flex items-center gap-1 [font-family:var(--font-figtree)] text-xs font-semibold text-navy underline decoration-navy/30 underline-offset-4">Voir les services →</span>
+                </a>
+            </dl>
+        </div>
+    </section>
+
+    <!-- News — 1 featured + 1 secondary -->
+    <section id="actualites" aria-labelledby="actualites-title" class="px-6 py-20 lg:px-8 lg:py-24">
+        <div class="mx-auto max-w-7xl">
+            <div class="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                    <p class="inline-flex items-center gap-2 [font-family:var(--font-figtree)] text-xs font-bold text-navy/70 uppercase tracking-widest">
+                        <span aria-hidden="true" class="inline-block size-2 rounded-full bg-yellow"></span>
+                        Actualités
+                    </p>
+                    <h2 id="actualites-title" class="mt-3 [font-family:var(--font-figtree)] text-3xl font-bold tracking-tight text-balance text-navy md:text-4xl">Nos événements &amp; ateliers.</h2>
+                </div>
+                <a href="/actualites/" class="group inline-flex items-center gap-1.5 [font-family:var(--font-figtree)] text-sm font-semibold text-navy underline decoration-navy/30 underline-offset-4 hover:decoration-navy">
+                    Toutes les actualités
+                    <span aria-hidden="true" class="inline-block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">→</span>
+                </a>
+            </div>
+
+            <div class="mt-10 grid gap-6 lg:grid-cols-3">
+                <!-- Featured (large) -->
+                <a href="/actualites/pitch-and-connect-speedmeeting/" class="group lg:col-span-2">
+                    <div class="relative overflow-hidden rounded-3xl">
+                        <img src="../240620-Mind-Market-0028-scaled.webp" alt="" loading="lazy" class="aspect-[16/9] w-full object-cover transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105" />
+                        <span class="absolute top-5 left-5 rounded-full bg-yellow px-3 py-1 [font-family:var(--font-figtree)] text-xs font-semibold text-navy">À la une</span>
+                    </div>
+                    <p class="mt-5 font-mono text-[11px] font-semibold text-navy/55 uppercase tracking-[0.22em]">3 mars 2026 · Événement</p>
+                    <h3 class="mt-2 max-w-[28ch] [font-family:var(--font-figtree)] text-2xl font-bold tracking-tight text-balance text-navy transition-colors group-hover:text-navy-soft lg:text-3xl">Pitch &amp; Connect : le speedmeeting des entrepreneurs</h3>
+                    <p class="mt-3 max-w-[60ch] [font-family:var(--font-figtree)] text-pretty text-base text-navy/70">Une soirée de rencontres rapides et concrètes entre porteurs de projet, entrepreneurs et acteurs du territoire. Format speedmeeting, ambiance détendue, contacts utiles.</p>
+                </a>
+
+                <!-- Secondary (small) -->
+                <a href="/actualites/atelier-financement-alternatif/" class="group">
+                    <div class="overflow-hidden rounded-3xl">
+                        <img src="../240620-Mind-Market-0061-scaled.webp" alt="" loading="lazy" class="aspect-[4/3] w-full object-cover transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105" />
+                    </div>
+                    <p class="mt-5 font-mono text-[11px] font-semibold text-navy/55 uppercase tracking-[0.22em]">20 janvier 2026 · Atelier</p>
+                    <h3 class="mt-2 max-w-[28ch] [font-family:var(--font-figtree)] text-xl font-bold tracking-tight text-balance text-navy transition-colors group-hover:text-navy-soft">Atelier : financement alternatif</h3>
+                    <p class="mt-3 [font-family:var(--font-figtree)] text-pretty text-sm text-navy/70">Découvrez les pistes de financement au-delà du crédit bancaire : crowdfunding, prêts d'honneur, subsides, BA.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact — dark navy (variant 4 style) -->
+    <section id="contact" aria-labelledby="contact-title" class="bg-navy-deep px-6 py-20 text-white lg:px-8 lg:py-24">
+        <div class="mx-auto max-w-7xl">
+            <div class="grid items-center gap-10 lg:grid-cols-2">
+                <div>
+                    <p class="font-mono text-xs tracking-[0.3em] text-yellow uppercase">Contact</p>
+                    <h2 id="contact-title" class="mt-3 max-w-[20ch] [font-family:var(--font-figtree)] text-3xl font-bold tracking-tight text-balance md:text-4xl lg:text-5xl">Envie d'en savoir plus ?</h2>
+                    <p class="mt-5 max-w-[44ch] [font-family:var(--font-figtree)] text-pretty text-lg text-white/70">Passez nous voir, écrivez-nous, ou appelez. On vous fait visiter.</p>
+                    <div class="mt-8 flex flex-wrap gap-3">
+                        <a href="/contact/" class="inline-flex items-center gap-2 rounded-md bg-yellow px-5 py-2.5 [font-family:var(--font-figtree)] text-sm font-semibold text-navy hover:bg-yellow-soft">Nous écrire</a>
+                        <a href="tel:+3284327054" class="inline-flex items-center gap-2 rounded-md bg-white/5 px-5 py-2.5 [font-family:var(--font-figtree)] text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/10">+32 (0)84 32 70 54</a>
+                    </div>
+                </div>
+                <dl class="grid grid-cols-1 gap-4 [font-family:var(--font-figtree)] text-sm sm:grid-cols-2" role="list">
+                    <div class="rounded-lg bg-white/5 p-5 ring-1 ring-white/10">
+                        <dt class="font-mono text-xs tracking-widest text-yellow uppercase">Téléphone</dt>
+                        <dd class="mt-2 font-semibold text-white">+32 (0)84 32 70 54</dd>
+                    </div>
+                    <div class="rounded-lg bg-white/5 p-5 ring-1 ring-white/10">
+                        <dt class="font-mono text-xs tracking-widest text-yellow uppercase">E-mail</dt>
+                        <dd class="mt-2 font-semibold text-white">info@esquare.be</dd>
+                    </div>
+                    <div class="rounded-lg bg-white/5 p-5 ring-1 ring-white/10 sm:col-span-2">
+                        <dt class="font-mono text-xs tracking-widest text-yellow uppercase">Adresse</dt>
+                        <dd class="mt-2 font-semibold text-white">Rue Victor Libert 36 J, 6900 Marche-en-Famenne</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners — warm cream band -->
+    <section id="partenaires" aria-label="Partenaires" class="bg-stone-warm px-6 py-16 lg:px-8">
+        <div class="mx-auto max-w-7xl">
+            <p class="inline-flex w-full items-center justify-center gap-2 [font-family:var(--font-figtree)] text-xs font-bold text-navy/75 uppercase tracking-widest">
+                <span aria-hidden="true" class="inline-block h-px w-8 bg-navy/25"></span>
+                Avec le soutien de
+                <span aria-hidden="true" class="inline-block h-px w-8 bg-navy/25"></span>
+            </p>
+            <div class="mt-8 grid grid-cols-2 items-center justify-items-center gap-10 md:grid-cols-4">
+                <a href="https://www.marche.be/" target="_blank" rel="noopener" class="opacity-80 transition hover:opacity-100"><img src="../partners/marche.jpg" alt="Ville de Marche-en-Famenne" class="h-16 w-auto" /></a>
+                <a href="https://adl.marche.be/" target="_blank" rel="noopener" class="opacity-80 transition hover:opacity-100"><img src="../partners/adl.png" alt="ADL" class="h-16 w-auto" /></a>
+                <a href="https://www.paysdefamenne.be/" target="_blank" rel="noopener" class="opacity-80 transition hover:opacity-100"><img src="../partners/paysfamenne.jpg" alt="Pays de Famenne" class="h-16 w-auto" /></a>
+                <a href="https://www.wallonie.be/" target="_blank" rel="noopener" class="opacity-80 transition hover:opacity-100"><img src="../partners/wallonie.png" alt="Wallonie" class="h-16 w-auto" /></a>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Footer — 4-column dark navy (matches data/footer.html) -->
+    <footer class="bg-navy px-6 pt-16 pb-10 text-white lg:px-8">
+        <div class="mx-auto max-w-7xl">
+            <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+                <!-- Brand -->
+                <div>
+                    <h2 class="[font-family:var(--font-figtree)] text-xl font-black tracking-tight text-white">e-Square</h2>
+                    <p class="mt-3 text-pretty text-sm leading-relaxed text-white/70">Espace collaboratif à Marche-en-Famenne. Coworking, fablab, accompagnement, formations.</p>
+                </div>
+                <!-- Services -->
+                <nav aria-label="Services" class="footer-services-nav">
+                    <h2 class="font-mono text-xs font-semibold text-yellow uppercase tracking-widest">Services</h2>
+                    <ol class="footer-services-list" role="list">
+                        <li class="footer-services-item"><span class="footer-services-num" aria-hidden="true"></span><a href="/louer-une-salle/" class="footer-services-link">Louer une salle</a></li>
+                        <li class="footer-services-item"><span class="footer-services-num" aria-hidden="true"></span><a href="/coworking/" class="footer-services-link">Coworking</a></li>
+                        <li class="footer-services-item"><span class="footer-services-num" aria-hidden="true"></span><a href="/fablab/" class="footer-services-link">Fablab</a></li>
+                        <li class="footer-services-item"><span class="footer-services-num" aria-hidden="true"></span><a href="/e-cube/" class="footer-services-link">e-Cube</a></li>
+                        <li class="footer-services-item"><span class="footer-services-num" aria-hidden="true"></span><a href="/epn/" class="footer-services-link">EPN</a></li>
+                        <li class="footer-services-item"><span class="footer-services-num" aria-hidden="true"></span><a href="/gaming/" class="footer-services-link">Gaming</a></li>
+                        <li class="footer-services-item"><span class="footer-services-num" aria-hidden="true"></span><a href="/services-ville/" class="footer-services-link">Services Ville</a></li>
+                    </ol>
+                </nav>
+                <!-- Contact -->
+                <div>
+                    <h2 class="font-mono text-xs font-semibold text-yellow uppercase tracking-widest">Contact</h2>
+                    <address class="mt-4 text-sm not-italic leading-relaxed text-white">
+                        Rue Victor Libert 36 J<br />
+                        6900 Marche-en-Famenne<br />
+                        <a href="tel:+3284327054" class="inline-flex min-h-[44px] items-center transition-colors hover:text-yellow">+32 (0)84 32 70 54</a><br />
+                        <a href="mailto:info@esquare.be" class="inline-flex min-h-[44px] items-center transition-colors hover:text-yellow">info@esquare.be</a>
+                    </address>
+                </div>
+                <!-- Social -->
+                <div>
+                    <h2 class="font-mono text-xs font-semibold text-yellow uppercase tracking-widest">Suivez-nous</h2>
+                    <ul role="list" class="mt-3 flex gap-2">
+                        <li>
+                            <a href="https://www.facebook.com/LeSquareMarche/" target="_blank" rel="noopener" aria-label="Facebook" class="inline-flex size-11 items-center justify-center rounded-full text-white transition-colors hover:bg-white/5 hover:text-yellow">
+                                <svg viewBox="0 0 24 24" fill="currentColor" class="size-6" aria-hidden="true"><path d="M12 2C6.5 2 2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12c0-5.5-4.5-10-10-10z"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/esquare_marche/" target="_blank" rel="noopener" aria-label="Instagram" class="inline-flex size-11 items-center justify-center rounded-full text-white transition-colors hover:bg-white/5 hover:text-yellow">
+                                <svg viewBox="0 0 24 24" fill="currentColor" class="size-6" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2 0 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.2 5 .3 4.2.6c-.8.3-1.5.8-2.2 1.4C1.4 2.7.9 3.4.6 4.2.3 5 .2 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.1.5 2.9.3.8.8 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.4 2.9.5 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.2 2.9-.5.8-.3 1.5-.8 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.4-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.1-.5-2.9-.3-.8-.8-1.5-1.4-2.2C21.3 1.4 20.6.9 19.8.6 19 .3 18.2.2 16.9.1 15.7 0 15.3 0 12 0z"/><path d="M12 5.8c-3.4 0-6.2 2.8-6.2 6.2s2.8 6.2 6.2 6.2 6.2-2.8 6.2-6.2-2.8-6.2-6.2-6.2zm0 10.2c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"/><circle cx="18.4" cy="5.6" r="1.4"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/company/102780902" target="_blank" rel="noopener" aria-label="LinkedIn" class="inline-flex size-11 items-center justify-center rounded-full text-white transition-colors hover:bg-white/5 hover:text-yellow">
+                                <svg viewBox="0 0 24 24" fill="currentColor" class="size-6" aria-hidden="true"><path d="M19.7 3H4.3C3.6 3 3 3.6 3 4.3v15.4c0 .7.6 1.3 1.3 1.3h15.4c.7 0 1.3-.6 1.3-1.3V4.3c0-.7-.6-1.3-1.3-1.3zM8.3 18.3H5.7v-8.6h2.7v8.6zM7 8.6c-.9 0-1.5-.7-1.5-1.5S6.1 5.5 7 5.5s1.5.7 1.5 1.5S7.9 8.6 7 8.6zm11.3 9.7h-2.7v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.2H9.9V9.7h2.6v1.2c.4-.7 1.2-1.4 2.5-1.4 2.7 0 3.2 1.8 3.2 4.1v4.7z"/></svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="mt-12 border-navy-soft" />
+
+            <div class="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-xs text-white/60">
+                <p>© e-Square Marche-en-Famenne. Tous droits réservés.</p>
+                <p class="-mx-2">
+                    <a href="/mentions-legales/" class="inline-flex min-h-[44px] items-center px-2 transition-colors hover:text-yellow">Mentions légales</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="/cookies/" class="inline-flex min-h-[44px] items-center px-2 transition-colors hover:text-yellow">Cookies</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+</div>
+</div>
+<!-- impeccable-live-start -->
+<script src="http://localhost:8400/live.js"></script>
+<!-- impeccable-live-end -->
+</body>
+</html>

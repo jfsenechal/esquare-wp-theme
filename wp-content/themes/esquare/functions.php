@@ -78,6 +78,29 @@ add_action('wp_head', static function (): void {
 }, 1);
 
 add_action('wp_head', static function (): void {
+    echo "<!-- ESQ_FAVICON_HOOK_FIRED -->\n";
+    $iconId  = (int) get_option('site_icon');
+    $base    = $iconId > 0 ? (string) wp_get_attachment_url($iconId) : '';
+    $size32  = $iconId > 0 ? (string) wp_get_attachment_image_url($iconId, [32, 32]) : '';
+    $size192 = $iconId > 0 ? (string) wp_get_attachment_image_url($iconId, [192, 192]) : '';
+    $size180 = $iconId > 0 ? (string) wp_get_attachment_image_url($iconId, [180, 180]) : $base;
+
+    $icon32  = $size32 !== '' ? $size32 : $base;
+    $icon192 = $size192 !== '' ? $size192 : $base;
+    $icon180 = $size180 !== '' ? $size180 : $base;
+
+    if ($icon32 !== '') {
+        printf('<link rel="icon" href="%s" sizes="32x32" />' . "\n", esc_url($icon32));
+    }
+    if ($icon192 !== '') {
+        printf('<link rel="icon" href="%s" sizes="192x192" />' . "\n", esc_url($icon192));
+    }
+    if ($icon180 !== '') {
+        printf('<link rel="apple-touch-icon" href="%s" />' . "\n", esc_url($icon180));
+    }
+}, 2);
+
+add_action('wp_head', static function (): void {
     ?>
 <style type="text/tailwindcss">
     @theme {

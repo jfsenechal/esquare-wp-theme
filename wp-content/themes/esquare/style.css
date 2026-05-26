@@ -938,6 +938,161 @@ body {
 }
 
 /* ─────────────────────────────────────────────────────────────────────
+   Category archive — editorial header (article surface) + uniform 3-col
+   card grid using the same visual language as the home news cards.
+   ───────────────────────────────────────────────────────────────────── */
+
+.archive-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem 1.75rem;
+}
+
+@media (min-width: 640px) {
+    .archive-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .archive-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 3rem 2rem;
+    }
+}
+
+.archive-grid > li {
+    list-style: none;
+    margin: 0;
+}
+
+.archive-card {
+    display: block;
+}
+
+.archive-card .wp-block-post-featured-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    margin: 0;
+    background-color: #F1ECE3;
+}
+
+.archive-card .wp-block-post-featured-image a {
+    display: block;
+    line-height: 0;
+}
+
+.archive-card .wp-block-post-featured-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.archive-card:hover .wp-block-post-featured-image img {
+    transform: scale(1.04);
+}
+
+.archive-card .archive-date {
+    margin: 1rem 0 0;
+    font-family: "Geist Mono", ui-monospace, monospace;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: color-mix(in oklch, #0E1F33 55%, transparent);
+}
+
+.archive-card .archive-title {
+    margin: 0.4rem 0 0;
+    max-width: 28ch;
+    font-family: "Figtree", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: #0E1F33;
+    text-wrap: balance;
+}
+
+.archive-card .archive-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.archive-card:hover .archive-title a {
+    color: #1A2D4A;
+}
+
+.archive-card .archive-excerpt {
+    margin: 0.5rem 0 0;
+    font-family: "Figtree", system-ui, sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: color-mix(in oklch, #0E1F33 72%, transparent);
+    text-wrap: pretty;
+    max-width: 42ch;
+}
+
+.archive-card .archive-excerpt p {
+    margin: 0;
+}
+
+.archive-card .wp-block-post-excerpt__more-link {
+    display: none;
+}
+
+.archive-pagination {
+    margin-top: 3.5rem;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: "Geist Mono", ui-monospace, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.archive-pagination a,
+.archive-pagination span {
+    color: #0E1F33;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    transition: color 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.archive-pagination a:hover {
+    color: #F2B33D;
+}
+
+.archive-pagination .page-numbers.current {
+    color: #F2B33D;
+    border-bottom: 1.5px solid #F2B33D;
+}
+
+.archive-empty {
+    margin: 4rem 0;
+    font-size: 1.0625rem;
+    color: color-mix(in oklch, #0E1F33 60%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .archive-card .wp-block-post-featured-image img,
+    .archive-card:hover .wp-block-post-featured-image img {
+        transition: none;
+        transform: none;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
    Utility: screen reader text (fallback in case core's isn't loaded)
    ───────────────────────────────────────────────────────────────────── */
 

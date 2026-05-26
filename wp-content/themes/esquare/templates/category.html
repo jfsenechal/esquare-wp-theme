@@ -1,5 +1,53 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:esquare/category-archive /-->
+<!-- wp:html -->
+<main id="contenu">
+
+    <header class="reveal mx-auto max-w-6xl px-6 pt-14 pb-2 lg:px-8 lg:pt-20">
+        <p class="article-eyebrow">Catégorie</p>
+<!-- /wp:html -->
+
+        <!-- wp:query-title {"type":"archive","showPrefix":false,"level":1,"className":"article-title","style":{"spacing":{"margin":{"top":"1.25rem"}}}} /-->
+
+        <!-- wp:term-description {"className":"article-standfirst","style":{"spacing":{"margin":{"top":"1.5rem"}}}} /-->
+
+<!-- wp:html -->
+    </header>
+
+    <section class="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
+<!-- /wp:html -->
+
+        <!-- wp:query {"queryId":1,"query":{"perPage":12,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true}} -->
+        <div class="wp-block-query">
+            <!-- wp:post-template {"className":"archive-grid"} -->
+                <!-- wp:group {"tagName":"article","className":"archive-card group"} -->
+                <article class="wp-block-group archive-card group">
+                    <!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3","className":"archive-cover"} /-->
+                    <!-- wp:post-date {"format":"j F Y","className":"archive-date"} /-->
+                    <!-- wp:post-title {"isLink":true,"level":3,"className":"archive-title"} /-->
+                    <!-- wp:post-excerpt {"showMoreOnNewLine":false,"moreText":"","className":"archive-excerpt"} /-->
+                </article>
+                <!-- /wp:group -->
+            <!-- /wp:post-template -->
+
+            <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"},"className":"archive-pagination"} -->
+                <!-- wp:query-pagination-previous {"label":"← Précédent"} /-->
+                <!-- wp:query-pagination-numbers /-->
+                <!-- wp:query-pagination-next {"label":"Suivant →"} /-->
+            <!-- /wp:query-pagination -->
+
+            <!-- wp:query-no-results -->
+                <!-- wp:paragraph {"align":"center","className":"archive-empty"} -->
+                <p class="has-text-align-center archive-empty">Aucun article dans cette catégorie pour le moment.</p>
+                <!-- /wp:paragraph -->
+            <!-- /wp:query-no-results -->
+        </div>
+        <!-- /wp:query -->
+
+<!-- wp:html -->
+    </section>
+
+</main>
+<!-- /wp:html -->
 
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

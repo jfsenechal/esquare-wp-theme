@@ -74,6 +74,10 @@ body {
     border-bottom: 1px solid color-mix(in oklch, #FCFAF5 12%, transparent);
 }
 
+.esq-nav-link {
+    position: relative;
+}
+
 .esq-nav-link[aria-current="page"] {
     color: #fff;
 }

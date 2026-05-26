@@ -25,4 +25,12 @@
         </button>
     </div>
 </div>
+<script>
+(function () {
+    var path = window.location.pathname;
+    document.querySelectorAll('.esq-nav-link').forEach(function (a) {
+        if (a.getAttribute('href') === path) a.setAttribute('aria-current', 'page');
+    });
+})();
+</script>
 <!-- /wp:html -->

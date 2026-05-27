@@ -793,6 +793,85 @@ body {
     outline-offset: 2px;
 }
 
+/* Footer navigation: post categories (deeper) + back to all (wider) */
+.article-footer-nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+@media (min-width: 768px) {
+    .article-footer-nav {
+        grid-template-columns: minmax(0, 1fr) auto;
+        column-gap: 3rem;
+        align-items: end;
+    }
+}
+
+.article-footer-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    min-width: 0;
+}
+
+/* Hide the whole categories block when the post has none. */
+.article-footer-categories:not(:has(.wp-block-post-terms.article-categories a)) {
+    display: none;
+}
+
+/* wp:post-terms renders comma-separated anchors; collapse the commas
+   with font-size:0 on the wrapper, restore size on the anchors. */
+.wp-block-post-terms.article-categories {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.5rem;
+    row-gap: 0.4rem;
+    align-items: baseline;
+    font-size: 0;
+    color: transparent;
+    margin: 0;
+}
+
+.wp-block-post-terms.article-categories a {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(1.5rem, 2.4vw, 1.95rem);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    color: #0E1F33;
+    text-decoration: underline;
+    text-decoration-color: #F2B33D;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+    transition:
+        text-decoration-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+        text-decoration-thickness 220ms cubic-bezier(0.22, 1, 0.36, 1),
+        text-underline-offset 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wp-block-post-terms.article-categories a:hover {
+    text-decoration-thickness: 3px;
+    text-decoration-color: #0E1F33;
+    text-underline-offset: 6px;
+}
+
+.wp-block-post-terms.article-categories a:focus-visible {
+    outline: 2px solid #0E1F33;
+    outline-offset: 4px;
+    text-decoration-color: #0E1F33;
+}
+
+/* On desktop, anchor the back link to the same baseline as the largest
+   category serif type so the two paths sit on a shared visual line. */
+@media (min-width: 768px) {
+    .article-footer-nav .article-back {
+        padding-bottom: 0.35rem;
+    }
+}
+
 /* ─────────────────────────────────────────────────────────────────────
    Home news — asymmetric grid: featured (col-span-2 / 16:9 + badge)
    + secondary (4:3). Driven by :first-child since wp:post-template

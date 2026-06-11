@@ -1,0 +1,62 @@
+Instructions
+
+post id = 7
+
+pour chaque salle il faut un bouton "Réservation et tarif" qui pointe vers le détail de la salle
+lister les salles avec une photo pour chaque salle
+
+Contenu:
+
+SALLES DE RÉUNION
+DE 2 À 60 PERSONNES, PLANNING ET RÉSERVATION EN LIGNE
+
+L’e-Square propose des salles équipées et modulables pour vos réunions, formations et événements professionnels. Réservez l’espace qui vous convient !
+
+Toutes nos salles sont accessibles aux PMR.￼
+￼
+Toutes nos salles sont équipés de :
+￼
+Tableau blanc
+Un fixe et un flipchart
+à disposition
+￼
+Ecran TV
+hdmi
+
+Projecteur
+Projecteur
+hdmi / vga et grand écran de projection
+￼
+Wifi
+Connexion internet wifi
+
+Flipchart
+A disposition dans la pièce
+
+Café
+Café/thé dans la cuisine
+
+Les salles
+
+LA MEETING
+Située au rez-de-chaussée
+
+La « Meeting room » est l’endroit parfait pour les réunions nécessitant une présentation sur écran mais également pour les séances de créativité en équipe autour d’un tableau blanc.
+
+LA BOX
+Située au rez-de-chaussée
+
+La « Box » est une salle dédiée aux conférences, aux ateliers, aux formations. Elle est équipée de tables, chaises, d’un vidéo projecteur ainsi que d’un grand écran tactile interactif connecté 75′ qui permettra à tout orateur de satisfaire et de capter l’attention de son auditoire.
+
+LA CREATIVE
+Située au rez-de-chaussée avec un accès extérieur privatif
+
+La Créative est idéale pour des réunions assises en petit comité.
+
+Elle est conviviale et permet des échanges aisés.  Équipée d’un écran grand format tactile, elle est lumineuse.
+
+LA TALENTUM
+Située au 1er étage (avec ascenseur)
+
+La « Talentum » est une salle de formation pouvant accueillir environ 25 personnes. Elle est équipée de tout le matériel nécessaire à la tenue de votre réunion (tableau interactif, flipchart, …). Elle offre une modularité aux rencontres grâce à ses tables à roulettes facilement déplaçables et à ses chaises ultra-légères.
+

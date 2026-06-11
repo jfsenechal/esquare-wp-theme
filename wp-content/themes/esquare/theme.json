@@ -143,6 +143,7 @@
         }
     },
     "customTemplates": [
-        { "name": "front-page", "title": "Page d'accueil", "postTypes": ["page"] }
+        { "name": "front-page", "title": "Page d'accueil", "postTypes": ["page"] },
+        { "name": "page-feature", "title": "Page mise en avant", "postTypes": ["page"] }
     ]
 }

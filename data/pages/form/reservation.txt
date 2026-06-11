@@ -1,0 +1,35 @@
+Formulaire
+
+Nom Prénom*:
+
+Société:
+
+Num TVA (si pas NA)*:
+￼
+Adresse de facturation*:
+
+Téléphone*:
+
+Email*:
+￼
+Horaires*:
+Must select one:
+8h30 à 17h00
+8h30 à 12h30
+13h00 à 17h00
+18h00 à 22h00
+
+Horaire précis et matériel nécessaire:
+￼
+Nombre de personnes*:
+￼
+Disposition (liste déroulante)*:
+Tables en U
+Conférence (uniquement chaises)
+Tables en rangées
+Pas de préférence
+
+Si formation, thématique de celle-ci ?:
+
+J'accepte les conditions générales de vente
+J'accepte que mes données soient utilisées lors du traitement de ma demande

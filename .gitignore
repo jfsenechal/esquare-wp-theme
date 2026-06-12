@@ -91,3 +91,4 @@ node_modules
 
 /var
 *.sql
+/data/api.txt

@@ -1,0 +1,94 @@
+
+# curl -X POST https://salles.marche.be/api/esquare/login
+#-H "Accept: application/json"
+#-H "Content-Type: application/json"
+#-d '{"email": "***", "password": "***", "device_name": "curl"}'
+
+POST https://salles.marche.be/api/esquare/login
+Accept: application/json
+Content-Type: application/json
+{"email": "***", "password": "***", "device_name": "curl"}
+
+les endpoints
+
+  - https://salles.marche.be/api/esquare/login (POST)
+  - https://salles.marche.be/api/esquare/entries (GET)
+  - https://salles.marche.be/api/esquare/user (GET)
+  - https://salles.marche.be/api/esquare/logout (POST)
+
+les api en détails, adapte l'url ;-)
+
+
+### Get all entries (paginated)
+
+GET http://localhost:8000:
+8000/api/entries
+Authorization: Bearer
+1|XXXXX
+Accept: application/json
+
+### Filter by room
+
+GET http://localhost:8000:8000/api/entries?room_id=2
+Authorization: Bearer
+1|XXXXX
+Accept: application/json
+
+### Filter by area
+
+GET http://localhost:8000:8000/api/entries?area_id=1
+Authorization: Bearer 1|XXXXX
+Accept: application/json
+
+### Filter by date range
+
+GET http://localhost:8000:8000/api/entries?start_date=2026-03-01&end_date=2026-03-31
+Authorization: Bearer
+1|XXXXX
+Accept: application/json
+
+### Combine all filters
+
+GET http://localhost:8000:8000/api/entries?area_id=1&room_id=2&start_date=2026-03-01&end_date=2026-03-31
+Authorization: Bearer
+1|XXXXX
+Accept: application/json
+
+### Pagination (page 2)
+
+GET http://localhost:8000:8000/api/entries?page=2
+Authorization: Bearer
+1|XXXXX
+Accept: application/json
+
+  Protected — require a Sanctum token (auth:sanctum):
+
+  ┌────────┬─────────────────┬────────────────────────────────────┐
+  │ Method │    Endpoint     │              Handler               │
+  ├────────┼─────────────────┼────────────────────────────────────┤
+  │ GET    │ esquare/user    │ closure → returns $request->user() │
+  ├────────┼─────────────────┼────────────────────────────────────┤
+  │ GET    │ esquare/entries │ EntryController@index              │
+  ├────────┼─────────────────┼────────────────────────────────────┤
+  │ POST   │ esquare/entries │ EntryController@store              │
+  ├────────┼─────────────────┼────────────────────────────────────┤
+  │ POST   │ esquare/logout  │ AuthController@logout              │
+  └────────┴─────────────────┴────────────────────────────────────┘
+
+  So the flow is: call POST esquare/login to obtain a token, then send it as
+  Authorization: Bearer <token> on the four protected routes.
+
+  NOTE (2026-06-12): POST esquare/entries (EntryController@store) is DEPLOYED
+  and verified end-to-end (HTTP 201, created test entry #234297 — deleted via
+  admin; no API delete route exists). OPTIONS reports GET,HEAD,POST.
+
+  Required fields (422 validation): room_id, name, start_time, end_time.
+  start_time/end_time are unix timestamps (same as GET). Also accepted:
+  description, entry_type, beneficiaire_ext. Any extra keys (e.g. "meta") are
+  ignored by the controller.
+
+  The WP theme is wired and live (ESQUARE_API_CREATE_PATH=entries): it forwards
+  one entry per selected date. Payload built in
+  wp-content/themes/esquare/src/Reservation/ReservationForm.php (buildEntry()).
+
+  The esquare/ prefix comes from your bootstrap/app.php API routing config (the

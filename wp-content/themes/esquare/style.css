@@ -1214,3 +1214,129 @@ body {
     width: 1px;
     word-wrap: normal !important;
 }
+
+/* ─────────────────────────────────────────────────────────────────────
+   Fluent Forms — habillage Communal Atelier
+   Le plugin sort son propre CSS (bouton bleu, champs neutres). On le
+   repeint dans la langue du thème, en portée .esq-form uniquement.
+   ───────────────────────────────────────────────────────────────────── */
+
+.esq-form .ff-el-group {
+    margin-bottom: 1.25rem;
+}
+
+.esq-form .ff-el-input--label label {
+    font-family: "Figtree", system-ui, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #0E1F33;
+}
+
+.esq-form .ff-el-input--label .ff-el-is-required.asterisk-right:after {
+    color: #B4551F;
+}
+
+.esq-form .ff-el-form-control {
+    font-family: "Figtree", system-ui, sans-serif;
+    font-size: 1rem;
+    color: #0E1F33;
+    background-color: #FCFAF5;
+    border: 1px solid color-mix(in oklch, #0B1422 12%, transparent);
+    border-radius: 0.25rem;
+    padding: 0.75rem 1rem;
+    box-shadow: none;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.esq-form .ff-el-form-control::placeholder {
+    /* Le gris clair du plugin passe sous 4.5:1 ; on remonte vers l'encre. */
+    color: color-mix(in oklch, #0E1F33 62%, transparent);
+    opacity: 1;
+}
+
+.esq-form .ff-el-form-control:focus {
+    border-color: #F2B33D;
+    box-shadow: 0 0 0 3px color-mix(in oklch, #F2B33D 35%, transparent);
+    outline: none;
+}
+
+.esq-form textarea.ff-el-form-control {
+    min-height: 9rem;
+}
+
+.esq-form .ff-btn-submit,
+.esq-form .ff_submit_btn_wrapper button {
+    font-family: "Figtree", system-ui, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    background-color: #F2B33D !important;
+    color: #081523 !important;
+    border: 0;
+    border-radius: 9999px;
+    padding: 0.75rem 1.75rem;
+    box-shadow: none;
+    transition: background-color 300ms ease;
+}
+
+.esq-form .ff-btn-submit:hover,
+.esq-form .ff_submit_btn_wrapper button:hover {
+    background-color: #FDE3A6 !important;
+}
+
+.esq-form .ff-btn-submit:focus-visible,
+.esq-form .ff_submit_btn_wrapper button:focus-visible {
+    outline: 2px solid #081523;
+    outline-offset: 2px;
+}
+
+.esq-form .ff-el-form-check-label,
+.esq-form .ff-el-help-message {
+    font-family: "Figtree", system-ui, sans-serif;
+    color: color-mix(in oklch, #0E1F33 75%, transparent);
+}
+
+.esq-form .error.text-danger,
+.esq-form .ff-el-is-error .text-danger {
+    font-family: "Figtree", system-ui, sans-serif;
+    font-size: 0.8125rem;
+    /* Rouge argile teinté plutôt que le rouge pur du plugin. */
+    color: #9E3B16;
+}
+
+.esq-form .ff-message-success {
+    font-family: "Figtree", system-ui, sans-serif;
+    background-color: #F1ECE3;
+    border: 1px solid color-mix(in oklch, #0B1422 8%, transparent);
+    border-radius: 0.5rem;
+    color: #0E1F33;
+    padding: 1rem 1.25rem;
+}
+
+/* Variante sur le panneau laiton : le bouton laiton y serait invisible. */
+.esq-form-brass .ff-btn-submit,
+.esq-form-brass .ff_submit_btn_wrapper button {
+    background-color: #081523 !important;
+    color: #F2B33D !important;
+}
+
+.esq-form-brass .ff-btn-submit:hover,
+.esq-form-brass .ff_submit_btn_wrapper button:hover {
+    background-color: #0E1F33 !important;
+}
+
+.esq-form-brass .ff-el-form-control {
+    background-color: #FCFAF5;
+    border-color: color-mix(in oklch, #081523 20%, transparent);
+}
+
+.esq-form-brass .ff-el-form-control:focus {
+    border-color: #081523;
+    box-shadow: 0 0 0 3px color-mix(in oklch, #081523 25%, transparent);
+}
+
+.esq-form-brass .ff-message-success {
+    background-color: #FCFAF5;
+}

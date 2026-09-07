@@ -92,3 +92,4 @@ node_modules
 /var
 *.sql
 /data/api.txt
+/data/notion-php

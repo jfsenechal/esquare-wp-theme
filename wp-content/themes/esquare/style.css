@@ -85,11 +85,36 @@ body {
 .esq-nav-link[aria-current="page"]::after {
     content: "";
     position: absolute;
-    left: 0.875rem;
-    right: 0.875rem;
+    /* Matches the bar links' px-3 padding so the mark sits under the text. */
+    left: 0.75rem;
+    right: 0.75rem;
     bottom: 0.4375rem;
     height: 1.5px;
     background: #F2B33D;
+}
+
+/* Mobile disclosure panel: the burger swaps to a close glyph when open, and the
+   stacked links are padded tighter than the bar's, so the active underline
+   follows them. */
+[aria-controls="primary-nav-panel"] .esq-nav-burger-close {
+    display: none;
+}
+
+[aria-controls="primary-nav-panel"][aria-expanded="true"] .esq-nav-burger-open {
+    display: none;
+}
+
+[aria-controls="primary-nav-panel"][aria-expanded="true"] .esq-nav-burger-close {
+    display: block;
+}
+
+.esq-nav-panel .esq-nav-link[aria-current="page"]::after {
+    left: 0.5rem;
+    /* Panel rows are full-width tap targets, so the bar's edge-to-edge underline
+       would read as a separator here. Anchor a short mark under the text start. */
+    right: auto;
+    width: 1.75rem;
+    bottom: 0.5rem;
 }
 
 /* ─────────────────────────────────────────────────────────────────────

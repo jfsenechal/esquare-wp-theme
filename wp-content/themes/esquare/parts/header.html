@@ -7,22 +7,39 @@
             <span class="grid size-9 place-items-center rounded-lg bg-yellow [font-family:var(--font-figtree)] text-base font-black text-navy-deep">e</span>
             <span class="[font-family:var(--font-figtree)] text-xl font-extrabold tracking-tight text-white">e-Square</span>
         </a>
-        <nav id="primary-nav" aria-label="Principal" class="hidden items-center gap-0.5 [font-family:var(--font-figtree)] text-base font-medium text-white/70 lg:flex">
-            <a href="/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">Accueil</a>
-            <a href="/louer-une-salle/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">Louer une salle</a>
-            <a href="/coworking/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">Coworking</a>
-            <a href="/fablab/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">Fablab</a>
-            <a href="/e-cube/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">e-Cube</a>
-            <a href="/epn/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">EPN</a>
-            <a href="/gaming/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">Gaming</a>
-            <a href="/services-ville/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">Services Ville</a>
-            <a href="/a-propos/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-3.5 transition-colors hover:bg-white/8 hover:text-white">À propos</a>
+        <nav id="primary-nav" aria-label="Principal" class="hidden items-center gap-0.5 [font-family:var(--font-figtree)] text-base font-medium text-white/70 xl:flex">
+            <a href="/" class="esq-nav-link inline-flex min-h-[44px] items-center whitespace-nowrap rounded-md px-3 transition-colors hover:bg-white/8 hover:text-white">Accueil</a>
+            <a href="/agenda/" class="esq-nav-link inline-flex min-h-[44px] items-center whitespace-nowrap rounded-md px-3 transition-colors hover:bg-white/8 hover:text-white">Agenda</a>
+            <a href="/louer-une-salle/" class="esq-nav-link inline-flex min-h-[44px] items-center whitespace-nowrap rounded-md px-3 transition-colors hover:bg-white/8 hover:text-white">Louer une salle</a>
+            <a href="/coworking/" class="esq-nav-link inline-flex min-h-[44px] items-center whitespace-nowrap rounded-md px-3 transition-colors hover:bg-white/8 hover:text-white">Coworking</a>
+            <a href="/fablab/" class="esq-nav-link inline-flex min-h-[44px] items-center whitespace-nowrap rounded-md px-3 transition-colors hover:bg-white/8 hover:text-white">Fablab</a>
+            <a href="/e-cube/" class="esq-nav-link inline-flex min-h-[44px] items-center whitespace-nowrap rounded-md px-3 transition-colors hover:bg-white/8 hover:text-white">e-Cube</a>
+            <a href="/epn/" class="esq-nav-link inline-flex min-h-[44px] items-center whitespace-nowrap rounded-md px-3 transition-colors hover:bg-white/8 hover:text-white">EPN</a>
+            <a href="/gaming/" class="esq-nav-link inline-flex min-h-[44px] items-center whitespace-nowrap rounded-md px-3 transition-colors hover:bg-white/8 hover:text-white">Gaming</a>
+            <a href="/services-ville/" class="esq-nav-link inline-flex min-h-[44px] items-center whitespace-nowrap rounded-md px-3 transition-colors hover:bg-white/8 hover:text-white">Services Ville</a>
+            <a href="/a-propos/" class="esq-nav-link inline-flex min-h-[44px] items-center whitespace-nowrap rounded-md px-3 transition-colors hover:bg-white/8 hover:text-white">À propos</a>
             <span aria-hidden="true" class="mx-1.5 h-5 w-px bg-white/15"></span>
-            <a href="/contact/" class="inline-flex min-h-[44px] items-center gap-1.5 rounded-lg bg-yellow px-[18px] font-semibold text-navy-deep transition-colors hover:bg-yellow-soft">Contact <span aria-hidden="true">→</span></a>
+            <a href="/contact/" class="inline-flex min-h-[44px] items-center gap-1.5 whitespace-nowrap rounded-lg bg-yellow px-[18px] font-semibold text-navy-deep transition-colors hover:bg-yellow-soft">Contact <span aria-hidden="true">→</span></a>
         </nav>
-        <button type="button" class="relative inline-flex size-11 items-center justify-center rounded-md text-white/80 hover:bg-white/5 lg:hidden" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <button type="button" class="relative inline-flex size-11 items-center justify-center rounded-md text-white/80 hover:bg-white/5 xl:hidden" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav-panel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" class="esq-nav-burger-open"/><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18" class="esq-nav-burger-close"/></svg>
         </button>
+    </div>
+
+    <div id="primary-nav-panel" class="esq-nav-panel mx-auto max-w-7xl px-6 pb-4 xl:hidden" hidden>
+        <nav aria-label="Principal (mobile)" class="flex flex-col border-t border-white/10 pt-2 [font-family:var(--font-figtree)] text-base font-medium text-white/80">
+            <a href="/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-2 transition-colors hover:bg-white/8 hover:text-white">Accueil</a>
+            <a href="/agenda/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-2 transition-colors hover:bg-white/8 hover:text-white">Agenda</a>
+            <a href="/louer-une-salle/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-2 transition-colors hover:bg-white/8 hover:text-white">Louer une salle</a>
+            <a href="/coworking/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-2 transition-colors hover:bg-white/8 hover:text-white">Coworking</a>
+            <a href="/fablab/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-2 transition-colors hover:bg-white/8 hover:text-white">Fablab</a>
+            <a href="/e-cube/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-2 transition-colors hover:bg-white/8 hover:text-white">e-Cube</a>
+            <a href="/epn/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-2 transition-colors hover:bg-white/8 hover:text-white">EPN</a>
+            <a href="/gaming/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-2 transition-colors hover:bg-white/8 hover:text-white">Gaming</a>
+            <a href="/services-ville/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-2 transition-colors hover:bg-white/8 hover:text-white">Services Ville</a>
+            <a href="/a-propos/" class="esq-nav-link inline-flex min-h-[44px] items-center rounded-md px-2 transition-colors hover:bg-white/8 hover:text-white">À propos</a>
+            <a href="/contact/" class="mt-3 inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-lg bg-yellow px-[18px] font-semibold text-navy-deep transition-colors hover:bg-yellow-soft">Contact <span aria-hidden="true">→</span></a>
+        </nav>
     </div>
 </div>
 <script>
@@ -30,6 +47,33 @@
     var path = window.location.pathname;
     document.querySelectorAll('.esq-nav-link').forEach(function (a) {
         if (a.getAttribute('href') === path) a.setAttribute('aria-current', 'page');
+    });
+
+    var button = document.querySelector('[aria-controls="primary-nav-panel"]');
+    var panel = document.getElementById('primary-nav-panel');
+    if (!button || !panel) return;
+
+    function setOpen(open) {
+        button.setAttribute('aria-expanded', String(open));
+        button.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+        panel.hidden = !open;
+    }
+
+    button.addEventListener('click', function () {
+        setOpen(button.getAttribute('aria-expanded') !== 'true');
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+            setOpen(false);
+            button.focus();
+        }
+    });
+
+    // The panel only exists below the xl breakpoint; leaving it open while the
+    // full bar takes over would strand aria-expanded on a hidden control.
+    window.matchMedia('(min-width: 80rem)').addEventListener('change', function (event) {
+        if (event.matches) setOpen(false);
     });
 })();
 </script>

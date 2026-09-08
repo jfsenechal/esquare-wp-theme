@@ -21,8 +21,9 @@ final class EntriesApi
     private const MAX_PAGES = 20;
 
     /**
-     * Whether forwarding is enabled. Off until ESQUARE_API_CREATE_PATH is set,
-     * so we never blind-POST to the live system before the route is confirmed.
+     * Whether forwarding is enabled. The route is confirmed (POST esquare/entries,
+     * EntryController@store); ESQUARE_API_CREATE_PATH remains the kill switch —
+     * unset it to stop writing to the live system without touching the code.
      */
     public static function isCreateConfigured(): bool
     {

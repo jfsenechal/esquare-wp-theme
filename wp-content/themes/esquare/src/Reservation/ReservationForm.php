@@ -14,10 +14,12 @@ namespace Esquare\Theme\Reservation;
  *
  * Two REST routes back it:
  *   - GET  /esquare/v1/availability?room_id=… → busy slots (proxied, token stays server-side)
- *   - POST /esquare/v1/reservation            → receives a submission
+ *   - POST /esquare/v1/reservation            → receives a submission and forwards
+ *     one entry per selected date to the external API (EntryController@store).
  *
- * Forwarding the submission to the external "add entry" API is intentionally a
- * TODO (see handleReservation) — that step is wired up later.
+ * Both routes are public, so the POST side only ever accepts a room from
+ * PAGE_ROOM_MAP and is rate limited per IP — a submission creates real entries
+ * in the shared salles.marche.be system, which has no delete route.
  */
 final class ReservationForm
 {
@@ -37,6 +39,13 @@ final class ReservationForm
         '13h00 à 17h00' => ['13:00', '17:00'],
         '18h00 à 22h00' => ['18:00', '22:00'],
     ];
+
+    /** Accepted reservation requests per IP per window, and the window itself. */
+    private const RATE_LIMIT_MAX    = 5;
+    private const RATE_LIMIT_WINDOW = HOUR_IN_SECONDS;
+
+    /** Dates one submission may ask for — each one becomes a separate entry. */
+    private const MAX_DATES = 10;
 
     /**
      * Salle detail page id → external API room id (area 23, salles.marche.be).
@@ -135,11 +144,20 @@ final class ReservationForm
             return new \WP_REST_Response(['message' => __('Formulaire incomplet.', 'esquare'), 'errors' => $errors], 422);
         }
 
+        // Only valid submissions count against the quota: those are the ones that
+        // create entries in the shared system. Invalid payloads have no side effect.
+        if (self::isRateLimited()) {
+            return new \WP_REST_Response([
+                'message' => __('Trop de demandes envoyées depuis cette connexion. Merci de réessayer plus tard ou de nous contacter directement.', 'esquare'),
+            ], 429);
+        }
+
         // Always record the request so nothing is lost, even if forwarding fails.
         error_log('[esquare] Reservation received: ' . wp_json_encode($data));
 
         // Forward one entry per selected date to the external "add entry" API.
-        // Disabled until ESQUARE_API_CREATE_PATH is configured (see EntriesApi).
+        // ESQUARE_API_CREATE_PATH stays the kill switch: unset it to stop
+        // forwarding without a deploy (see EntriesApi).
         if (EntriesApi::isCreateConfigured()) {
             $forwarded = self::forwardToApi($data);
             if ($forwarded['failed'] > 0) {
@@ -264,6 +282,27 @@ final class ReservationForm
     }
 
     /**
+     * Count one accepted submission for the caller's IP, and say whether the
+     * quota is spent. The IP is hashed: we need to count requests, never to
+     * identify visitors. Each accepted submission extends the window, so a
+     * burst is held off for RATE_LIMIT_WINDOW after its last request.
+     */
+    private static function isRateLimited(): bool
+    {
+        $ip  = (string) ($_SERVER['REMOTE_ADDR'] ?? '');
+        $key = 'esquare_resa_' . md5($ip . wp_salt());
+
+        $count = (int) get_transient($key);
+        if ($count >= self::RATE_LIMIT_MAX) {
+            return true;
+        }
+
+        set_transient($key, $count + 1, self::RATE_LIMIT_WINDOW);
+
+        return false;
+    }
+
+    /**
      * @param array<string,mixed> $params
      * @return array<string,mixed>
      */
@@ -305,6 +344,11 @@ final class ReservationForm
     private static function validateSubmission(array $data): array
     {
         $errors = [];
+        // The room comes from a hidden field, so never trust it: a submission may
+        // only target one of our salle pages, not any room of the shared system.
+        if (! in_array($data['room_id'], self::PAGE_ROOM_MAP, true)) {
+            $errors[] = 'room_id';
+        }
         if ($data['nom_prenom'] === '') {
             $errors[] = 'nom_prenom';
         }
@@ -320,10 +364,12 @@ final class ReservationForm
         if ($data['email'] === '' || ! is_email($data['email'])) {
             $errors[] = 'email';
         }
-        if ($data['dates_souhaitees'] === []) {
+        if ($data['dates_souhaitees'] === [] || count($data['dates_souhaitees']) > self::MAX_DATES) {
             $errors[] = 'dates_souhaitees';
         }
-        if ($data['horaires'] === '') {
+        // Unknown horaire → buildEntry() would silently skip the date, so reject
+        // it here instead of reporting a success the visitor cannot act on.
+        if (! isset(self::SLOT_TIMES[$data['horaires']])) {
             $errors[] = 'horaires';
         }
         if ($data['nombre_personnes'] <= 0) {

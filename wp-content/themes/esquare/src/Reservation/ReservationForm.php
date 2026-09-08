@@ -83,9 +83,9 @@ final class ReservationForm
         }
 
         // CalendarJS CE depends on LemonadeJS at runtime.
-        wp_enqueue_style('calendarjs', 'https://cdn.jsdelivr.net/npm/@calendarjs/ce/dist/style.min.css', [], '1.1.0');
-        wp_enqueue_script('lemonadejs', 'https://cdn.jsdelivr.net/npm/lemonadejs/dist/lemonade.min.js', [], '5.3.6', true);
-        wp_enqueue_script('calendarjs', 'https://cdn.jsdelivr.net/npm/@calendarjs/ce/dist/index.min.js', ['lemonadejs'], '1.1.0', true);
+        wp_enqueue_style('calendarjs', 'https://cdn.jsdelivr.net/npm/@calendarjs/ce@1.1.0/dist/style.min.css', [], '1.1.0');
+        wp_enqueue_script('lemonadejs', 'https://cdn.jsdelivr.net/npm/lemonadejs@5.3.6/dist/lemonade.min.js', [], '5.3.6', true);
+        wp_enqueue_script('calendarjs', 'https://cdn.jsdelivr.net/npm/@calendarjs/ce@1.1.0/dist/index.min.js', ['lemonadejs'], '1.1.0', true);
     }
 
     public static function registerRoutes(): void
@@ -354,6 +354,9 @@ final class ReservationForm
             'nonce'   => wp_create_nonce('wp_rest'),
             'roomId'  => $roomId,
             'locale'  => 'fr',
+            // Label → [start, end], so the front end can flag a horaire that
+            // overlaps an existing booking. Same source as buildEntry().
+            'slotTimes' => self::SLOT_TIMES,
         ];
         ?>
 <dialog id="resa-modal" class="resa-modal" aria-labelledby="resa-modal-title">
@@ -383,6 +386,7 @@ final class ReservationForm
                     <span class="ml-3 inline-flex items-center gap-1.5 text-xs text-navy/70"><span class="inline-block size-2.5 rounded-full bg-red-400"></span> Occupé</span>
                 </div>
                 <ul class="mt-3 flex flex-wrap gap-2" data-resa-chips aria-live="polite"></ul>
+                <div class="mt-3 hidden rounded-xl border border-navy/10 p-3" data-resa-busy-info aria-live="polite"></div>
                 <p class="mt-1 text-xs text-red-600 hidden" data-resa-dates-error>Sélectionnez au moins une date.</p>
             </div>
 
@@ -417,13 +421,14 @@ final class ReservationForm
                 <fieldset>
                     <legend class="resa-label">Horaires<span class="text-red-600">*</span></legend>
                     <div class="mt-1 grid gap-1.5">
-                        <?php foreach (['8h30 à 17h00', '8h30 à 12h30', '13h00 à 17h00', '18h00 à 22h00'] as $i => $slot) : ?>
+                        <?php foreach (array_keys(self::SLOT_TIMES) as $i => $slot) : ?>
                         <label class="flex items-center gap-2 text-sm text-navy">
                             <input type="radio" name="horaires" value="<?php echo esc_attr($slot); ?>" <?php echo $i === 0 ? 'required' : ''; ?> class="accent-navy">
                             <?php echo esc_html($slot); ?>
                         </label>
                         <?php endforeach; ?>
                     </div>
+                    <p class="mt-2 text-xs text-red-600 hidden" data-resa-horaire-conflict aria-live="polite"></p>
                 </fieldset>
                 <div>
                     <label class="resa-label" for="resa-horaire-precis">Horaire précis et matériel nécessaire</label>
@@ -488,9 +493,29 @@ final class ReservationForm
         background:#FDE3A6; color:#0E1F33; padding:.2rem .5rem .2rem .625rem; font-size:.75rem; font-weight:600;
     }
     .resa-chip button { line-height:1; font-size:1rem; color:#0E1F33; }
-    /* CalendarJS: mark days that already have a booking. */
-    #resa-modal .lm-calendar-content [data-event="true"] { position:relative; }
-    #resa-modal .lm-calendar-content [data-event="true"]::after {
+    /* CalendarJS renders its month navigation as Material Symbols ligatures
+       ("expand_less" / "expand_more") and the theme loads no icon font, so the
+       words showed up as raw text. Hide them and draw the chevrons in CSS —
+       cheaper than pulling in a webfont for two arrows. */
+    #resa-modal .lm-calendar-navigation button {
+        display:inline-flex; align-items:center; justify-content:center;
+        font-size:0; color:transparent;
+    }
+    #resa-modal .lm-calendar-navigation button::before {
+        content:""; width:.5rem; height:.5rem;
+        border-left:2px solid #0E1F33; border-bottom:2px solid #0E1F33;
+    }
+    #resa-modal .lm-calendar-navigation button:first-child::before {
+        transform:rotate(135deg); margin-top:.25rem;    /* mois précédent */
+    }
+    #resa-modal .lm-calendar-navigation button:last-child::before {
+        transform:rotate(-45deg); margin-bottom:.25rem; /* mois suivant */
+    }
+    /* CalendarJS: mark days that already have a booking. CalendarJS binds its own
+       `data-event` marker as a JS property, never as an attribute, so we flag the
+       busy days via `cell.bold` in the validRange callback and style that instead. */
+    #resa-modal .lm-calendar-content [data-bold="true"] { position:relative; }
+    #resa-modal .lm-calendar-content [data-bold="true"]::after {
         content:""; position:absolute; left:50%; bottom:3px; transform:translateX(-50%);
         width:5px; height:5px; border-radius:9999px; background:#f87171;
     }
@@ -510,10 +535,13 @@ final class ReservationForm
     var messageEl = modal.querySelector('[data-resa-message]');
     var submitBtn = modal.querySelector('[data-resa-submit]');
     var calHost   = modal.querySelector('[data-resa-calendar]');
+    var busyInfoEl= modal.querySelector('[data-resa-busy-info]');
+    var conflictEl= modal.querySelector('[data-resa-horaire-conflict]');
 
-    var selected = [];        // ISO 'YYYY-MM-DD', kept sorted
-    var calendar = null;
-    var loaded   = false;
+    var selected   = [];      // ISO 'YYYY-MM-DD', kept sorted
+    var busyByDate = {};      // ISO 'YYYY-MM-DD' → its busy slots (anonymised)
+    var calendar   = null;
+    var loaded     = false;
 
     function todayISO() {
         var d = new Date();
@@ -545,6 +573,94 @@ final class ReservationForm
             chipsEl.appendChild(li);
         });
         if (selected.length) { datesError.classList.add('hidden'); }
+        renderBusyInfo();
+        renderHoraireConflict();
+    }
+
+    /**
+     * Hours already taken on the selected dates. A day is rarely booked solid —
+     * it can be free in the morning and taken in the afternoon — so the dot on
+     * the calendar is not enough: the visitor needs the hours to pick a horaire.
+     * Anonymised by the server (see EntriesApi::toSlot): hours only, no names.
+     */
+    function renderBusyInfo() {
+        if (!busyInfoEl) { return; }
+
+        busyInfoEl.innerHTML = '';
+        if (!selected.length) {
+            busyInfoEl.classList.add('hidden');
+            return;
+        }
+
+        var heading = document.createElement('p');
+        heading.className = 'text-xs font-semibold text-navy';
+        heading.textContent = 'Créneaux déjà réservés';
+        busyInfoEl.appendChild(heading);
+
+        var list = document.createElement('ul');
+        list.className = 'mt-1 grid gap-1';
+        selected.forEach(function (iso) {
+            var li = document.createElement('li');
+            li.className = 'text-xs text-navy/70';
+            var day = document.createElement('strong');
+            day.textContent = fmtFR(iso);
+            li.appendChild(day);
+            li.appendChild(document.createTextNode(' : ' + busyLabel(iso)));
+            list.appendChild(li);
+        });
+        busyInfoEl.appendChild(list);
+        busyInfoEl.classList.remove('hidden');
+    }
+
+    /**
+     * Warn when the chosen horaire overlaps a booking on one of the selected
+     * dates. Informative only: the request is still submitted (bookings are
+     * moderated), the visitor just gets to pick another slot first.
+     */
+    function renderHoraireConflict() {
+        if (!conflictEl) { return; }
+
+        var choice = form.querySelector('input[name="horaires"]:checked');
+        var range  = choice && CONFIG.slotTimes ? CONFIG.slotTimes[choice.value] : null;
+        if (!range) {
+            conflictEl.classList.add('hidden');
+            return;
+        }
+
+        var clashes = [];
+        selected.forEach(function (iso) {
+            var hours = (busyByDate[iso] || []).filter(function (s) {
+                // An open-ended slot is treated as running to the end of the day.
+                return s.start && s.start < range[1] && range[0] < (s.end || '23:59');
+            }).map(function (s) {
+                return s.start + (s.end ? '–' + s.end : '');
+            });
+            if (hours.length) { clashes.push(fmtFR(iso) + ' (' + hours.join(', ') + ')'); }
+        });
+
+        if (!clashes.length) {
+            conflictEl.classList.add('hidden');
+            return;
+        }
+
+        conflictEl.textContent = 'Attention : ce créneau chevauche une réservation existante — '
+            + clashes.join(' ; ')
+            + '. Votre demande sera tout de même transmise et vérifiée par nos équipes.';
+        conflictEl.classList.remove('hidden');
+    }
+
+    /** 'occupé 13:00–17:00 · 18:00–22:00', or 'aucun créneau réservé'. */
+    function busyLabel(iso) {
+        var seen  = {};
+        var hours = (busyByDate[iso] || []).map(function (s) {
+            return s.start ? s.start + (s.end ? '–' + s.end : '') : '';
+        }).filter(function (h) {
+            if (h === '' || seen[h]) { return false; }
+            seen[h] = true;
+            return true;
+        }).sort();
+
+        return hours.length ? 'occupé ' + hours.join(' · ') : 'aucun créneau réservé';
     }
 
     function toggleDate(iso) {
@@ -555,16 +671,51 @@ final class ReservationForm
 
     function buildCalendar(events) {
         if (!window.calendarjs || !window.calendarjs.Calendar || !calHost) { return; }
+
+        // ISO date → its busy slots, for validRange below and renderBusyInfo.
+        busyByDate = {};
+        events.forEach(function (e) {
+            if (e && e.date) { (busyByDate[e.date] = busyByDate[e.date] || []).push(e); }
+        });
+
         calendar = window.calendarjs.Calendar(calHost, {
             type: 'inline',
             format: 'YYYY-MM-DD',
             footer: false,
             startingDay: 1,            // Monday
-            validRange: [todayISO()],  // no past dates
-            data: events,              // existing bookings shown as markers
+            data: events,              // existing bookings, indexed in `busy` above
+            // CalendarJS binds its own `data-event` marker as a JS property rather
+            // than an attribute, so its red-dot CSS never matches. validRange runs
+            // on every (re)render, so we flag the busy days ourselves — and it also
+            // carries the "no past dates" rule that the array form used to provide.
+            validRange: function (day, month, year, cell) {
+                var iso = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+                cell.bold = !!busyByDate[iso];   // rendered as data-bold="true"
+                return iso < todayISO();   // true → day disabled
+            },
             onchange: function (self, value) {
                 if (typeof value === 'string') { toggleDate(value.substring(0, 10)); }
             }
+        });
+
+        labelNavButtons();
+
+        // Availability arrives after the modal opens: refresh both readouts.
+        renderBusyInfo();
+        renderHoraireConflict();
+    }
+
+    /**
+     * The month navigation buttons carry only the ligature name ("expand_less")
+     * as their label, which we hide in CSS — name them properly instead. They
+     * are created once and survive the month re-renders.
+     */
+    function labelNavButtons() {
+        var buttons = calHost.querySelectorAll('.lm-calendar-navigation button');
+        if (buttons.length !== 2) { return; }
+        ['Mois précédent', 'Mois suivant'].forEach(function (label, i) {
+            buttons[i].setAttribute('aria-label', label);
+            buttons[i].title = label;
         });
     }
 
@@ -612,6 +763,10 @@ final class ReservationForm
 
     modal.addEventListener('click', function (e) { if (e.target === modal) { close(); } });
     modal.addEventListener('close', function () { document.body.classList.remove('resa-open'); });
+
+    form.addEventListener('change', function (e) {
+        if (e.target && e.target.name === 'horaires') { renderHoraireConflict(); }
+    });
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();

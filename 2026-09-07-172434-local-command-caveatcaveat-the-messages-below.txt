@@ -1,0 +1,924 @@
+ ▐▛███▛█   Claude Code v2.1.263
+▝▜██████▀  Opus 5 · Claude Pro
+  ▝▝ ▝▝    /var/www/esquare-wp
+
+
+❯ /clear                                                                        
+
+❯ /impeccable like you do the page epn, do the same for page coworking, see     
+photos in data/images/cowork                                                    
+
+● I'll start by understanding the existing EPN page implementation and the
+  coworking photos.
+
+  Searched for 3 patterns, read 7 files, listed 4 directories, ran 17 shell commands (ctrl+o to expand)
+
+● Now I'll write the page. Building it in the same "Communal Atelier" language
+  as the EPN page.
+
+  Made 1 scratchpad edit +234, ran 2 shell commands (ctrl+o to expand)
+
+● Page updated. Now let me verify it in the browser.
+
+  Made 1 scratchpad edit +56, read 16 files, listed 1 directory, called claude-in-chrome, ran 16 shell commands (ctrl+o to expand)
+
+● Two contrast values need a bump. Let me compute and fix them.
+
+  Ran 5 shell commands (ctrl+o to expand)
+
+● Page Coworking terminée (rendu 1440px, page entière)
+
+  ›       /tmp/claude-1002/-var-www-esquare-wp/5442e2ac-6ad5-4151-a2cb-0 (693.2K
+  [image] d3e040fc71b/scratchpad/final-half.png                         B)
+
+● La page Coworking est en ligne : https://esquare2.marche.be/coworking/
+
+  Ce qui a été fait
+
+  Même dispositif que l'EPN : page WP coworking (ID 8) passée sur le template
+  page-feature, contenu en un bloc wp:html unique, utilitaires Tailwind + tokens
+  @theme du thème. Aucun fichier de thème modifié.
+
+  Photos : les 5 images de data/images/cowork/ importées dans la médiathèque
+  (IDs 65-69, /uploads/2026/09/coworking-*.jpg), avec texte alternatif renseigné
+  sur chaque pièce jointe.
+
+  Les six sections
+  1. Hero pleine image (coworking-espace, cadrage object-[50%_62%] sur le
+     lettrage végétal), titre Réseauter, partager, créer. repris de leur propre
+     baseline, badge « Le jour d'essai est gratuit ».
+  2. L'espace : photo coworking-signature + fiche technique en <dl> à filets
+     fins (capacité, équipement, wi-fi, impression, cuisine, réunions) plutôt
+     qu'une grille de cartes identiques. Renvoi vers /louer-une-salle/.
+  3. Tarifs 2026 sur navy : la journée « One day » à 20 € isolée en bandeau,
+     puis les cinq abonnements en échelle de prix (lignes à filets, prix en
+     tabular-nums), avec les heures de salle de réunion incluses. Chiffres pris
+     sur Tarifs-coworking-2026-1.png, mention « Prix hors TVA ».
+  4. Bande photo pleine largeur (3 images ; sur mobile une large + deux
+     carrées).
+  5. Accès & horaires : panneau laiton comme sur l'EPN, permanence lundi-jeudi
+     08:30-17:00 / vendredi 08:30-15:00, et l'accès à tout moment pour les
+     abonnés.
+  6. Contact : Mathilde Dernivois, chargée de projet, mail prérempli, téléphone,
+     adresse.
+
+  Vérifications
+
+  - Rendu contrôlé en 1440, 768 et 390 px (capture CDP headless,
+    scratchpad/shot.mjs) : pas de débordement, les cinq images se chargent (200
+    sur chaque URL).
+  - Hiérarchie h1 → h4 sans saut, aria-labelledby valides, <dl> sans enfant
+    illégal.
+  - Contraste : le libellé mono des specs était à 4,36:1 (navy/60 sur crème),
+    passé à navy/70 → 6,03:1. Les autres couples testés sont entre 5,1 et 8,4:1.
+  - Pas de gradient text, pas de bordure-accent latérale, pas de tiret cadratin
+    dans les textes.
+
+  Une limite à signaler : le détecteur d'anti-patterns du skill
+  (.agents/skills/impeccable/scripts/detect.mjs) ne s'exécute pas dans ce dépôt,
+  il lui manque scripts/lib/impeccable-config.mjs. J'ai donc fait ces contrôles
+  à la main. Rien n'est commité : le contenu vit en base, seules les images
+  restent non suivies dans data/.
+
+✻ Baked for 13m 55s · done 15:17
+
+❯ maintenant fais la même chose pour la page fablab                             
+
+  Read 11 files, listed 1 directory, ran 5 shell commands (ctrl+o to expand)
+
+● Fablab has richer source material. Let me gather the equipment specs and stage
+  the images.
+
+  Made 3 scratchpad edits +418, read 10 files, ran 19 shell commands (ctrl+o to expand)
+
+● Page Fablab : rendu complet (1440px) et détail du parc de machines
+
+  ›       /tmp/claude-1002/-var-www-esquare-wp/5442e2ac-6ad5-4151-a2cb-0 (835.8K
+  [image] d3e040fc71b/scratchpad/fab-final-half.png                     B)
+  ›       /tmp/claude-1002/-var-www-esquare-wp/5442e2ac-6ad5-4151-a2cb- (1016.6K
+  [image] 0d3e040fc71b/scratchpad/mach-view.png                        B)
+
+● La page Fablab est en ligne : https://esquare2.marche.be/fablab/
+
+  Structure
+
+  Même dispositif que Coworking et EPN : page WP fablab (ID 9) sur le template
+  page-feature, contenu en un bloc wp:html, utilitaires Tailwind + tokens du
+  thème.
+
+  1. Hero pleine image : le ponçage de lettres découpées au laser
+     (Fablab-1.webp), titre Apprendre, créer, partager. qui reprend leur propre
+     baseline, badge « Accès avec un animateur, sur rendez-vous ».
+  2. Le FabLab, c'est quoi ? : la définition quasi verbatim de leur texte +
+     photo d'accompagnement, puis les trois portes d'entrée (Starter kit dès 16
+     ans, Ateliers dès 12 ans, Prototypage → e-Cube) en colonnes séparées par
+     des filets, pas en cartes.
+  3. Le parc de machines sur navy : six machines photographiées et nommées avec
+     leurs cotes réelles, puis la liste complète du reste (résine, scanners 3D,
+     fraiseuse d'établi, brodeuse, machine à coudre pro, presse à chaud, découpe
+     fil), et les deux règles d'atelier.
+  4. Tarifs 2026 : Full accès (175 €/an starters, 350 €/an entreprises >5 ans,
+     HTVA), Starter kit 55 €/pack, Carte de passage 25 €/5 passages et 45 €/10
+     passages, avec la règle du badge par machine.
+  5. Horaires : panneau laiton, lundi-jeudi 10:00-17:00, vendredi 10:00-15:00,
+     pas d'animateur entre 12:00 et 13:00, et la raison du rendez-vous
+     obligatoire.
+  6. Contact : fablab@esquare.be, 084/32.70.54, visites sur demande.
+
+  Sources et une décision à signaler
+
+  Contrairement au coworking, il n'y avait pas de dossier data/pages/fablab/.
+  J'ai utilisé les 9 photos fablab-* de data/images/ (importées en médiathèque,
+  IDs 70-78, avec alt), et data/scraped/fablab.json pour les textes. Mais ni les
+  tarifs ni la liste des machines n'existaient localement : je suis allé les 
+  chercher sur leur ancien site e-square.marche.be (l'affiche
+  Tarifs-Fablab-2026.jpg et la page /fablab/equipements/). C'est leur propre
+  contenu public, mais dites-moi si vous préférez que je m'en tienne strictement
+  aux fichiers locaux à l'avenir.
+
+  Les cotes affichées viennent de cette page équipements et recoupent les
+  machines photographiées (256³ mm pour la multi-couleurs = Bambu X1-Carbon, 250
+  × 210 × 220 mm pour la haute performance = Prusa MK4). Je n'ai attribué
+  aucune marque aux photos laser et CNC, faute de recoupement fiable.
+
+  Vérifications
+
+  - Les 8 images de la page chargent réellement (contrôle naturalWidth via CDP,
+    pas seulement un 200 HTTP) ; les blancs visibles sur certaines captures
+    étaient un artefact de rasterisation du headless, pas un bug de page.
+  - Rendu contrôlé en 1440 et 390 px, hiérarchie h1 → h3 sans saut, <dl> sans
+    enfant illégal, toutes les ancres internes résolvent.
+  - Contraste : text-navy/60 sur stone-warm était à 4,21:1 → passé à /70
+    (5,74:1). J'ai aussi corrigé le tiret des plages horaires, à 2,48:1 en
+    navy-deep/40 → /55 (3,78:1, seuil 3:1 pour du texte large) — et j'ai 
+    appliqué la même correction à la page Coworking, où j'avais repris ce
+    réglage de la page EPN. La page EPN, que je n'ai pas touchée, conserve donc
+    ce tiret à 2,48:1 si vous voulez l'aligner.
+  - Le détecteur du skill est toujours cassé (scripts/lib/impeccable-config.mjs
+    manquant), contrôles faits à la main comme la fois précédente.
+
+✻ Worked for 12m 47s · done 16:05
+
+❯ maintenant fais la même chose pour la page e-cube                             
+
+  Read 10 files, listed 1 directory, ran 12 shell commands (ctrl+o to expand)
+
+● Now writing the page.
+
+  Made 3 scratchpad edits +307, read 3 files, ran 9 shell commands (ctrl+o to expand)
+
+● The brass eyebrow fails contrast on all three photo heroes. Fixing with a
+  proper ground rather than darkening the photos further.
+
+  Read 4 files, ran 12 shell commands (ctrl+o to expand)
+
+● The partner SVG turns out to be fully opaque with a baked-in white plate.
+  Remapping its white to the theme's off-white so it sits flush.
+
+  Read 1 file, ran 4 shell commands (ctrl+o to expand)
+
+● Page e-Cube terminée (rendu 1440px, page entière)
+
+  ›       /tmp/claude-1002/-var-www-esquare-wp/5442e2ac-6ad5-4151-a2cb-0 (626.6K
+  [image] d3e040fc71b/scratchpad/cube-final-half.png                    B)
+
+● La page e-Cube est en ligne : https://esquare2.marche.be/e-cube/
+
+  Structure
+
+  Page WP e-cube (ID 10) sur page-feature, même langage que les trois autres,
+  mais une colonne vertébrale différente : e-Cube est un programme, pas un lieu
+  avec des machines et des prix.
+
+  1. Hero pleine image : la salle en rendez-vous individuels lors d'une journée
+     e-Cube, titre Entreprendre, réseauter, prototyper.
+  2. Le programme : le texte quasi verbatim de leur page + photo
+     d'accompagnement, puis « C'est pour vous si » en trois grandes lignes
+     cochées (une idée à lancer / une entreprise à développer / un produit ou
+     service digital à prototyper).
+  3. Le contenu sur navy : les quatre formats (échanges entre pairs, ateliers
+     pratiques, tests marché, prototypage au FabLab avec renvoi vers /fablab/),
+     puis les quatre cycles thématiques.
+  4. Bande photo : session collective, prototype au FabLab, jour d'événement.
+  5. Première rencontre : panneau laiton avec le bouton vers leur formulaire
+     Fillout existant (esquare.fillout.com), en lien externe annoncé.
+  6. Avec le soutien de : le bandeau partenaires officiel (Marche-en-Famenne,
+     e-Square, IDELUX, Wallonie Entreprendre, En Mieux, cofinancé par l'UE,
+     Wallonie).
+  7. Contact.
+
+  Sources : data/scraped/e-cube.json et les photos Mind&Market locales de
+  data/images/ (importées, IDs 79-83, 85). Comme pour le fablab, le bandeau
+  partenaires venait de leur ancien site (partenaires.svg) : c'est une mention
+  de cofinancement européen, je n'allais pas l'inventer.
+
+  Un défaut que j'ai corrigé sur les trois pages
+
+  En mesurant le contraste réel des pixels rendus (et pas seulement les valeurs
+  CSS), j'ai trouvé que l'accroche laiton du hero échouait sur les trois pages 
+  photo : 2,41:1 sur Coworking, 3,83:1 sur Fablab, 4,01:1 sur e-Cube, pour un
+  seuil de 4,5:1. Le laiton sur une photo claire ne tient pas, quel que soit le
+  dégradé.
+
+  Je l'ai réglé en donnant à l'accroche son propre fond (pastille navy-deep/85)
+  plutôt qu'en assombrissant davantage les photos : 8,25 à 8,95:1 dans le pire 
+  cas sur les trois pages, photos préservées. J'ai donc aussi modifié Coworking 
+  et Fablab, que vous aviez déjà validées — dites-moi si vous préférez que je
+  revienne en arrière sur celles-là.
+
+  Vérifié aussi : h1 (7,8 à 12,5:1) et paragraphes (9,5 à 16:1) des heros, aucun
+  débordement horizontal en 1440 ni en 390 px, hiérarchie de titres correcte,
+  ancres et liens externes (rel="noopener") en ordre.
+
+  Deux points à signaler
+
+  - Le SVG partenaires est opaque avec un fond blanc cuit dedans (vérifié en le
+    rendant sur deux fonds différents : zéro pixel transparent). Il affichait
+    donc un rectangle blanc sur le beige. J'ai remappé son blanc vers le blanc
+    cassé du thème et posé le bandeau sur un panneau blanc : le raccord est
+    invisible. Si vous changez un jour le fond de cette section, il faudra
+    régénérer l'image.
+  - J'ai supprimé une pièce jointe (ID 84), la version WebP du bandeau que
+    j'avais importée quelques minutes plus tôt et qui était remplacée. Rien
+    d'autre n'a été supprimé.
+
+✻ Cooked for 17m 54s · done 16:24
+
+❯ maintenant fais la même chose pour la page gaming                             
+
+● Gaming (ID 12) already has a built page — let me check what's there before
+  rebuilding anything.
+
+  Read 1 file, ran 4 shell commands (ctrl+o to expand)
+● The gaming page is already built and complete. It needs a targeted fix pass,
+  not a rebuild — three real defects plus the missing contact details.
+
+  Ran 4 shell commands (ctrl+o to expand)
+
+● Found a real bug: the gaming hero is clipped on mobile. Let me diagnose
+  precisely.
+
+  Read 3 files, ran 5 shell commands (ctrl+o to expand)
+
+● Page Gaming après le passage de correction (rendu 1440px, page entière)
+
+  ›       /tmp/claude-1002/-var-www-esquare-wp/5442e2ac-6ad5-4151-a2cb-0 (515.2K
+  [image] d3e040fc71b/scratchpad/gam-final-half.png                     B)
+
+● https://esquare2.marche.be/gaming/
+
+  D'abord : la page existait déjà
+
+  Contrairement à Coworking, Fablab et e-Cube qui n'étaient que des
+  placeholders, Gaming était déjà construite dans ce langage (comme EPN et Louer
+  une salle) : 17 Ko de contenu, 8 vraies photos, les 7 rubriques de
+  data/pages/gaming/gaming.txt toutes couvertes. La reconstruire aurait détruit
+  du travail correct.
+
+  J'ai donc fait un passage de correction et de mise à niveau plutôt qu'une
+  reconstruction. Voici ce qui n'allait pas.
+
+  Le vrai bug : le hero était tronqué sur mobile
+
+  Les enfants de la grille du hero portaient col-span-12 sans préfixe lg:, alors
+  que la grille n'a 12 colonnes qu'à partir de lg. En dessous, grid-cols-1 +
+  span 12 créait 11 colonnes implicites : le contenu faisait 440 px de large 
+  dans une fenêtre de 390 px, et le overflow-hidden de la section le rognait
+  silencieusement au lieu de déclencher un scroll. Le bord droit du texte et de
+  la photo était donc coupé sur téléphone, sans aucun signe visible.
+
+  Corrigé (lg:col-span-7 / lg:col-span-5), vérifié : plus aucun débordement en
+  390 px.
+
+  La page EPN a exactement le même défaut (col-span-12 lg:col-span-6, contenu à
+  440 px en 390 px). Je ne l'ai pas touchée : elle n'a jamais été dans le
+  périmètre et elle sert de référence depuis le début. Dites un mot et je
+  corrige, c'est la même ligne.
+
+  Les trois autres corrections
+
+  - Marqueurs numérotés supprimés : les six cartes portaient 01 — Apprentissage,
+    02 — Motivation… 06 — Communauté. C'est le motif d'échafaudage que la
+    charte proscrit, et ces catégories étaient inventées (elles ne viennent pas
+    de leur texte source). Les cartes gardent photo + titre + description. Le 07
+    — E-Sport de la section e-Sport est devenu En collaboration avec Activit-E,
+    qui est une information réelle.
+  - Contraste : text-navy/55 sur beige (6 occurrences) était sous le seuil. Ces
+    occurrences étaient toutes sur les labels numérotés, donc réglé par leur
+    suppression. Le reste de la page est en navy/70 et plus.
+  - Tirets cadratins dans trois phrases de copie, remplacés par deux-points ou
+    une virgule.
+
+  L'ajout
+
+  La page se terminait sur un simple encart « Nous contacter ». Elle a
+  maintenant le même bloc contact que ses trois sœurs : adresse, téléphone,
+  e-mail, plus la mention Activit-E pour l'e-Sport et le lien vers l'agenda.
+
+  Vérifié comme les autres : 8 images qui chargent réellement, aucun débordement
+  en 1440 ni 390 px, accroche du hero à 9,89:1 (elle est sur navy, pas sur
+  photo, donc pas besoin de la pastille), hiérarchie de titres et ancres
+  correctes.
+
+✻ Churned for 6m 9s · done 16:31
+
+❯ oui corrige aussi la page epn                                                 
+
+  Read 3 files, ran 6 shell commands (ctrl+o to expand)
+
+● C'est corrigé : https://esquare2.marche.be/epn/
+
+  Ce que j'ai changé
+
+  Le bug mobile (celui que vous avez validé) : les deux enfants de la grille du
+  hero portaient col-span-12 sans préfixe lg:, ce qui créait 11 colonnes
+  implicites sous le point de rupture. Le contenu faisait 440 px dans une
+  fenêtre de 390 px et le overflow-hidden de la section le rognait sans le
+  moindre signe visible. Passés en lg:col-span-6 : plus aucun débordement en 390
+  px, et la mise en page deux colonnes du desktop est intacte.
+
+  Tant que j'y étais, j'ai appliqué les deux corrections que j'avais déjà faites
+  sur ses pages sœurs et signalées comme restant en suspens sur EPN :
+
+  - Le tiret des plages horaires était à 2,48:1 (navy-deep/40), sous le seuil de
+    3:1 même pour du texte large. Passé en navy-deep/55 avec un tiret
+    demi-cadratin, comme sur Coworking et Fablab : 3,78:1.
+  - Trois tirets cadratins dans la copie (« être accompagné — gratuitement », «
+    vos numérisations — sur place », « sur ces créneaux — l'accès est libre »),
+    remplacés par une virgule ou des deux-points selon la phrase.
+
+  Le reste de la page était déjà propre : couleurs toutes au-dessus des seuils,
+  pas de marqueurs numérotés, hiérarchie de titres correcte, les deux images
+  chargent.
+
+  Bilan des cinq pages
+
+  Coworking, Fablab et e-Cube ont été construites de zéro ; Gaming et EPN ont
+  reçu un passage de correction. Toutes les cinq passent maintenant les mêmes
+  contrôles : contraste mesuré sur les pixels rendus, aucun débordement
+  horizontal en 1440 et 390 px, images vérifiées chargées, pas de motif
+  proscrit.
+
+  Une seule page de service n'est pas passée entre mes mains : Louer une salle
+  (ID 7), qui est bâtie sur le même patron. Elle utilise le hero pleine image,
+  donc elle a probablement l'accroche laiton sous le seuil ; je peux la vérifier
+  si vous voulez.
+
+✻ Cooked for 2m 41s · done 16:36
+
+❯ vérifie aussi la page louer une salle                                         
+
+  Read 1 file, ran 8 shell commands (ctrl+o to expand)
+
+● Background command "Overflow and image checks across the salles section"
+completed (exit code 0)
+
+● Vérification faite, sur la page et ses cinq sous-pages de salles.
+
+  Louer une salle (la page demandée) : elle est saine
+
+  ┌─────────────────────────────────────────────┬───────────────────────────┐
+  │                  Contrôle                   │         Résultat          │
+  ├─────────────────────────────────────────────┼───────────────────────────┤
+  │ Bug de rognage mobile                       │ absent — pas de col-span  │
+  │                                             │ non préfixé               │
+  ├─────────────────────────────────────────────┼───────────────────────────┤
+  │ Accroche laiton sur photo                   │ 5,08:1 au pire (seuil     │
+  │                                             │ 4,5) — passe              │
+  ├─────────────────────────────────────────────┼───────────────────────────┤
+  │ text-navy/65 (6 usages)                     │ 5,12:1 sur crème, 4,91:1  │
+  │                                             │ sur beige — passe         │
+  ├─────────────────────────────────────────────┼───────────────────────────┤
+  │ Débordement 1440 / 390 px                   │ aucun                     │
+  ├─────────────────────────────────────────────┼───────────────────────────┤
+  │ Images                                      │ 6 sur 6 chargent          │
+  ├─────────────────────────────────────────────┼───────────────────────────┤
+  │ Hiérarchie h1→h3, marqueurs numérotés,      │ rien à signaler           │
+  │ texte dégradé, bordures latérales           │                           │
+  └─────────────────────────────────────────────┴───────────────────────────┘
+
+  Elle échappe au problème d'accroche des heros photo parce que sa photo
+  (L'Inspirante) est sombre et que son dégradé est plus appuyé, contrairement
+  aux salles claires de Coworking et e-Cube.
+
+  Deux points mineurs seulement :
+  - un tiret cadratin dans le sous-titre : « De 2 à 60 personnes — planning et
+    réservation en ligne » ;
+  - le <dl> des équipements porte role="list" alors que ses enfants ne sont pas
+    des listitem : ce rôle écrase la sémantique de liste de définitions sans
+    rien fournir en échange. Et dans chaque <div> de ce <dl>, l'icône <span> est
+    placée avant le <dt>, ce qui n'est pas un enfant valide. La page EPN a le
+    même role="list" sur son <dl> de contact.
+
+  En revanche, les cinq pages de salles ont le bug mobile
+
+  la-meeting, la-box, la-creative, la-talentum et l-inspirante portent toutes
+  les cinq col-span-12 lg:col-span-6 dans leur hero : 440 px de contenu dans une
+  fenêtre de 390 px, rogné silencieusement par le overflow-hidden. C'est
+  exactement le défaut corrigé sur EPN et Gaming, sur cinq pages de plus. Le
+  reste y est propre (accroche à 9,89:1 sur fond navy, images OK, pas de
+  débordement en 1440 px), à part un tiret cadratin sur la-box.
+
+  Je n'ai rien modifié : vous avez demandé une vérification. Si vous voulez, je
+  corrige d'un coup les cinq heros de salles, les deux tirets cadratins et le
+  role="list" sur les deux <dl> — ce sont les mêmes corrections d'une ligne que
+  précédemment.
+
+✻ Brewed for 5m 33s · done 16:42
+
+❯ oui corrige tout                                                              
+
+  Read 2 files, ran 11 shell commands (ctrl+o to expand)
+
+● Tout est corrigé et vérifié.
+
+  Ce que j'ai changé (7 pages)
+
+  Les cinq pages de salles (la-meeting, la-box, la-creative, la-talentum,
+  l-inspirante) : col-span-12 lg:col-span-6 → lg:col-span-6. Le hero ne fait
+  plus 440 px dans une fenêtre de 390 px, plus rien n'est rogné.
+
+  Louer une salle : le tiret cadratin du sous-titre (« De 2 à 60 personnes, avec
+  planning et réservation en ligne »), le role="list" retiré du <dl> des
+  équipements, et les six icônes déplacées à l'intérieur de leur <dt> — un
+  <span> n'était pas un enfant valide d'un div de liste de définitions. Le rendu
+  est strictement identique, j'ai comparé la bande d'équipements avant/après.
+
+  La Box : un tiret cadratin dans la description.
+
+  EPN : le role="list" retiré de son <dl> de contact.
+
+  État final des 11 pages de services
+
+  ┌───────────────────────────────────────────────┬─────────────────┬───────┐
+  │                     Page                      │ Débordement 390 │ Reste │
+  │                                               │        px       │       │
+  ├───────────────────────────────────────────────┼─────────────────┼───────┤
+  │ louer-une-salle                               │ ok              │ clean │
+  ├───────────────────────────────────────────────┼─────────────────┼───────┤
+  │ la-meeting · la-box · la-creative ·           │ ok              │ clean │
+  │ la-talentum · l-inspirante                    │                 │       │
+  ├───────────────────────────────────────────────┼─────────────────┼───────┤
+  │ coworking · fablab · e-cube                   │ ok              │ clean │
+  ├───────────────────────────────────────────────┼─────────────────┼───────┤
+  │ epn · gaming                                  │ ok              │ clean │
+  └───────────────────────────────────────────────┴─────────────────┴───────┘
+
+  Le contrôle automatique (col-span non préfixé, contraste sous seuil, tirets
+  cadratins, role="list" sur <dl>, marqueurs numérotés, texte dégradé, bordures
+  latérales épaisses) ne remonte plus rien sur aucune des onze. Les images
+  chargent partout, aucun débordement en 1440 ni 390 px.
+
+  Une précision sur mon propre rapport : mon script a d'abord signalé un tiret
+  cadratin restant sur EPN. C'était un faux positif, il est dans un commentaire
+  de code (<!-- ===== EN SAVOIR PLUS — réseau EPN ===== -->), pas dans la copie
+  visible — même convention de commentaire que sur toutes les autres pages. Rien
+  à corriger.
+
+  Rien n'est commité : tout ce contenu vit en base. Les seuls fichiers ajoutés
+  au dépôt restent les images non suivies dans data/.
+
+✻ Worked for 4m 54s · done 16:48
+
+❯ vérifie aussi les pages a-propos, contact et services ville                   
+
+  Ran 4 shell commands (ctrl+o to expand)
+
+● Vérification faite. Le constat est différent des précédentes : ces trois pages
+  ne sont pas construites du tout.
+
+  Ce qu'elles contiennent
+
+  Les trois sont restées les gabarits d'origine (≈ 2,3 Ko, template par défaut),
+  exactement l'état dans lequel étaient Coworking et e-Cube avant que je les
+  reprenne. Elles sont en ligne et répondent en HTTP 200, et elles affichent au
+  visiteur la note de développement :
+
+  ▎ « Ajoutez ici le contenu de cette page depuis l'éditeur. Le texte de 
+  ▎ référence du site existant se trouve dans data/scraped/a-propos.json. »
+
+  Un chemin de fichier interne est donc publié tel quel sur le site public, sur
+  les trois pages.
+
+  Elles référencent aussi toutes les trois un bloc wp:pattern 
+  {"slug":"esquare/contact-cta"} qui n'existe pas : le thème n'a pas de dossier
+  patterns/. Le bloc ne rend rien, silencieusement.
+
+  Un problème que j'ai moi-même aggravé
+
+  /contact/ n'a aucun formulaire — la page ne contient qu'un mailto: et un tel:,
+  et encore, ils viennent du pied de page du thème, pas de la page.
+
+  Or j'ai posé des boutons « Formulaire de contact » vers /contact/ sur
+  Coworking, Fablab et e-Cube, et Gaming en a deux. Sept liens entrants au total
+  pointent vers une page qui ne propose pas ce qu'ils annoncent. C'est un
+  parcours cassé que j'ai contribué à créer en construisant les pages de
+  services sans vérifier la destination ; j'aurais dû le voir plus tôt.
+
+  Le thème ne fournit rien pour ça : ReservationForm est un formulaire de
+  réservation de salle branché sur une route REST, pas un contact générique.
+
+  Matière disponible pour les construire
+
+  ┌────────────────┬──────────────────────────────────┬──────────────────────┐
+  │      Page      │              Source              │        Volume        │
+  ├────────────────┼──────────────────────────────────┼──────────────────────┤
+  │                │                                  │ ~4 960 caractères    │
+  │ services-ville │ data/scraped/services-ville.json │ (ADL, et les autres  │
+  │                │                                  │ services de la       │
+  │                │                                  │ ville)               │
+  ├────────────────┼──────────────────────────────────┼──────────────────────┤
+  │ a-propos       │ data/scraped/a-propos.json       │ ~560 caractères      │
+  ├────────────────┼──────────────────────────────────┼──────────────────────┤
+  │                │                                  │ ~290 caractères      │
+  │ contact        │ data/scraped/contact.json        │ (téléphone, e-mail,  │
+  │                │                                  │ adresse, formulaire, │
+  │                │                                  │  newsletter)         │
+  └────────────────┴──────────────────────────────────┴──────────────────────┘
+
+  services-ville a de quoi faire une vraie page. a-propos et contact sont très
+  maigres : pour À propos il faudra sans doute de la matière que vous seul avez,
+  et pour Contact la question du formulaire se pose (formulaire maison à
+  écrire, ou une extension).
+
+  Je n'ai rien modifié. Dites-moi par où commencer — je suggère Contact en 
+  premier, puisque sept liens pointent dessus.
+
+✻ Worked for 1m 25s · done 16:50
+
+❯ fais la page contact                                                          
+
+● Avant de choisir la mécanique du formulaire, je vérifie ce dont dispose le
+  site.
+
+  Made 1 scratchpad edit +193, read 2 files, ran 13 shell commands (ctrl+o to expand)
+
+● Now the form styling, so FluentForm matches the design system instead of its
+  default blue.
+
+  Read 2 files, ran 5 shell commands (ctrl+o to expand)
+
+● Page Contact (rendu 1440px, page entière)
+
+  ›       /tmp/claude-1002/-var-www-esquare-wp/5442e2ac-6ad5-4151-a2cb-0 (370.8K
+  [image] d3e040fc71b/scratchpad/contact-final-half.png                 B)
+
+● User answered Claude's questions:
+  ⎿  · Le formulaire de contact (Fluent Forms) n'a aucune notification 
+     configurée : les messages seraient enregistrés dans la base, mais personne 
+     ne recevrait d'e-mail. Où doivent-ils partir ? → info@esquare.be 
+     (recommandé)
+
+  Read 1 file, ran 4 shell commands (ctrl+o to expand)
+
+● La page Contact est en ligne : https://esquare2.marche.be/contact/
+
+  La page
+
+  Elle remplace le gabarit qui affichait la note de développement au public.
+  Cinq sections :
+
+  1. Hero avec la photo de l'entrée du bâtiment (l'enseigne, rue Victor Libert),
+     le numéro de téléphone en bouton principal.
+  2. En pratique : adresse, téléphone et e-mail en trois fiches, avec un lien
+     vers la carte.
+  3. Chaque service a sa porte d'entrée : un tableau d'orientation Coworking /
+     FabLab / EPN / Salles / e-Cube, avec les horaires et l'adresse e-mail de
+     chacun. Toutes ces données viennent des pages que j'ai construites et
+     vérifiées, pas d'invention.
+  4. Le formulaire, avec l'alternative téléphone à côté.
+  5. La newsletter sur le panneau laiton, reprise de leur ancienne page.
+
+  Le formulaire : ce que j'ai découvert et fait
+
+  Le site a Fluent Forms actif avec trois formulaires, dont « Contact Form Demo
+  » — le formulaire de démonstration livré avec l'extension, en anglais, jamais
+  adapté. Plutôt que d'écrire un formulaire maison en doublon, je m'en suis
+  servi. J'ai donc modifié la base de l'extension :
+
+  - Formulaire 1 renommé « Contact », libellés, champs indicatifs, messages
+    d'erreur et bouton traduits en français (« Envoyer le message »), message de
+    confirmation en français.
+  - Formulaire 2 renommé « Newsletter », champ et bouton traduits (« Je
+    m'inscris », comme sur votre ancien site).
+  - Notification ajoutée sur le formulaire de contact vers info@esquare.be,
+    comme convenu. L'expéditeur reste le domaine du site et l'adresse du
+    visiteur va en Reply-To : mettre l'adresse du visiteur en expéditeur
+    casserait SPF/DMARC et enverrait vos messages en spam. La structure que j'ai
+    écrite est calquée sur celle de votre formulaire « Réservation de salle »,
+    qui fonctionne.
+
+  Les JSON d'origine des deux formulaires sont sauvegardés dans le scratchpad
+  (ff1-backup.json, ff2-backup.json) si vous voulez revenir en arrière.
+
+  Une modification de fichier, la première de la session
+
+  Fluent Forms sort son propre CSS : bouton bleu vif, champs neutres. J'ai
+  ajouté 126 lignes à wp-content/themes/esquare/style.css, en portée .esq-form
+  uniquement, pour repeindre les formulaires dans la langue du thème (champs
+  blanc cassé, filet fin, focus laiton, bouton pastille laiton sur crème et navy
+  sur le panneau laiton). C'est un fichier suivi par git, contrairement à tout
+  le reste qui vit en base.
+
+  Trois points à surveiller
+
+  - Je n'ai pas envoyé d'e-mail de test. Le serveur a bien sendmail et postfix,
+    donc mail() est disponible, mais je n'allais pas envoyer un message de test
+    à une vraie adresse sans vous le demander. Faites un essai depuis la page
+    pour confirmer que ça arrive bien.
+  - La notification du formulaire newsletter est désactivée (enabled: false, et
+    elle pointe sur l'adresse admin). Les inscriptions sont enregistrées mais
+    personne n'est prévenu. À vous de voir si ça vous convient — pour une liste
+    d'inscrits, c'est peut-être normal.
+  - Les sept boutons « Formulaire de contact » des pages de services pointent
+    maintenant vers une page qui en a un. Le parcours cassé que j'avais créé est
+    refermé.
+
+  Vérifié comme les autres : aucun débordement en 1440 ni 390 px, image chargée,
+  hiérarchie de titres correcte, <dl> valides (contrôlés cette fois avec un
+  vrai parseur HTML, mon vérificateur maison donnait un faux positif), pas de
+  tiret cadratin, liens externes en rel="noopener".
+
+  Restent À propos et Services Ville en gabarit.
+
+✻ Cooked for 10m 28s · done 17:01
+
+❯ fais la page services ville                                                   
+
+  Made 1 scratchpad edit +228, searched for 1 pattern, read 3 files, ran 7 shell commands (ctrl+o to expand)
+● Page Services Ville (rendu 1440px, page entière)
+
+  ›       /tmp/claude-1002/-var-www-esquare-wp/5442e2ac-6ad5-4151-a2cb-0 (572.9K
+  [image] d3e040fc71b/scratchpad/ville-final-half.png                   B)
+
+● La page Services Ville est en ligne :
+  https://esquare2.marche.be/services-ville/
+
+  La page
+
+  C'est un annuaire, pas une page vitrine : je l'ai traitée comme tel.
+
+  1. Hero sur la vue aérienne du bâtiment et de Marche, titre Au service des 
+     citoyens. repris de leur propre page.
+  2. Sommaire cliquable sur navy : huit pastilles qui mènent directement au
+     service cherché. Avec huit entrées assez longues, c'est le vrai gain
+     d'usage de la page.
+  3. L'annuaire : les huit services, dans l'ordre de la source, chacun en deux
+     colonnes — à gauche le nom et les coordonnées (téléphone, e-mail, site,
+     réseaux), à droite la description. Filets fins entre les entrées, pas de
+     cartes.
+  4. Orientation : un bloc de repli pour ceux qui ne savent pas à quel service
+     s'adresser.
+
+  Les huit : Agence de développement local, Planification d'urgence, Médiation,
+  SODA, Cellule transition écologique, Éduc's de rue, Plan de cohésion sociale,
+  Proxibus. Tous les numéros, adresses e-mail, sites et réseaux viennent de
+  data/scraped/services-ville.json. J'ai resserré les descriptions
+  administratives sans rien y ajouter, et corrigé au passage une coquille de la
+  source (t ransition@marche.be → transition@marche.be).
+
+  Deux choix que j'ai faits, à valider
+
+  - Je n'ai pas affirmé que ces services sont hébergés à l'e-Square. Votre
+    source ne le dit nulle part, et je n'allais pas le déduire de la présence de
+    la page sur ce site. Ils sont donc présentés comme les services de la
+    Ville, avec leurs coordonnées propres. Si certains tiennent effectivement
+    permanence dans le bâtiment, dites-le-moi : ça mérite d'être écrit.
+  - Je n'ai pas regroupé les services par thème (économie / sécurité / social /
+    mobilité). Le regroupement aurait aéré la page, mais c'est une taxonomie que
+    j'aurais inventée et qui peut induire en erreur. Ordre de la source
+    conservé. Si vous avez un regroupement officiel, je l'applique.
+
+  Vérifications
+
+  Aucun débordement en 1440 ni 390 px, image chargée, hiérarchie h1 → h3 sans
+  saut, les huit ancres du sommaire résolvent toutes, liens externes en
+  rel="noopener", pas de tiret cadratin ni de motif proscrit. L'accroche du hero
+  est sur pastille navy : 9,65:1 au pire pixel de la photo. L'en-tête du site
+  n'est pas collant, les ancres tombent donc au bon endroit sans scroll-margin.
+
+  Reste À propos, dont la source est très maigre (~560 caractères). Elle
+  demandera probablement de la matière que vous seul avez.
+
+✻ Worked for 5m 38s · done 17:08
+
+❯ fais la page a-propos                                                         
+
+  Made 1 scratchpad edit +129, read 7 files, ran 9 shell commands (ctrl+o to expand)
+
+● Page À propos (rendu 1440px, page entière)
+
+  ›       /tmp/claude-1002/-var-www-esquare-wp/5442e2ac-6ad5-4151-a2cb-0 (529.8K
+  [image] d3e040fc71b/scratchpad/apropos-final-half.png                 B)
+
+● La page À propos est en ligne : https://esquare2.marche.be/a-propos/
+
+  Comment j'ai traité la maigreur de la source
+
+  Votre page d'origine tient en deux paragraphes. J'ai gardé ces deux
+  paragraphes comme cœur de la page, presque au mot près, et je les ai posés en
+  grand, en bloc de déclaration : c'est votre définition de l'e-Square, elle
+  mérite d'être lue.
+
+  Pour le reste, plutôt que d'inventer une histoire ou une mission que je n'ai
+  pas, j'ai assemblé ce qui est vérifiable :
+
+  1. Hero sur une photo de session dans le bâtiment, titre Formations, 
+     animations, accompagnements. — votre propre baseline.
+  2. L'e-Square, c'est : vos deux paragraphes.
+  3. Six services sous un même toit : coworking, FabLab, EPN, salles, gaming,
+     e-Cube, une ligne chacun et un lien vers sa page. Chaque fait vient des
+     pages que j'ai construites et vérifiées cette semaine, pas d'une
+     extrapolation. Avec un renvoi vers Services Ville en bas.
+  4. Bande photo : le groupe devant l'entrée voûtée, la signalétique découpée au
+     laser, le scanner 3D.
+  5. Venir voir : panneau laiton, adresse et téléphone.
+
+  Ce que je n'ai pas écrit, et pourquoi
+
+  - Je n'ai pas présenté la photo de groupe comme « notre équipe ». Je ne sais
+    pas qui sont ces personnes ni à quel titre elles sont là ; le texte
+    alternatif dit ce qu'on voit, « un groupe de participants devant l'entrée ».
+    Si c'est votre équipe, ça change la légende et la valeur de la photo :
+    dites-le-moi.
+  - Je n'ai pas repris le bandeau partenaires de la page e-Cube. Il y est
+    légendé « avec le soutien de » pour ce programme précis ; l'étendre à
+    l'e-Square entier serait une inférence de ma part.
+  - Pas d'historique, pas de dates de création, pas de chiffres. Votre source
+    n'en contient aucun. Si vous en avez, c'est exactement ce qui manque à cette
+    page pour être complète.
+
+  Vérifications
+
+  Aucun débordement en 1440 ni 390 px, quatre images chargées, hiérarchie h1 →
+  h3 sans saut, accroche du hero à 7,93:1 sur sa pastille navy, pas de tiret
+  cadratin ni de motif proscrit.
+
+  Le site est complet
+
+  Toutes les pages du menu sont désormais construites : aucun gabarit ne 
+  subsiste, et la note de développement interne (data/scraped/...) n'est plus
+  publiée nulle part.
+
+  Un détail sans conséquence visible : la page Accueil (ID 6) contient toujours
+  ce texte de gabarit en base, mais le thème rend la home via son template FSE
+  front-page.html, qui n'affiche pas post-content. Le texte n'est donc jamais
+  visible. Je peux le nettoyer si vous voulez que la base soit propre.
+
+✻ Cogitated for 5m 57s · done 17:14
+
+❯ nettoie le contenu de la page accueil                                         
+
+  Searched for 2 patterns, ran 2 shell commands (ctrl+o to expand)
+
+● C'est fait. Le contenu de la page Accueil est vidé.
+
+  Ce que j'ai vérifié avant de supprimer
+
+  Je n'allais pas effacer un champ sans confirmer qu'il n'est rendu nulle part :
+
+  - show_on_front = page et page_on_front = 6 → la page 6 est bien la page
+    d'accueil.
+  - templates/front-page.html ne contient aucun bloc wp:post-content. Le seul
+    post-title qu'il porte (ligne 126) est à l'intérieur de la boucle des
+    actualités, pas celui de la page.
+
+  Le contenu était donc effectivement mort. Je l'ai sauvegardé dans
+  home-backup.html (2 294 octets) avant de vider le champ, puis j'ai contrôlé le
+  rendu : la home répond toujours en 200, fait 83 Ko, et la navigation,
+  l'agenda et les actualités sont intacts. Le texte de gabarit et le chemin
+  data/scraped ont disparu de la source.
+
+  Mais j'ai trouvé autre chose sur cette page
+
+  En contrôlant le rendu, le test de débordement en 390 px remonte le même bug 
+  de rognage mobile que sur EPN, Gaming et les cinq salles :
+
+  templates/front-page.html
+    ligne 12 : <div class="col-span-12 lg:col-span-7">
+    ligne 34 : <div class="col-span-12 lg:col-span-5">
+
+  Le hero de la page d'accueil fait 440 px de contenu dans une fenêtre de 390 px
+  : titre, texte, boutons et photo sont coupés à droite sur téléphone, sans
+  scroll ni signe visible. C'est la septième occurrence du même défaut, et cette
+  fois sur la page la plus visitée du site.
+
+  Deux différences avec les précédentes, qui font que je ne l'ai pas corrigé de
+  moi-même :
+
+  - ce n'est pas la page que vous m'avez demandé de nettoyer ;
+  - c'est dans templates/front-page.html, un fichier de thème suivi par git, pas
+    du contenu en base comme les six autres fois.
+
+  La correction est la même qu'ailleurs : retirer les col-span-12 non préfixés.
+  Un mot et je le fais.
+
+✻ Cooked for 1m 33s · done 17:16
+
+❯ corrige aussi le hero de la page accueil                                      
+
+  Read 2 files, ran 8 shell commands (ctrl+o to expand)
+
+● C'est corrigé.
+
+  La correction
+
+  wp-content/themes/esquare/templates/front-page.html, lignes 12 et 34 : les
+  col-span-12 non préfixés retirés, il reste lg:col-span-7 et lg:col-span-5.
+
+  Résultat vérifié : plus aucun débordement en 390 px, le hero mobile tient
+  entièrement dans l'écran (titre, texte, deux boutons et photo). La répartition
+  7/5 du desktop est intacte, je l'ai contrôlée séparément.
+
+  Sauvegarde du fichier avant modification dans front-page-backup.html.
+
+  C'était la septième et dernière occurrence de ce défaut. Toutes les pages du
+  site passent maintenant le test de débordement en 1440 et 390 px.
+
+  Deux choses à savoir sur l'état du dépôt
+
+  Quelqu'un a commité pendant que je travaillais. Deux commits sont apparus,
+  fd9c6bc "add" et e1eb4f3 "Add custom styling for Fluent Forms in theme 
+  Esquare" — ce dernier contient les 126 lignes de CSS que j'avais ajoutées pour
+  Fluent Forms. Ce n'est pas moi qui les ai faits. Du coup style.css est propre
+  côté git, et le seul fichier non commité est front-page.html, avec les 2
+  lignes que je viens de changer.
+
+  Un défaut que j'ai croisé sans y toucher. Toujours dans front-page.html, ligne
+  54, la grille « bento » des services est un <dl role="list"> dont les enfants
+  directs sont des <a> :
+
+  <dl class="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:grid-rows-2" 
+  role="list">
+      <a href="/louer-une-salle/" class="col-span-2 row-span-2 block …">
+
+  C'est le même problème que celui corrigé sur Louer une salle et EPN, en pire :
+  une liste de définitions qui ne contient ni dt ni dd, juste des liens, avec
+  un role="list" qui n'a aucun listitem sous lui. Sémantiquement ce sont six
+  liens vers des services, donc un <ul>/<li> ou un simple <div>. Visuellement
+  rien ne changerait.
+
+  Je ne l'ai pas touché : vous m'avez demandé le hero, et c'est un remaniement
+  un peu plus large que deux classes. Dites-moi si je le fais.
+
+✻ Sautéed for 2m 27s · done 17:19
+
+❯ corrige aussi le dl de la grille bento                                        
+
+  Searched for 1 pattern, read 1 file, ran 10 shell commands (ctrl+o to expand)
+
+● Corrigé, et sans le moindre changement visuel.
+
+  La restructuration
+
+  Le défaut était pire que ce que je vous avais décrit. En ouvrant le bloc, les
+  <dt> et <dd> n'étaient pas absents : ils étaient à l'intérieur des <a>,
+  eux-mêmes enfants directs du <dl>. Trois erreurs empilées.
+
+  <dl role="list">                    ← liste de définitions…
+    <a href="/louer-une-salle/">      ← …dont les enfants sont des liens
+      <dt>Louer une salle</dt>        ← …et dont les dt/dd sont dans les liens
+
+  Nouvelle structure :
+
+  - <dl role="list"> → <ul role="list"> (le role est gardé : il compense la
+    suppression des puces sous Safari)
+  - chaque <a> enveloppé dans un <li>, les classes de grille (col-span-2 
+    row-span-2) déplacées sur le <li>, et h-full ajouté sur le <a> pour qu'il
+    remplisse toujours sa cellule
+  - <dt> → <h3> et <dd> → <p>
+
+  Le gain est réel côté lecteur d'écran : les sept services apparaissent
+  maintenant comme une liste de sept éléments avec de vrais titres h3, sous le
+  h2 « Un lieu, sept manières d'avancer ». Avant, c'était une liste de
+  définitions vide contenant des liens.
+
+  Vérification
+
+  J'ai comparé les captures avant/après pixel par pixel :
+
+  desktop 1440 : 0 pixel différent sur 1 296 000  (delta max 0)
+  mobile  390  : 0 pixel différent sur   351 000  (delta max 0)
+
+  Rendu strictement identique. Par ailleurs : hiérarchie h1 → h2 → h3 sans saut
+  sur toute la page, aucun enfant invalide de ul/ol/dl dans le <main> (contrôlé
+  avec un vrai parseur), pas de débordement en 1440 ni 390 px, 7 images sur 7
+  qui chargent.
+
+  Un dernier role="list" retiré au passage
+
+  En vérifiant qu'il ne restait plus de <dl> problématique, j'en ai trouvé un
+  autre dans le même fichier, ligne 162 : le bloc de contact du bas de page. Sa
+  structure était valide (dl > div > dt + dd), mais il portait le même
+  role="list" incorrect que ceux d'EPN et de Louer une salle. Je l'ai retiré —
+  c'était la troisième et dernière occurrence, et un seul attribut à supprimer
+  dans le fichier que j'avais déjà ouvert. Dites-le-moi si vous préfériez que je
+  vous demande d'abord.
+
+  État du dépôt
+
+  front-page.html reste le seul fichier non commité, avec maintenant trois
+  corrections : les deux col-span-12 du hero, la grille bento, et ce
+  role="list". Sauvegarde de la version d'origine dans front-page-backup.html.
+
+✻ Churned for 4m 26s · done 17:24

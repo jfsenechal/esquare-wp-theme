@@ -1,0 +1,530 @@
+ ▐▛███▛█   Claude Code v2.1.263
+▝▜██████▀  Opus 5 · Claude Pro
+  ▝▝ ▝▝    /var/www/esquare-wp
+
+
+❯ try reservation api ESQUARE_API_BASE try with get entries 20216-09-10 room    
+  la-meeting                                                                    
+
+● I'll look at the reservation API code and env config first.
+
+  Searched for 1 pattern, listed 3 directories, ran 7 shell commands (ctrl+o to expand)
+
+● The API works. Results for 2026-09-10, room "la-meeting" → Meeting Room 
+  (room_id 115):
+
+  ┌────────┬───────┬───────┬──────────────────────┬──────────┐
+  │   id   │ start │  end  │         name         │ moderate │
+  ├────────┼───────┼───────┼──────────────────────┼──────────┤
+  │ 235933 │ 13:00 │ 17:00 │ Eugeen Gruyaert      │ 2        │
+  ├────────┼───────┼───────┼──────────────────────┼──────────┤
+  │ 234657 │ 18:00 │ 22:00 │ Thierry van Ravestyn │ 2        │
+  └────────┴───────┴───────┴──────────────────────┴──────────┘
+
+  (meta.total: 2, single page.)
+
+  What I verified against EntriesApi.php:
+
+  - Auth works — POST {base}/login with the .env credentials returns a token (51
+    chars), exactly the shape login() expects (token key).
+  - GET /entries?room_id=&start_date=&end_date= is correct: filtering by
+    room_id=115 and start_date=end_date=2026-09-10 returned only those 2
+    entries, and the response has the data / meta.last_page structure
+    busySlots() paginates on.
+  - Rooms must be referenced by numeric id, not slug. ?room=la-meeting is
+    silently ignored — it returned all 34 entries of that day across 23 rooms.
+    There is no /rooms or /salles route (404, "The route esquare/rooms could not
+    be found."), so the id→name map has to come from the room object embedded
+    in entries. "la-meeting" is room 115, "Meeting Room".
+  - Timestamps are unix seconds (start_time/end_time), matching toSlot();
+    entries also carry beneficiaire, description, type, moderate — personal data
+    your toSlot() correctly strips before it reaches the browser.
+
+  Two notes worth acting on:
+
+  1. An unknown query param is ignored rather than rejected, so a wrong room_id
+     name would silently return every room's bookings — worth keeping the strict
+     absint check you already have in ReservationForm.php:114.
+  2. busySlots() queries a full year with per_page: 15 and MAX_PAGES: 20 — that
+     caps at 300 entries. For a busy room a year out that's plausibly short; the
+     API accepts pagination, so consider passing a larger per_page (untested —
+     I didn't want to hammer the live system) or raising the cap.
+
+  I left the token only in the scratchpad file, and didn't POST anything to the
+  live API.
+
+✻ Cogitated for 1m 12s · done 13:27
+
+❯ wp-content/themes/esquare/src/Reservation/ReservationForm.php check it is set 
+  occupé for this date                                                          
+
+  Ran 16 shell commands (ctrl+o to expand)
+
+● The API side is confirmed. Now let me verify the calendar actually paints that
+  day as occupied — I'll test the real CalendarJS binding with the exact
+  payload the endpoint returns.
+
+  Called claude-in-chrome 2 times, ran 12 shell commands (ctrl+o to expand)
+
+● Backend: correct. Front end: the day is not shown as occupied.
+
+  What's right
+
+  ReservationForm.php:47 maps page 59 → room 115 (Meeting Room) — that's
+  "la-meeting", confirmed against the live API. I replayed the exact busySlots()
+  call (room_id=115, start_date=2026-09-08, end_date=2027-09-08, paginated to
+  meta.last_page, 3 pages, 35 slots). 2026-09-10 is in it, twice:
+
+  {"date":"2026-09-10","start":"13:00","end":"17:00","title":"Occupé"}
+  {"date":"2026-09-10","start":"18:00","end":"22:00","title":"Occupé"}
+
+  So GET /esquare/v1/availability?room_id=115 does return that date as occupied.
+  (Those two match SLOT_TIMES 13h00 à 17h00 and 18h00 à 22h00 exactly, so the
+  timezone handling in toSlot() is right.)
+
+  What's broken
+
+  I ran CalendarJS + LemonadeJS from the same CDN URLs in jsdom with that exact
+  payload. The events reach the correct cells, but nothing renders. Sept 10's
+  cell:
+
+  <div data-start="false" data-end="false" data-last="false" data-range="false"
+       data-grey="false" data-selected="true" data-disabled="false">10</div>
+
+  No data-event attribute — 10 of 42 cells hold event arrays, and
+  div[data-event=true] matches 0.
+
+  Cause: CalendarJS's day template binds data-event="{{self.data}}", and
+  self.data is the array of events. LemonadeJS's setter routes object/array
+  values to a JS property (el['data-event'] = [...]) instead of an HTML
+  attribute — only strings/booleans become attributes. So the library's own
+  marker rule,
+  .lm-calendar-content>div[data-event=true]::before{…background-color:red},
+  never matches. The array is there (cell['data-event'] is Array(2) on the
+  10th), just invisible.
+
+  Two consequences beyond the missing dot: the 'Occupé' title is never displayed
+  anywhere, and occupied days stay selectable (data-disabled="false") — a
+  visitor can pick 2026-09-10 even though it's booked twice.
+
+  Fix
+
+  validRange accepts a function called on every render — validRange(day, month, 
+  year, cell), returning true to disable. It's the supported hook, survives
+  month navigation, and can set cell.bold (styled by
+  div[data-bold=true]{font-weight:700}). In buildCalendar
+  (ReservationForm.php:556):
+
+  function buildCalendar(events) {
+      if (!window.calendarjs || !window.calendarjs.Calendar || !calHost) {
+  return; }
+      var busy = {};
+      events.forEach(function (e) { (busy[e.date] = busy[e.date] || []).push(e);
+  });
+
+      calendar = window.calendarjs.Calendar(calHost, {
+          type: 'inline', format: 'YYYY-MM-DD', footer: false, startingDay: 1,
+          data: events,
+          validRange: function (d, m, y, cell) {
+              var iso = y + '-' + ('0' + (m + 1)).slice(-2) + '-' + ('0' +
+  d).slice(-2);
+              cell.bold = !!busy[iso];          // visible marker
+              return iso < todayISO();          // keep the "no past dates" rule
+          },
+          onchange: function (self, value) {
+              if (typeof value === 'string') { toggleDate(value.substring(0,
+  10)); }
+          }
+      });
+  }
+
+  Note validRange as a function replaces the validRange: ['2026-…'] array, so
+  the past-date rule has to move into it — that's what the return line does. Add
+  || !!busy[iso] to that return if booked days should also be unselectable; I
+  left them selectable since your entries come back with moderate: 2 and the
+  form is a request, not a confirmed booking. Your call.
+
+  One unrelated thing I noticed: enqueueAssets (:86-88) loads @calendarjs/ce and
+  lemonadejs from jsDelivr without a version in the URL while passing
+  '1.1.0'/'5.3.6' as the WP version string — so you actually ship whatever
+  latest is that day. Worth pinning the URLs (@calendarjs/ce@1.1.0).
+
+  I didn't modify any files, and nothing was POSTed to the live API.
+
+✻ Crunched for 4m 32s · done 13:45
+
+❯ apply the validRange fix                                                      
+
+  Searched for 1 pattern, ran 6 shell commands (ctrl+o to expand)
+
+● Now let me verify the patched code actually renders the marker, using the same
+  jsdom harness with the real payload.
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+● Applied. Two changes in ReservationForm.php:
+
+  1. buildCalendar (:558) — validRange is now a function. It sets cell.bold for
+  days that have busy slots, and carries the past-date rule the array form used
+  to provide (return iso < todayISO()).
+
+  2. The theme's marker CSS (:491) — you already had a red-dot rule and an
+  "Occupé" legend, both keyed on [data-event="true"], which never matched for
+  the reason found earlier. Retargeted to [data-bold="true"], so the existing
+  dot and legend now work as intended.
+
+  I dropped the tooltip/DOM-annotation helper I first sketched: cell.title is
+  CalendarJS's day number, not a tooltip, so writing to it would have
+  overwritten the digit — and matching cells by day number across a year-wide
+  event map was ambiguous. The legend already says what the dot means.
+
+  Verified against the live payload (35 real slots for room 115, in jsdom with
+  the actual CDN builds, running the patched functions extracted from the file):
+
+  - Sept 10 now renders data-bold="true" — <div … data-grey="false" 
+    data-bold="true" data-selected="false" data-disabled="false">10</div>; the
+    dot rule matches 13 cells in September, up from 0.
+  - Past dates still disabled — 8 cells (Aug 31 + Sep 1–7, today being Sep 8),
+    same as before.
+  - Month navigation is clean — CalendarJS pools its 42 cell objects and never
+    resets bold itself, so a stale flag was the risk; because the callback
+    assigns on every cell of every render, October shows its own 12 busy days
+    and returning to September reproduces the identical 13. bold is otherwise
+    unused by the library (referenced only in its day template), so nothing else
+    contends for it.
+  - php -l clean.
+
+  Booked days remain selectable (data-disabled="false") — the entries come back
+  with moderate: 2 and this form submits a request, not a confirmed booking. Add
+  || !!busy[iso] to that return if you'd rather block them outright.
+
+  Still open from the earlier check, untouched since you didn't ask: the CDN
+  URLs at :86-88 are unversioned, so the theme ships whatever @calendarjs/ce and
+  lemonadejs resolve to as latest — a future release changing that day template
+  would silently break this marker again. Pinning them (@calendarjs/ce@1.1.0,
+  lemonadejs@5.3.6) would match the version strings you already pass to
+  wp_enqueue_*.
+
+✻ Sautéed for 2m 0s · done 14:06
+
+❯ pin the CDN versions                                                          
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+● Pinned, and the versions now match the strings already passed to wp_enqueue_*.
+
+  No behavior change today: latest currently resolves to exactly these versions
+  (@calendarjs/ce → 1.1.0, lemonadejs → 5.3.6), and I confirmed the pinned URLs
+  return files byte-identical (md5) to the unpinned ones I ran the calendar
+  verification against. So the fix from the previous step is still verified
+  against precisely what the theme now ships.
+
+  Worth knowing: lemonadejs has a 6.0.0-beta.0 published. A major bump is
+  exactly the kind of thing that would have silently re-broken the busy-day
+  marker — the fix depends on how Lemonade binds {{self.bold}} in CalendarJS's
+  day template — so the pin is doing real work here.
+
+  php -l clean. Both files' changes are in the working tree, uncommitted.
+
+✻ Sautéed for 33s · done 14:09
+
+❯ when a day is selected if they are busy slot display it as anonymous to see   
+  hours it is reserved because it can be free in morning and busy afternoon     
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Now let me exercise the real code paths in jsdom — clicking Sept 10 and a free
+  day, against the live payload.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Done. Selecting a day now shows its taken hours under the chips.
+
+  Markup (:386) — a panel after the chips list, aria-live="polite" so screen
+  readers announce it when the selection changes:
+
+  <div class="mt-3 hidden rounded-xl border border-navy/10 p-3" 
+  data-resa-busy-info aria-live="polite"></div>
+
+  JS — the date→slots index moved out of buildCalendar into a shared busyByDate,
+  and syncDates() now calls renderBusyInfo(), so the panel tracks every add and
+  every chip removal. Each selected date gets one line: occupé 13:00–17:00 · 
+  18:00–22:00, or aucun créneau réservé.
+
+  Verified in jsdom against the live payload for room 115, dispatching real
+  clicks on the calendar cells:
+
+  ┌───────────────────┬─────────────────────────────────────────────────────┐
+  │      action       │                        panel                        │
+  ├───────────────────┼─────────────────────────────────────────────────────┤
+  │ nothing selected  │ hidden                                              │
+  ├───────────────────┼─────────────────────────────────────────────────────┤
+  │ click 10 Sept     │ 10/09/2026 : occupé 13:00–17:00 · 18:00–22:00       │
+  ├───────────────────┼─────────────────────────────────────────────────────┤
+  │ add 15 Sept       │ adds 15/09/2026 : aucun créneau réservé             │
+  │ (free)            │                                                     │
+  ├───────────────────┼─────────────────────────────────────────────────────┤
+  │ add 11 Sept       │ adds 11/09/2026 : occupé 08:30–17:00, kept in date  │
+  │                   │ order                                               │
+  ├───────────────────┼─────────────────────────────────────────────────────┤
+  │ remove a chip     │ that line disappears                                │
+  └───────────────────┴─────────────────────────────────────────────────────┘
+
+  The hidden dates_souhaitees input stayed in sync throughout
+  (2026-09-11,2026-09-15 at the end).
+
+  Points worth knowing:
+
+  - It stays anonymous. The hours come from EntriesApi::toSlot(), which already
+    returns only date/start/end/title: 'Occupé' — beneficiaire, description and
+    the rest never leave the server, so there was nothing to strip client-side.
+    That's exactly your 10 Sept case: free until 13:00, taken 13:00–17:00 and
+    18:00–22:00.
+  - I list free days explicitly rather than omitting them — silence would be
+    ambiguous with availability having failed to load.
+  - Duplicate hour ranges are collapsed and the ranges sorted, so two bookings
+    sharing a slot read as one line.
+  - Text is built with createElement/textContent, matching syncDates(), and the
+    strings are hardcoded French like the rest of the modal (the __() calls in
+    this file are PHP-side only).
+
+  One thing I deliberately did not do: cross-check the visitor's chosen Horaires
+  radio against these slots. Picking 13h00 à 17h00 on 10 Sept is still accepted
+  with no warning. That's a real conflict-warning feature rather than a display
+  one — say the word and I'll wire it up.
+
+✻ Churned for 1m 40s · done 14:12
+
+❯ add the conflict warning for horaires                                         
+
+  Searched for 1 pattern, ran 6 shell commands (ctrl+o to expand)
+
+● Added. Picking a horaire that overlaps a booking on any selected date now
+  shows a warning under the radios.
+
+  How it's wired
+
+  - $config['slotTimes'] = self::SLOT_TIMES (:357) hands the label → [start, 
+    end] map to JS — the same constant buildEntry() uses, so the warning can't
+    drift from what actually gets submitted.
+  - The radio loop now iterates array_keys(self::SLOT_TIMES) instead of a
+    duplicated literal array. Verified the rendered labels and their order are
+    byte-identical to before, and required still lands on the first one.
+  - renderHoraireConflict() runs on radio change, on every date add/remove, and
+    once availability arrives. Overlap is the standard half-open test (start < 
+    range[1] && range[0] < end), so slots that merely touch don't warn.
+  - The warning is informative, not blocking — submission proceeds, since
+    entries come back moderate: 2 and this is a request.
+
+  Verified in jsdom against the live room-115 data, driving real clicks and
+  change events. 10 Sept is booked 13:00–17:00 and 18:00–22:00:
+
+  ┌─────────────────────────┬────────────┐
+  │   horaire on 10 Sept    │   result   │
+  ├─────────────────────────┼────────────┤
+  │ 8h30 à 12h30 (morning)  │ no warning │
+  ├─────────────────────────┼────────────┤
+  │ 13h00 à 17h00           │ warns      │
+  ├─────────────────────────┼────────────┤
+  │ 18h00 à 22h00           │ warns      │
+  ├─────────────────────────┼────────────┤
+  │ 8h30 à 17h00 (spans it) │ warns      │
+  └─────────────────────────┴────────────┘
+
+  Multiple dates accumulate into one line (10/09/2026 (13:00–17:00) ; 11/09/2026
+  (08:30–17:00)), and clearing the selection hides it. Boundary cases:
+  08:30–12:30 against a 12:30 start → silent; against 12:29 → warns; an
+  open-ended slot (end_time: 0, which toSlot() renders as '') is treated as
+  running to end of day, so it warns rather than silently passing.
+
+  php -l clean. Full change set now spans four things — the validRange marker
+  fix, the pinned CDN URLs, the busy-hours panel, and this — all uncommitted in
+  the working tree (+133/−12).
+
+✻ Sautéed for 1m 44s · done 14:16
+
+❯ see capture data/La-Meeting-–-E-square-09-08-2026_02_20_PM.png                
+  the icon for lm-calendar-navigation are not visible (expand text)             
+
+  Read 1 file, listed 2 directories, ran 4 shell commands (ctrl+o to expand)
+
+● Now let me render it in headless Chrome to check it actually looks right —
+  before and after.
+
+  Read 3 files, ran 2 shell commands (ctrl+o to expand)
+
+● Headless-Chrome render of the calendar with the fix: the
+  "expand_less/expand_more" text is now two chevrons.
+
+  ›       /tmp/claude-1002/-var-www-esquare-wp/d4c37a68-505f-4bc6-84a8-3a (18.5K
+  [image] e747dcdd10/scratchpad/nav-after.png                            B)
+
+● Fixed — the render above is the calendar with the patch applied.
+
+  Cause: CalendarJS ships its month navigation as Material Symbols ligatures —
+  the buttons literally contain the text expand_less / expand_more, and its
+  stylesheet expects an icon font to turn them into arrows:
+
+  .lm-calendar .lm-calendar-icon{font-family:"Material Symbols 
+  Outlined","Material Icons",FontAwesome;font-size:24px;width:40px;…}
+
+  The theme loads none of those fonts, so the words rendered as 24px text inside
+  40px buttons — hence the overlapping "expand_lessexpand_more" in your
+  screenshot.
+
+  Fix: drew the two chevrons in CSS instead of pulling in a webfont for two
+  arrows — font-size:0 on the buttons hides the ligature text, and a rotated
+  ::before border box draws each arrow (up = previous month, down = next,
+  matching the library's own up/down semantics). Confirmed by clicking them:
+  button 1 goes September → August, button 2 goes forward.
+
+  Also added labelNavButtons(): hiding the text would have left those buttons
+  with no accessible name, so they now get aria-label/title of "Mois précédent"
+  / "Mois suivant" — better than the English ligature name they had before. The
+  buttons are created once and survive month re-renders (verified by tagging one
+  and navigating), so labelling them after build is enough.
+
+  Verified by rendering the real theme CSS (extracted from the <style> block in
+  the file) against the pinned CDN builds in headless Chrome, before and after.
+  Same page, only the new nav rules removed, reproduces your screenshot exactly.
+
+  The red busy-day dots visible in your capture also confirm the earlier
+  validRange fix is live: 8, 10, 11, 14, 16, 17, 18, 22, 27, 29 — exactly the 13
+  marked cells my jsdom run predicted for room 115.
+✻ Crunched for 2m 20s · done 14:24
+
+❯ what must be do ?: TODO (see handleReservation) — that step is wired up       
+  later.                                                                        
+  ⎿  ⧉ Selected 1 lines from 
+     wp-content/themes/esquare/src/Reservation/ReservationForm.php in PhpStorm
+
+  Searched for 1 pattern, ran 3 shell commands (ctrl+o to expand)
+
+● That TODO is stale — the forwarding it refers to is already built and
+  verified. data/api.txt:80 records POST esquare/entries working end-to-end on
+  2026-06-12 (HTTP 201, test entry #234297, since deleted by hand), .env has
+  ESQUARE_API_CREATE_PATH=entries, and handleReservation() → forwardToApi() →
+  EntriesApi::createEntry() is live. So the docblock at :19-20 and the "Disabled
+  until ESQUARE_API_CREATE_PATH is configured" comment at :142 should just be
+  corrected — they now describe the opposite of what the code does.
+
+  What genuinely remains, most urgent first:
+
+  1. room_id is client-controlled on the POST route. This is the one I'd fix
+  today. handleAvailability() checks it (:115, in_array($roomId, 
+  self::PAGE_ROOM_MAP, true)), but the reservation path never does:
+  sanitizeSubmission() just does absint() (:282) and buildEntry() puts it
+  straight into the payload (:222). The route is permission_callback: 
+  __return_true and the nonce is printed into the page for logged-out visitors,
+  so a script can POST room_id: 9 and create real bookings in Salle du Conseil —
+  any room in the municipal system, not just the five e-square ones. And
+  there's no API delete route, so every bogus entry needs manual admin cleanup.
+  Fix: the same in_array(..., PAGE_ROOM_MAP, true) check in
+  validateSubmission(), returning 422.
+
+  2. Nothing throttles that public endpoint. Even with room_id locked down, a
+  bot can create unlimited entries in the five real rooms. Wants a rate limit
+  (transient keyed by IP), a honeypot field, or both.
+
+  3. horaires isn't validated against SLOT_TIMES. validateSubmission() only
+  checks it's non-empty (:327). An unknown value makes buildEntry() return null,
+  so nothing bad is created — but it's counted as failed and the visitor still
+  gets the success message. Should be a 422.
+
+  4. Submissions aren't stored anywhere durable. error_log() (:139) is the only
+  record. If the API POST fails, the request exists solely in the PHP log while
+  the visitor is told it went through (:156). A CPT — or any table — holding the
+  submission plus the forwarding result would make failures recoverable.
+
+  5. Nobody is notified. No mail to e-square when a request lands, no
+  confirmation to the visitor. symfony/mailer is already a dependency, though
+  wp_mail() is the smaller step.
+
+  6. Server-side double-booking check. The overlap warning I added is
+  client-side only and advisory. The server could re-check busySlots() before
+  creating. May be unnecessary if the venue moderates everything — which brings
+  up:
+
+  7. One question for the salles maintainer: the entries their own system
+  creates for this flow come back as type: "H", create_by: "ESQUARE", moderate: 
+  2, entry_type: 0. We send entry_type: 1 and no moderation flag, so ours may
+  land as confirmed rather than awaiting moderation. Worth confirming what a web
+  request should look like on their side.
+
+  8. Minor: buildEntry() sends a meta array (:230) that data/api.txt:85 says the
+  controller ignores — the same information is already in description. Dead
+  weight.
+
+  Want me to take 1–3 now? They're small, self-contained, and they're the ones
+  with an actual abuse path. 4 and 5 are a bigger piece of work, and 7 is a
+  question for the other team rather than code.
+
+✻ Cogitated for 1m 10s · done 15:17
+
+❯ yes do 1-3 and fix the stale comments                                         
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Now a harness that stubs the WP functions and exercises the real methods via
+  reflection.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● All three done, plus the comments. Verified by running the real methods
+  through reflection against stubbed WP functions:
+
+  1. room_id is now server-checked (validateSubmission, strict in_array against
+  PAGE_ROOM_MAP — the same rule the availability route already used):
+
+  ┌────────────────────────────────┬──────────────────────────────┐
+  │           submitted            │            result            │
+  ├────────────────────────────────┼──────────────────────────────┤
+  │ 115 (La Meeting), 113 (La Box) │ accepted                     │
+  ├────────────────────────────────┼──────────────────────────────┤
+  │ "115" as a string              │ accepted (absint runs first) │
+  ├────────────────────────────────┼──────────────────────────────┤
+  │ 9 (Salle du Conseil)           │ rejected                     │
+  ├────────────────────────────────┼──────────────────────────────┤
+  │ 23 (an area id), 0/missing     │ rejected                     │
+  └────────────────────────────────┴──────────────────────────────┘
+
+  The abuse path is closed: the POST route can no longer create entries in rooms
+  outside the five e-square pages.
+
+  2. Rate limit — 5 accepted submissions per IP per hour, returning 429.
+  Submissions 1–5 pass, 6 and 7 are blocked, and a different IP is unaffected.
+  Two details worth knowing:
+
+  - It counts after validation, so only requests that actually create entries
+    consume quota; a malformed payload has no external side effect. The flip
+    side: invalid payloads aren't throttled at all — cheap for us, but it means
+    the endpoint can still be hammered without consequence beyond WP load.
+  - The IP is hashed with wp_salt() before being used as the transient key
+    (stored keys look like esquare_resa_48b9858a…), so no visitor IPs land in
+    the options table.
+
+  I also capped dates per submission at 10 (MAX_DATES) — each selected date
+  becomes a separate entry, so one submission could otherwise create dozens. 10
+  accepted, 11 rejected.
+
+  The front end already surfaces all of this: its submit handler shows
+  res.body.message for any non-OK response, so a 429 displays the French "Trop
+  de demandes…" text without further changes.
+
+  3. horaires must be a known slot — the four SLOT_TIMES labels pass, an
+  invented or empty value gets a 422 instead of the previous silent "success"
+  where buildEntry() skipped the date.
+
+  Comments corrected — the class docblock now describes what actually happens
+  (forwards one entry per date, both routes public, hence the room allowlist and
+  throttle), the :142 "Disabled until…" line now reads as the kill switch it
+  is, and EntriesApi::isCreateConfigured()'s "before the route is confirmed"
+  note is updated since data/api.txt records the route verified on 2026-06-12.
+
+  php -l clean on both files. Still open from that list, untouched: durable
+  storage of submissions (4), notifications (5), server-side double-booking
+  check (6), the entry_type/moderate question for the salles maintainer (7), and
+  the ignored meta payload (8). A honeypot field would complement the throttle
+  if bot signups become a problem.
+
+✻ Brewed for 1m 48s · done 15:25

@@ -173,6 +173,163 @@ body {
 }
 
 /* ─────────────────────────────────────────────────────────────────────
+   Pied de page — « Le Colophon »
+   Sur ce site, le sombre veut dire « contenu » : hero, blocs contact.
+   Le pied de page se distingue donc en faisant l'inverse : la seule
+   surface claire, calme et respirée de la page, ouverte par un filet
+   laiton, comme l'achevé d'imprimer au dos d'un livre.
+   ───────────────────────────────────────────────────────────────────── */
+
+.esq-colophon {
+    /* Kraft Famenne : un cran sous Workshop Stone, pour que le colophon
+       descende toujours d'un ton, y compris sous la bande partenaires.
+       Déclaré dans theme.json ; la valeur en repli couvre les contextes
+       où les presets ne sont pas injectés. */
+    --esq-kraft: var(--wp--preset--color--kraft, #E0D8C8);
+    background-color: var(--esq-kraft);
+    border-top: 1px solid #F2B33D;      /* filet Marche Brass, 1px */
+    color: #0E1F33;
+}
+
+.esq-colophon-label {
+    font-family: "Geist Mono", ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, #0E1F33 78%, var(--esq-kraft));
+}
+
+.esq-colophon-body {
+    font-size: 14px;
+    line-height: 1.6;
+    color: color-mix(in srgb, #0E1F33 78%, var(--esq-kraft));
+}
+
+.esq-colophon-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0E1F33;
+    text-decoration: none;
+}
+
+.esq-colophon-cta-txt {
+    text-decoration: underline;
+    text-decoration-color: #F2B33D;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+    transition: text-decoration-color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.esq-colophon-cta:hover .esq-colophon-cta-txt,
+.esq-colophon-cta:focus-visible .esq-colophon-cta-txt {
+    text-decoration-color: #0E1F33;
+}
+
+.esq-colophon-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    font-size: 14px;
+    color: #0E1F33;
+    text-decoration: none;
+    transition: text-decoration-color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+}
+
+.esq-colophon-link:hover,
+.esq-colophon-link:focus-visible {
+    text-decoration-color: #0E1F33;
+}
+
+.esq-colophon-social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    color: color-mix(in srgb, #0E1F33 80%, var(--esq-kraft));
+    transition: color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+                background-color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.esq-colophon-social:hover,
+.esq-colophon-social:focus-visible {
+    color: #0E1F33;
+    background-color: color-mix(in srgb, #0E1F33 8%, transparent);
+}
+
+.esq-colophon-legal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px 16px;
+    margin-top: 3.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid color-mix(in srgb, #0E1F33 14%, transparent);
+    font-size: 12px;
+    color: color-mix(in srgb, #0E1F33 70%, var(--esq-kraft));
+}
+
+.esq-colophon-legal p {
+    margin: 0;
+}
+
+.esq-colophon-legal-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 8px;
+    color: inherit;
+    text-decoration: none;
+    transition: color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.esq-colophon-legal-link:hover,
+.esq-colophon-legal-link:focus-visible {
+    color: #0E1F33;
+}
+
+/* Index des services, version claire */
+.esq-colophon .footer-services-nav {
+    color: #0E1F33;
+}
+
+.esq-colophon .footer-services-num {
+    color: color-mix(in srgb, #0E1F33 55%, var(--esq-kraft));
+}
+
+.esq-colophon .footer-services-link {
+    color: color-mix(in srgb, #0E1F33 88%, var(--esq-kraft));
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+                text-decoration-color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.esq-colophon .footer-services-link:hover,
+.esq-colophon .footer-services-link:focus-visible {
+    color: #0E1F33;
+    text-decoration-color: #0E1F33;
+}
+
+.esq-colophon :focus-visible {
+    outline: 2px solid #0E1F33;
+    outline-offset: 2px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
    Article surface — eyebrow, title, standfirst, tags
    (shared by article page and category archive)
    ───────────────────────────────────────────────────────────────────── */

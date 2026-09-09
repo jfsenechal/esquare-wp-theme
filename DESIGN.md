@@ -9,6 +9,7 @@ colors:
   brass-light: "#FDE3A6"
   newsprint-cream: "#FAF8F3"
   workshop-stone: "#F1ECE3"
+  kraft-famenne: "#E0D8C8"
   atelier-white: "#FCFAF5"
   ink-black: "#0B1422"
 typography:
@@ -136,6 +137,7 @@ A warm, tinted-neutral palette anchored by **Atelier Navy** and lifted by a sing
 
 - **Newsprint Cream** (`#FAF8F3`): the default page surface. The "newsprint" the system reads against. Tinted warm so the eye softens.
 - **Workshop Stone** (`#F1ECE3`): the second tonal layer. Used to step a section away from Newsprint Cream without leaving the cream family — alternating section backgrounds, callout strips, kraft-paper card surfaces.
+- **Kraft Famenne** (`#E0D8C8`): the lowest warm neutral, one step under Workshop Stone. Reserved for the closing surface of a page (the colophon footer), so that surface always steps *down* in tone no matter what precedes it, including the one page that ends on a Workshop Stone band. Not a general section background: if it starts alternating with cream mid-page, it has lost its job.
 - **Atelier White** (`oklch(0.992 0.004 78)`, ≈ `#FCFAF5`): the highest neutral. Used sparingly — input surfaces, dialog interiors, anything that needs to read as "lifted off the cream".
 - **Ink Black** (`oklch(0.18 0.012 250)`, ≈ `#0B1422`): the deepest possible text, reserved for editorial emphasis on cream. Never pure black.
 
@@ -144,6 +146,8 @@ A warm, tinted-neutral palette anchored by **Atelier Navy** and lifted by a sing
 **The Ten-Percent Brass Rule.** Marche Brass covers ≤ 10% of any rendered screen. Its rarity is the point. If brass starts looking like a background, the design has failed.
 
 **The Tinted Neutral Rule.** Never `#fff`. Never `#000`. Every neutral leans warm (cream, stone) or warm-cool (navy ink). Pure neutrals read as a placeholder; tinted neutrals read as a brand.
+
+**The Closing Surface Rule.** A page ends on an extreme, never on a mid-tone. The footer is either the deepest surface on the page or the lightest, and never a value that sits between two content bands. This is why Kraft Famenne exists: navy already means *content* on this site (hero, contact blocks), so it can no longer mean *chrome*, and a navy footer under a navy-deep section reads as one more section. The footer inverts instead, and Kraft sits below every content neutral so the inversion holds on every page.
 
 **The No-Gradient Rule.** No accent gradients. The `theme.json` may declare `navy-deep` and `navy-fade` for legacy block patterns, but new compositions avoid gradient surfaces and gradient text entirely.
 
@@ -176,7 +180,7 @@ A warm, tinted-neutral palette anchored by **Atelier Navy** and lifted by a sing
 This system is **flat by default**. Surfaces sit at their declared colours and do not lift. Depth is carried by three mechanisms in order of preference:
 
 1. **Colour contrast** between adjacent sections (cream → navy → cream).
-2. **Tonal layering** within the cream family (Newsprint Cream → Workshop Stone → Atelier White) when a section needs a softer step than full-navy contrast.
+2. **Tonal layering** within the cream family (Atelier White → Newsprint Cream → Workshop Stone → Kraft Famenne) when a section needs a softer step than full-navy contrast.
 3. **Hairline borders** at `border-black/5`, `border-yellow/30`, or `border-white/10` carrying structure where colour shifts alone are too quiet.
 
 Drop shadows on cards or surfaces are **forbidden**. Glassmorphism (`backdrop-filter`) is forbidden as a decorative reflex; rare exceptions exist for overlay nav on top of a hero image, where a `backdrop-blur` plus `bg-white/10 ring-white/30` reads as a window pane rather than a glass card.

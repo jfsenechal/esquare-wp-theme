@@ -58,6 +58,11 @@
                     "color": "#F1ECE3"
                 },
                 {
+                    "slug": "kraft",
+                    "name": "Kraft Famenne",
+                    "color": "#E0D8C8"
+                },
+                {
                     "slug": "slate",
                     "name": "Slate",
                     "color": "#4A5568"

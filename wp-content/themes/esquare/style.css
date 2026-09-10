@@ -143,6 +143,20 @@ body {
 }
 
 /* ─────────────────────────────────────────────────────────────────────
+   Home services grid — whole-card links
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Each card is a single <a> wrapping heading, description and the arrow
+   affordance, so the focus ring is the card. Without this rule it falls to the
+   UA default — visible on Workshop Stone, but undesigned and inconsistent with
+   every other focusable surface in the theme. navy-deep per DESIGN.md §5;
+   note the older rules in this file use #0E1F33, a drift worth one cleanup. */
+.esq-service-card:focus-visible {
+    outline: 2px solid #081523;
+    outline-offset: 2px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
    Footer Services nav — numbered Civic Index
    ───────────────────────────────────────────────────────────────────── */
 

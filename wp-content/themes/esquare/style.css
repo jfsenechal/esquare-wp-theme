@@ -66,8 +66,22 @@ body {
 
 /* ─────────────────────────────────────────────────────────────────────
    Header nav — seated bar with bottom hairline + active-page wayfinding
-   (markup uses Tailwind utilities; these two rules can't be expressed there)
+   (markup carries the Tailwind utilities; these rules cover what it can't)
    ───────────────────────────────────────────────────────────────────── */
+
+/* First-paint floor. The bar's surface and text colours also ship as Tailwind
+   utilities (bg-navy-deep, text-white/70), but those don't exist until the
+   in-browser compiler runs, and this stylesheet applies before it does. Without
+   the pair declared here the header spends first paint on the body's cream with
+   a white current-page link on it — 1.04:1, invisible. Declared together on
+   purpose: a background without a matching foreground just moves the failure
+   from the active link to every link. Literal hexes, not var(--color-navy-deep),
+   because the custom properties live in the @theme block and are missing from
+   exactly the same window this is covering. */
+.esq-nav-bar {
+    background-color: #081523;
+    color: #FEFCF9;
+}
 
 .esq-nav {
     min-height: 76px;
@@ -79,7 +93,8 @@ body {
 }
 
 .esq-nav-link[aria-current="page"] {
-    color: #fff;
+    /* #FEFCF9 is --color-white; the palette has no pure #fff (Tinted Neutral). */
+    color: #FEFCF9;
 }
 
 .esq-nav-link[aria-current="page"]::after {
@@ -106,6 +121,16 @@ body {
 
 [aria-controls="primary-nav-panel"][aria-expanded="true"] .esq-nav-burger-close {
     display: block;
+}
+
+/* Focus ring for the dark bar. The system's default indicator is navy-deep,
+   which is this header's own background — applied here it would be a 1:1
+   invisible ring, so the bar inverts to brass (9.89:1 on #081523). The 2px
+   offset keeps a navy gap between ring and control, which is what lets the
+   same brass ring stay legible around the brass Contact pill. */
+.esq-nav-bar :focus-visible {
+    outline: 2px solid #F2B33D;
+    outline-offset: 2px;
 }
 
 .esq-nav-panel .esq-nav-link[aria-current="page"]::after {

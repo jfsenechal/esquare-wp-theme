@@ -221,10 +221,18 @@ Every component is rendered with the **Communal Atelier** in mind: a hand-stampe
 
 ### Navigation
 
-- **Structure:** Logo left, primary links centre or absent, single CTA right (the brass or navy pill).
-- **Typography:** Figtree 500/600 at `0.875rem` for links; logo wordmark is Instrument Serif at `1.5rem`.
-- **States:** Default link in `text-navy/70`; hover/active in full `text-navy`. Active page may carry a `1px` brass underline at `2px` offset; no boxed buttons inside nav.
-- **Mobile:** Drawer or stacked sheet from the top. No hamburger gimmicks; the icon is a plain three-line glyph in `Atelier Navy`.
+The site header is a **dark bar**, not a cream one: the page opens on Atelier Navy Deep and drops into cream below it. This is the inverse of every other surface in the system, and it is deliberate — the bar reads as the painted lintel over the atelier door.
+
+- **Surface:** `Atelier Navy Deep` (`#081523`), full-bleed edge to edge, `76px` tall, closed by a bottom hairline at 12% `Newsprint Cream`.
+- **Structure:** Wordmark left, primary links in a single right-aligned row, a `1px` white/15 divider, then the brass Contact pill last. No boxed buttons inside the link row; the pill is the one exception and it terminates the row.
+- **Typography:** Bar and panel links both Figtree 500 at `1rem`. The bar runs one step above the `0.875rem` this system uses elsewhere for chrome, traded knowingly against the width budget below. The wordmark is **Figtree 800 at `1.875rem`, `tracking-tight`** — a logotype, not display type, which is why it does not take Instrument Serif.
+- **States:** Rest is `text-white/90` (14.6:1). Hover fills to `--color-white` over a `white/8` wash. Active page takes `--color-white` plus a `1.5px` brass underline inset to match the link's own padding. Never pure `#fff` — the Tinted Neutral Rule holds here too. **The bar runs a bright resting state on purpose**, which leaves only `1.23:1` between rest and active: the brass underline, not the text colour, is what marks the current page, and the `white/8` wash, not the text colour, is what marks hover. Strengthen the underline before reaching for the text colour.
+- **Focus:** `2px solid Marche Brass` at `2px` offset. **This is the dark-surface exception to the system default**, which is `Atelier Navy Deep` — the bar's own background, and therefore a 1:1 invisible ring if applied literally. The offset matters: it leaves a navy gap between ring and control, which is what keeps one brass ring legible even around the brass Contact pill.
+- **Mobile:** Stacked panel below the bar. No hamburger gimmicks; a plain three-line glyph that swaps to a close glyph when open. `aria-expanded` stays in sync, Escape closes and returns focus to the trigger, and the panel force-closes when the bar takes over so `aria-expanded` never strands on a hidden control.
+
+**The First-Paint Floor Rule.** Tailwind ships from the in-browser compiler, so utility classes and the `@theme` custom properties are both **absent from the first paint** while `style.css` is already applying. Any component whose surface colour comes from a utility must declare that colour — **background and foreground together** — in `style.css`, as literal hex, never as `var(--color-*)`. Declaring only the background moves the failure rather than fixing it: the bar goes navy while the link colours are still missing, and every link turns navy-on-navy. This bit the header (a white current-page link on cream, 1.04:1) and it generalises to every dark surface in the theme.
+
+**The Bar Budget Rule.** The link row is `whitespace-nowrap` and does not wrap, so it has a hard width budget: roughly `1216px` at the `xl` breakpoint. At `1rem` the current ten links plus the pill spend about `1164px` of it — **52px spare, about 4%**. Note that `xl:` is a rem media query and rem in a media query always resolves against the initial `16px`, ignoring the user's root font-size, so a raised default font scales the content but *not* the breakpoint that would hand off to the burger: an `18px` root overflows the bar by `74px`. Dropping the row to `0.875rem` buys the margin back (`142px` spare, and `18px` fits), and is the first lever if the row grows. Before adding an eleventh link, measure — the honest fix is fewer top-level destinations.
 
 ### Eyebrow / Section Marker
 

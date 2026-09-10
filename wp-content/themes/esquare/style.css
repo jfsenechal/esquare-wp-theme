@@ -70,7 +70,7 @@ body {
    ───────────────────────────────────────────────────────────────────── */
 
 /* First-paint floor. The bar's surface and text colours also ship as Tailwind
-   utilities (bg-navy-deep, text-white/70), but those don't exist until the
+   utilities (bg-navy-deep, text-white/90), but those don't exist until the
    in-browser compiler runs, and this stylesheet applies before it does. Without
    the pair declared here the header spends first paint on the body's cream with
    a white current-page link on it — 1.04:1, invisible. Declared together on
@@ -104,7 +104,7 @@ body {
     left: 0.75rem;
     right: 0.75rem;
     bottom: 0.4375rem;
-    height: 1.5px;
+    height: 2px;
     background: #F2B33D;
 }
 

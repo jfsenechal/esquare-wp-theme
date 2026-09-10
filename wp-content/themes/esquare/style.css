@@ -133,6 +133,15 @@ body {
     outline-offset: 2px;
 }
 
+/* Tailwind v4 folds outline-color into transition-colors, so the bar's hover
+   transition also animates the ring above. On the Contact pill it would start at
+   currentColor — navy-deep, the bar's own background, 1.00:1 — and fade up to
+   brass across 150ms, leaving the ring invisible exactly when focus lands. Keep
+   the colour shifts hover actually uses; drop outline-color from the list. */
+.esq-nav-bar a {
+    transition-property: background-color, color;
+}
+
 .esq-nav-panel .esq-nav-link[aria-current="page"]::after {
     left: 0.5rem;
     /* Panel rows are full-width tap targets, so the bar's edge-to-edge underline
@@ -154,6 +163,24 @@ body {
 .esq-service-card:focus-visible {
     outline: 2px solid #081523;
     outline-offset: 2px;
+}
+
+/* Navy secondary pill (DESIGN.md §5, the secondary path). navy-deep on the pill
+   itself is 1.11:1 — invisible — so the 2px offset is load-bearing here: it puts
+   the ring on the cream section behind, at 17.6:1. Same reasoning as the header
+   bar's brass ring around the brass Contact pill. */
+.esq-cta-navy:focus-visible {
+    outline: 2px solid #081523;
+    outline-offset: 2px;
+}
+
+/* Tailwind v4 folds outline-color into transition-colors, so the pill's hover
+   transition also animates its focus ring — from currentColor (white, and
+   invisible on cream) to navy across 150ms. A focus ring has to be there the
+   instant it lands, so narrow the transition to the property hover actually
+   changes. */
+.esq-cta-navy {
+    transition-property: background-color;
 }
 
 /* ─────────────────────────────────────────────────────────────────────

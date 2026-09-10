@@ -202,8 +202,12 @@ Every component is rendered with the **Communal Atelier** in mind: a hand-stampe
 - **Secondary (Navy CTA):** `bg-navy` (`Atelier Navy`) with `text-white`, `px-5 py-2`, Figtree 500/600. For the secondary path; appears in the header chrome and in stacked-CTA blocks alongside the brass primary.
 - **Ghost:** transparent surface with `ring-white/30` and `text-white`, used on navy hero backdrops as a third option. Never used on cream surfaces.
 - **Hover:** Brass → `bg-yellow-soft`; Navy → `bg-navy-soft`; Ghost → `bg-white/20`. No translate, no shadow lift. Colour shift only.
-- **Focus:** `outline: 2px solid var(--color-navy-deep); outline-offset: 2px`. Always visible; never removed for "design reasons".
+- **Focus:** `outline: 2px solid var(--color-navy-deep); outline-offset: 2px`. Always visible; never removed for "design reasons". On a dark surface the ring inverts to brass, because navy-deep on navy-deep is a 1:1 invisible ring; see §5 Navigation.
 - **Arrow affordance:** CTAs end with an aria-hidden `→` glyph. The arrow signals "go", the colour does not.
+
+**The Instant-Ring Rule.** Tailwind v4 folds `outline-color` into `transition-colors`. Any element carrying both that utility and a focus ring therefore **animates the ring from `currentColor`** over the transition duration, and where `currentColor` is close to the surface behind it the ring is missing exactly when focus lands. Two shipped cases: the header Contact pill, whose `text-navy-deep` matched the bar it sits on (`1.00:1` for 150ms), and the news CTA, whose `text-white` was invisible against cream. Neither was a colour mistake; both were the transition list.
+
+So: **an element with a focus ring never uses bare `transition-colors`.** Name the properties hover actually changes — `transition-property: background-color, color` — in `style.css`, where an unlayered rule outranks the utility. The ring must be at full strength on the first frame; a focus indicator that fades in has failed a keyboard user at the only moment it mattered. `transition-shadow` and `transition-transform` are unaffected and need no override.
 
 ### Cards / Containers
 
@@ -266,6 +270,7 @@ A keyframe-animated horizontal text band (`@keyframes esq-marquee`) that runs pa
 - **Don't** add drop shadows to cards, dialogs, or any default surface (No-Shadow Rule). Glassmorphism is forbidden as a decorative reflex.
 - **Don't** flood Marche Brass beyond 10%. If brass starts looking like a background, the design has failed.
 - **Don't** use pure `#fff` or pure `#000` (Tinted Neutral Rule).
+- **Don't** put bare `transition-colors` on anything that takes a focus ring — it animates the ring in from `currentColor` and can leave it invisible on the frame focus lands (Instant-Ring Rule). Name the properties hover changes instead.
 - **Don't** chase trendy AI / crypto neon: no neon-on-black, no animated gradient meshes as default backgrounds.
 - **Don't** reach for creative-agency clichés: oversize cursors, scroll-hijack, gimmicky reveal animations.
 - **Don't** use Mono for body copy. Mono is signage; body is Figtree.

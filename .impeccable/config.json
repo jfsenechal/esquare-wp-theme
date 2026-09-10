@@ -1,0 +1,20 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "geist mono",
+        "createdAt": "2026-09-10T14:05:55.213Z",
+        "reason": "DESIGN.md pins Geist Mono as the label/eyebrow face (typography.label token, section 5 Eyebrow / Section Marker); documented design system, not drift"
+      },
+      {
+        "rule": "overused-font",
+        "value": "instrument serif",
+        "createdAt": "2026-09-10T14:05:59.282Z",
+        "reason": "DESIGN.md pins Instrument Serif as the display face (typography.display token, section 1 Key Characteristics); documented design system, not drift"
+      }
+    ]
+  }
+}

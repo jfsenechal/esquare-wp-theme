@@ -1065,6 +1065,53 @@ body {
     color: color-mix(in oklch, #0E1F33 55%, transparent);
 }
 
+/* Activity detail: Notion content rendered into the prose column (BlockRenderer) */
+.activity-body.article-prose { margin-left: 0; }
+.activity-body > :first-child { margin-top: 0; }
+
+.article-prose h4,
+.article-prose h5 {
+    font-family: "Figtree", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.0625rem;
+    line-height: 1.4;
+    color: #0E1F33;
+    margin-top: 1.6rem;
+}
+
+.article-prose h4 + * { margin-top: 0.5rem; }
+
+.article-prose hr {
+    border: 0;
+    border-top: 1px solid color-mix(in oklch, #0E1F33 14%, transparent);
+    margin-block: 2.3rem;
+}
+
+.article-prose .notion-callout {
+    padding: 1.1rem 1.25rem;
+    background: #F1ECE3;
+    border-left: 3px solid #F2B33D;
+}
+
+.article-prose .notion-callout > * + * { margin-top: 0.75rem; }
+
+.article-prose details {
+    border-top: 1px solid color-mix(in oklch, #0E1F33 14%, transparent);
+    border-bottom: 1px solid color-mix(in oklch, #0E1F33 14%, transparent);
+    padding-block: 0.9rem;
+}
+
+.article-prose details > summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #0E1F33;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.article-prose details > * + * { margin-top: 0.75rem; }
+
 /* Back link */
 .article-back {
     font-family: "Figtree", system-ui, sans-serif;

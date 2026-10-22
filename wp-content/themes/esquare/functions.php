@@ -34,6 +34,8 @@ add_action('init', static function (): void {
 
     Esquare\Theme\Block\Agenda::register();
 
+    Esquare\Theme\Block\ActivityDetail::register();
+
     add_rewrite_rule('^actualites/?$', 'index.php?category_name=actualites', 'top');
     add_rewrite_rule('^actualites/page/([0-9]+)/?$', 'index.php?category_name=actualites&paged=$matches[1]', 'top');
 });

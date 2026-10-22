@@ -12,6 +12,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+use Esquare\Theme\Block\ActivityDetail;
 use Esquare\Theme\Block\AgendaFormat;
 
 $is_today = AgendaFormat::isToday($activity);
@@ -29,7 +30,9 @@ $tag      = AgendaFormat::tag($activity);
         </time>
 
         <div class="row-start-1 min-w-0 border-l border-navy/10 pl-4 sm:pl-7">
-            <h3 class="text-pretty [font-family:var(--font-figtree)] text-[1.0625rem] font-bold leading-snug text-navy sm:text-xl"><?php echo esc_html(AgendaFormat::title($activity)); ?></h3>
+            <h3 class="text-pretty [font-family:var(--font-figtree)] text-[1.0625rem] font-bold leading-snug text-navy sm:text-xl">
+                <a href="<?php echo esc_url(ActivityDetail::url($activity)); ?>" class="underline decoration-transparent decoration-2 underline-offset-4 transition-colors hover:decoration-yellow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-deep"><?php echo esc_html(AgendaFormat::title($activity)); ?></a>
+            </h3>
 
             <p class="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1.5 [font-family:var(--font-figtree)] text-sm text-navy/70">
                 <?php if ($is_today) : ?>

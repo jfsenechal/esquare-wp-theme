@@ -7,13 +7,12 @@ namespace Esquare\Theme\Notion;
 /**
  * Reads the "Activités" database (DB_ACTIVITIES in `.env`) as Activity objects.
  *
- * Results are cached in a WordPress transient when WP is loaded, so a page view
+ * Results are cached through NotionCache when WP is loaded, so a page view
  * never blocks on Notion; outside WordPress (CLI scripts, tests) the cache is
  * simply skipped.
  */
 final class ActivityRepository
 {
-    public const CACHE_KEY = 'esquare_notion_activities';
     public const CACHE_TTL = 900; // 15 min — the planning changes a few times a day.
 
     private readonly string $databaseId;
@@ -121,17 +120,41 @@ final class ActivityRepository
         );
     }
 
+    /**
+     * One activity by page id, or null when Notion does not know it. Only rows
+     * of the activities database count: any other page shared with the
+     * integration is treated as not found, so it cannot be shown as an activity.
+     */
     public function find(string $pageId): ?Activity
     {
-        try {
-            return Activity::fromPage($this->databases->retrievePage($pageId));
-        } catch (NotionException $e) {
-            if ($e->isNotFound()) {
-                return null;
+        $id = NotionConfig::normalizeId($pageId);
+        if ($id === '') {
+            return null;
+        }
+
+        $cacheKey = 'activity_' . $id;
+        $page     = NotionCache::get($cacheKey);
+
+        if ($page === null) {
+            try {
+                $page = $this->databases->retrievePage($id);
+            } catch (NotionException $e) {
+                if (! $e->isNotFound()) {
+                    throw $e;
+                }
+
+                $page = [];
             }
 
-            throw $e;
+            // Misses are cached too: a mistyped URL must not cost a Notion call per hit.
+            NotionCache::set($cacheKey, $page, self::CACHE_TTL);
         }
+
+        if ($page === [] || ! $this->belongsToDatabase($page)) {
+            return null;
+        }
+
+        return Activity::fromPage($page);
     }
 
     /** Property name => Notion type, straight from the live database. */
@@ -145,12 +168,13 @@ final class ActivityRepository
         return $this->databaseId;
     }
 
-    /** Drop the cached rows, e.g. from an admin "refresh" action. */
+    /**
+     * Drop everything cached from Notion (lists, single activities, page
+     * content), e.g. from an admin "refresh" action.
+     */
     public function flush(): void
     {
-        if (function_exists('delete_transient')) {
-            delete_transient(self::CACHE_KEY);
-        }
+        NotionCache::flush();
     }
 
     /**
@@ -160,37 +184,23 @@ final class ActivityRepository
      */
     private function fetch(?array $filter, ?array $sorts, ?int $limit): array
     {
-        $cacheKey = self::CACHE_KEY . '_' . substr(md5(serialize([$this->databaseId, $filter, $sorts, $limit])), 0, 12);
+        $cacheKey = 'activities_' . substr(md5(serialize([$this->databaseId, $filter, $sorts, $limit])), 0, 12);
 
-        $cached = $this->cacheGet($cacheKey);
-        if ($cached !== null) {
-            return array_map(Activity::fromPage(...), $cached);
+        $pages = NotionCache::get($cacheKey);
+        if ($pages === null) {
+            $pages = $this->databases->query($this->databaseId, $filter, $sorts, $limit);
+            NotionCache::set($cacheKey, $pages, self::CACHE_TTL);
         }
-
-        $pages = $this->databases->query($this->databaseId, $filter, $sorts, $limit);
-        $this->cacheSet($cacheKey, $pages);
 
         return array_map(Activity::fromPage(...), $pages);
     }
 
-    /** @return list<array<string,mixed>>|null */
-    private function cacheGet(string $key): ?array
+    /** @param array<string,mixed> $page */
+    private function belongsToDatabase(array $page): bool
     {
-        if (! function_exists('get_transient')) {
-            return null;
-        }
+        $parent = is_array($page['parent'] ?? null) ? $page['parent'] : [];
 
-        $cached = get_transient($key);
-
-        return is_array($cached) ? $cached : null;
-    }
-
-    /** @param list<array<string,mixed>> $pages */
-    private function cacheSet(string $key, array $pages): void
-    {
-        if (function_exists('set_transient')) {
-            set_transient($key, $pages, self::CACHE_TTL);
-        }
+        return NotionConfig::normalizeId((string) ($parent['database_id'] ?? '')) === $this->databaseId;
     }
 
     /** @return list<array<string,mixed>> */

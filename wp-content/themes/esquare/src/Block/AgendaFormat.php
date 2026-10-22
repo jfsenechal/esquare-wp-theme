@@ -196,7 +196,7 @@ final class AgendaFormat
         return Carbon::instance(\DateTime::createFromImmutable($date))->locale(self::LOCALE);
     }
 
-    private static function ucfirst(string $value): string
+    public static function ucfirst(string $value): string
     {
         return mb_strtoupper(mb_substr($value, 0, 1)) . mb_substr($value, 1);
     }

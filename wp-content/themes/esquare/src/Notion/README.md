@@ -22,7 +22,11 @@ Chaque base doit être partagée avec l'intégration dans Notion (••• → 
 | `NotionConfig` | lecture de `.env`, normalisation des ids |
 | `DatabaseRepository` | schéma, requêtes, pages, découverte des bases (`listDatabases()`) |
 | `PageNormalizer` | aplatit les propriétés Notion en valeurs PHP |
-| `Activity` / `ActivityRepository` | la base "Activités", typée et mise en cache (transient, 15 min) |
+| `Activity` / `ActivityRepository` | la base "Activités", typée et mise en cache (transient, 15 min) ; `flush()` vide tout le cache Notion |
+| `BlockRepository` | contenu d'une page (blocs), un niveau ou un sous-arbre |
+| `BlockRenderer` | blocs → HTML sûr (liste blanche de types, texte échappé) |
+| `ActivityContent` | corps public d'une activité (section « DESCRIPTION POUR SITE WEB »), mis en cache 15 min |
+| `NotionCache` | transients partagés par toutes les lectures ; `flush()` vide tout d'un coup (compteur de génération) |
 | `NotionException` | erreurs API (statut HTTP + code Notion) |
 
 ## Utilisation
@@ -52,6 +56,35 @@ $db   = DatabaseRepository::create();
 $rows = $db->rows($databaseId, sorts: [['property' => 'Date', 'direction' => 'ascending']], limit: 20);
 ```
 
+## Contenu d'une activité
+
+Les pages d'activité suivent un modèle « suivi de projet » dont presque tout est
+interne. Seuls les enfants du callout **« DESCRIPTION POUR SITE WEB »** sont
+publiés (`ActivityContent::SECTION_LABEL`) : le reste (description du projet,
+objectifs, wiki, tâches, sous-pages, bases) n'est jamais lu.
+
+```php
+use Esquare\Theme\Notion\ActivityContent;
+
+$html = ActivityContent::create()->html($activity); // HTML sûr, ou ''
+```
+
+- Le texte d'exemple du modèle (`ActivityContent::PLACEHOLDERS`) est ignoré ;
+  une section qui ne contient que lui compte comme vide.
+- Section absente ou vide → repli sur la propriété `Description publique`.
+- Titres décalés d'un niveau (h1 Notion → `<h2>`, le `<h1>` est le titre de la page), le gras des titres est
+  retiré, les liens vers notion.so sont supprimés (le texte reste).
+- Rendus : paragraphe, titres, listes, citation, callout, toggle, séparateur,
+  image, signet. Le reste (tableaux, code, sous-pages, bases…) est ignoré.
+- Cache : `NotionCache`, 15 min — à garder sous l'heure, durée de validité des
+  URLs d'images hébergées par Notion. `ActivityRepository::flush()` le vide aussi.
+
+Aperçu en CLI (sans cache) :
+
+```bash
+php wp-content/themes/esquare/bin/notion-content.php <page-id-ou-url-notion>
+```
+
 ## Où c'est utilisé
 
 Le bloc dynamique `esquare/agenda` (`src/Block/Agenda.php`) consomme
@@ -62,6 +95,14 @@ même ligne (`agenda-row.php`) :
   dans `templates/front-page.html`.
 - `{"variant":"page"}` : la liste complète groupée par mois, dans
   `templates/page-agenda.html` (page « Agenda », `/agenda/`).
+
+Chaque ligne renvoie à sa page de détail, `/agenda/<slug>-<id notion>/`
+(`src/Block/ActivityDetail.php`, bloc `esquare/activity`, gabarit
+`templates/activity.html`). Pas d'article WordPress derrière : une règle de
+réécriture pointe sur la page « agenda » avec l'id en query var. L'id seul
+identifie l'activité ; un slug périmé redirige en 301, une activité inconnue ou
+non publique renvoie 404, Notion injoignable renvoie 503. La règle est vidée
+automatiquement au déploiement (`ActivityDetail::REWRITE_VERSION`).
 
 Seul le statut `Date validée (Public)` est publié (`Activity::STATUS_PUBLISHED`).
 Renommer cette valeur dans Notion vide l'agenda : la constante doit suivre.

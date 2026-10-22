@@ -230,9 +230,11 @@ final class ReservationForm
             return null;
         }
 
-        $name = $data['societe'] !== ''
-            ? $data['societe'] . ' – ' . $data['nom_prenom']
-            : $data['nom_prenom'];
+        $name = mb_substr(
+            $data['nom_prenom'] . ' ' . $data['thematique_formation'] . ' ' . $data['nombre_personnes'] . ' pers',
+            0,
+            180
+        );
 
         $description = self::buildDescription($data);
 
@@ -264,17 +266,17 @@ final class ReservationForm
     private static function buildDescription(array $data): string
     {
         $lines = [
-            'Nb personnes : ' . $data['nombre_personnes'],
-            'Disposition : ' . $data['disposition'],
-            'Tél : ' . $data['telephone'],
-            'Email : ' . $data['email'],
-            'TVA : ' . $data['num_tva'],
-            'Adresse : ' . $data['adresse_facturation'],
+            'Nom: ' . $data['nom_prenom'],
+            'Tva: ' . $data['num_tva'],
+            'Adresse de facturation: ' . $data['adresse_facturation'],
+            'Tel: ' . $data['telephone'],
+            'Email: ' . $data['email'],
+            'Détails: ' . $data['horaire_precis'],
+            'Nbre pers: ' . $data['nombre_personnes'],
+            'Disposition: ' . $data['disposition'],
+            'Thématique: ' . $data['thematique_formation'],
+            'Conditions generales: ' . ($data['accepte_cgv'] ? 'oui' : 'non'),
         ];
-        if ($data['horaire_precis'] !== '') {
-            $lines[] = 'Précisions : ' . $data['horaire_precis'];
-        }
-        $lines[] = 'Thématique : ' . $data['thematique_formation'];
 
         return implode("\n", $lines);
     }

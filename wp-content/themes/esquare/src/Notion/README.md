@@ -7,6 +7,7 @@ Client REST Notion pour le thème e-Square.
 ```dotenv
 NOTION_API_KEY=secret_…          # ou ntn_… (token d'intégration interne)
 DB_ACTIVITIES=7282d0db-d353-4923-b78d-f4d48b9ca02b   # id de la base "Activités"
+DB_MATERIALS=d3c2fd9fd68d434b8946d29b36281775        # id de la base "Machines" (FabLab)
 #NOTION_VERSION=2022-06-28       # optionnel, voir NotionClient::DEFAULT_VERSION
 ```
 
@@ -23,6 +24,7 @@ Chaque base doit être partagée avec l'intégration dans Notion (••• → 
 | `DatabaseRepository` | schéma, requêtes, pages, découverte des bases (`listDatabases()`) |
 | `PageNormalizer` | aplatit les propriétés Notion en valeurs PHP |
 | `Activity` / `ActivityRepository` | la base "Activités", typée et mise en cache (transient, 15 min) ; `flush()` vide tout le cache Notion |
+| `Machine` / `MachineRepository` | la base "Machines" du FabLab (`DB_MATERIALS`), typée et mise en cache 15 min |
 | `BlockRepository` | contenu d'une page (blocs), un niveau ou un sous-arbre |
 | `BlockRenderer` | blocs → HTML sûr (liste blanche de types, texte échappé) |
 | `ActivityContent` | corps public d'une activité (section « DESCRIPTION POUR SITE WEB »), mis en cache 15 min |
@@ -103,6 +105,15 @@ réécriture pointe sur la page « agenda » avec l'id en query var. L'id seul
 identifie l'activité ; un slug périmé redirige en 301, une activité inconnue ou
 non publique renvoie 404, Notion injoignable renvoie 503. La règle est vidée
 automatiquement au déploiement (`ActivityDetail::REWRITE_VERSION`).
+
+Le bloc dynamique `esquare/machines` (`src/Block/Machines.php`, gabarit
+`machines-template.php`) rend toute la section « Le parc de machines »
+(`#equipements`) de la page Fablab : il est inséré dans le contenu de la page,
+entre deux blocs HTML. Les machines avec une `Image` dans Notion deviennent des
+cartes (prix TVAC / unité ou mention d'abonnement, description, lien
+`Réserver`), les autres vont dans « Et aussi au FabLab ». Ajouter une photo dans
+Notion fait donc passer une machine en carte. Les lignes qui ne sont pas des
+machines sont écartées par `Machine::EXCLUDED_TITLES`.
 
 Seul le statut `Date validée (Public)` est publié (`Activity::STATUS_PUBLISHED`).
 Renommer cette valeur dans Notion vide l'agenda : la constante doit suivre.

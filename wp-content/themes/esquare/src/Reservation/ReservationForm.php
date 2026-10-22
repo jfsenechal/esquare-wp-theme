@@ -274,9 +274,7 @@ final class ReservationForm
         if ($data['horaire_precis'] !== '') {
             $lines[] = 'Précisions : ' . $data['horaire_precis'];
         }
-        if ($data['thematique_formation'] !== '') {
-            $lines[] = 'Thématique : ' . $data['thematique_formation'];
-        }
+        $lines[] = 'Thématique : ' . $data['thematique_formation'];
 
         return implode("\n", $lines);
     }
@@ -377,6 +375,9 @@ final class ReservationForm
         }
         if ($data['disposition'] === '') {
             $errors[] = 'disposition';
+        }
+        if ($data['thematique_formation'] === '') {
+            $errors[] = 'thematique_formation';
         }
         if (! $data['accepte_cgv']) {
             $errors[] = 'accepte_cgv';
@@ -497,8 +498,8 @@ final class ReservationForm
                     </div>
                 </div>
                 <div>
-                    <label class="resa-label" for="resa-thematique">Si formation, thématique de celle-ci ?</label>
-                    <input class="resa-input" id="resa-thematique" name="thematique_formation" type="text">
+                    <label class="resa-label" for="resa-thematique">Thématique de la formation/réunion<span class="text-red-600">*</span></label>
+                    <input class="resa-input" id="resa-thematique" name="thematique_formation" type="text" required>
                 </div>
                 <label class="flex items-start gap-2 text-sm text-navy">
                     <input type="checkbox" name="accepte_cgv" value="1" required class="mt-0.5 accent-navy">

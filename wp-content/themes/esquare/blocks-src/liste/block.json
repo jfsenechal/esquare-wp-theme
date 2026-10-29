@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "esquare/liste",
+    "version": "1.0.0",
+    "title": "Liste de services",
+    "category": "theme",
+    "icon": "editor-ul",
+    "description": "Section avec titre et liste d’éléments (titre, texte, lien) en lignes ou en grille, avec une liste à puces et un paragraphe de conclusion en option.",
+    "textdomain": "esquare",
+    "supports": {
+        "html": false,
+        "align": ["full"],
+        "anchor": true
+    },
+    "attributes": {
+        "align": { "type": "string", "default": "full" },
+        "theme": { "type": "string", "enum": ["light", "dark"], "default": "dark" },
+        "layout": { "type": "string", "enum": ["rows", "grid"], "default": "rows" },
+        "eyebrow": { "type": "string", "default": "" },
+        "title": { "type": "string", "default": "" },
+        "intro": { "type": "string", "default": "" },
+        "items": {
+            "type": "array",
+            "default": [
+                { "title": "", "text": "", "linkText": "", "linkUrl": "" },
+                { "title": "", "text": "", "linkText": "", "linkUrl": "" }
+            ]
+        },
+        "bulletsTitle": { "type": "string", "default": "" },
+        "bullets": { "type": "array", "default": [] },
+        "outro": { "type": "string", "default": "" }
+    },
+    "example": {
+        "attributes": {
+            "eyebrow": "Les ressources mises en commun",
+            "title": "Six services sous un même toit."
+        }
+    },
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "render": "file:./render.php"
+}

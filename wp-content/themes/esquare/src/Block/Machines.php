@@ -23,7 +23,11 @@ final class Machines
     {
         register_block_type(self::BLOCK_NAME, [
             'api_version'     => 3,
+            'title'           => __('Parc de machines', 'esquare'),
+            'category'        => 'theme',
             'render_callback' => [self::class, 'render'],
+            // Lets the editor register this PHP-only block and preview it server-side.
+            'supports'        => ['autoRegister' => true],
         ]);
     }
 

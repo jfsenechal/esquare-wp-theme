@@ -38,7 +38,11 @@ final class ActivityDetail
     {
         register_block_type(self::BLOCK_NAME, [
             'api_version'     => 3,
+            'title'           => __('Détail d’une activité', 'esquare'),
+            'category'        => 'theme',
             'render_callback' => [self::class, 'render'],
+            // Lets the editor register this PHP-only block and preview it server-side.
+            'supports'        => ['autoRegister' => true],
         ]);
 
         add_rewrite_rule(

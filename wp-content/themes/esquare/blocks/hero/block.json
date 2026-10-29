@@ -1,0 +1,98 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "esquare/hero",
+  "version": "1.0.0",
+  "title": "Hero de page",
+  "category": "theme",
+  "icon": "cover-image",
+  "description": "Bandeau d’ouverture : surtitre, titre, introduction, boutons et photo.",
+  "textdomain": "esquare",
+  "supports": {
+    "html": false,
+    "align": [
+      "full"
+    ],
+    "anchor": true
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    },
+    "layout": {
+      "type": "string",
+      "enum": [
+        "cover",
+        "split"
+      ],
+      "default": "cover"
+    },
+    "eyebrow": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "titleAccent": {
+      "type": "string",
+      "default": ""
+    },
+    "intro": {
+      "type": "string",
+      "default": ""
+    },
+    "primaryText": {
+      "type": "string",
+      "default": ""
+    },
+    "primaryUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "secondaryText": {
+      "type": "string",
+      "default": ""
+    },
+    "secondaryUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "badge": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "focalPoint": {
+      "type": "object",
+      "default": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "example": {
+    "attributes": {
+      "eyebrow": "FabLab · Marche-en-Famenne",
+      "title": "Apprendre, créer,",
+      "titleAccent": "partager.",
+      "intro": "Un atelier partagé, ouvert à tous.",
+      "primaryText": "Voir le parc de machines"
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

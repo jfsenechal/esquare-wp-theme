@@ -47,6 +47,9 @@ add_action('init', static function (): void {
 
     Esquare\Theme\Block\Machines::register();
 
+    // JS editor blocks, built from blocks-src/ by `npm run build`.
+    register_block_type(__DIR__ . '/blocks/hero');
+
     add_rewrite_rule('^actualites/?$', 'index.php?category_name=actualites', 'top');
     add_rewrite_rule('^actualites/page/([0-9]+)/?$', 'index.php?category_name=actualites&paged=$matches[1]', 'top');
 });

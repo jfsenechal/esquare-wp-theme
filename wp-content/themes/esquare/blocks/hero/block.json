@@ -52,6 +52,22 @@
       "type": "string",
       "default": ""
     },
+    "primaryArrow": {
+      "type": "string",
+      "enum": [
+        "auto",
+        "down"
+      ],
+      "default": "auto"
+    },
+    "secondaryType": {
+      "type": "string",
+      "enum": [
+        "link",
+        "reservation"
+      ],
+      "default": "link"
+    },
     "secondaryText": {
       "type": "string",
       "default": ""
@@ -61,6 +77,28 @@
       "default": ""
     },
     "badge": {
+      "type": "string",
+      "default": ""
+    },
+    "badgeIcon": {
+      "type": "string",
+      "enum": [
+        "calendar",
+        "check",
+        "lock",
+        "none"
+      ],
+      "default": "calendar"
+    },
+    "chips": {
+      "type": "array",
+      "default": []
+    },
+    "backText": {
+      "type": "string",
+      "default": ""
+    },
+    "backUrl": {
       "type": "string",
       "default": ""
     },
@@ -75,6 +113,15 @@
     "imageAlt": {
       "type": "string",
       "default": ""
+    },
+    "imageRatio": {
+      "type": "string",
+      "enum": [
+        "16/10",
+        "4/3",
+        "4/5"
+      ],
+      "default": "16/10"
     },
     "focalPoint": {
       "type": "object",

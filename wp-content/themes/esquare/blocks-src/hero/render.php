@@ -22,6 +22,39 @@ $intro   = trim(wp_kses((string) ($attributes['intro'] ?? ''), [
     'em'     => [],
     'a'      => ['href' => true, 'target' => true, 'rel' => true],
 ]));
+$chips = array_values(array_filter(
+    array_map(
+        static fn (mixed $chip): array => [
+            'text'   => trim(wp_kses((string) ($chip['text'] ?? ''), [])),
+            'people' => ! empty($chip['people']),
+        ],
+        (array) ($attributes['chips'] ?? [])
+    ),
+    static fn (array $chip): bool => $chip['text'] !== ''
+));
+
+// Heroicons (solid), same paths as edit.js.
+$icons = [
+    'calendar' => 'M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z',
+    'lock'     => 'M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z',
+    'check'    => 'M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z',
+    'people'   => 'M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z',
+];
+$icon = static fn (string $name, string $class): string => isset($icons[$name])
+    ? sprintf('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="%s"><path fill-rule="evenodd" d="%s" clip-rule="evenodd" /></svg>', esc_attr($class), $icons[$name])
+    : '';
+
+$homeHost   = wp_parse_url(home_url(), PHP_URL_HOST);
+$isExternal = static fn (string $url): bool => (bool) preg_match('#^https?://#i', $url) && wp_parse_url($url, PHP_URL_HOST) !== $homeHost;
+
+$primaryUrl      = trim((string) ($attributes['primaryUrl'] ?? ''));
+$primaryExternal = $isExternal($primaryUrl);
+$arrow           = ($attributes['primaryArrow'] ?? 'auto') === 'down' ? '↓' : ($primaryExternal ? '↗' : '→');
+$arrowMotion     = $arrow === '↓' ? 'group-hover:translate-y-0.5' : 'group-hover:translate-x-1.5';
+$isReservation   = ($attributes['secondaryType'] ?? 'link') === 'reservation';
+$secondaryUrl    = trim((string) ($attributes['secondaryUrl'] ?? ''));
+$badgeIcon       = (string) ($attributes['badgeIcon'] ?? 'calendar');
+$backUrl         = trim((string) ($attributes['backUrl'] ?? ''));
 
 $focal         = (array) ($attributes['focalPoint'] ?? []);
 $imagePosition = sprintf(
@@ -30,10 +63,11 @@ $imagePosition = sprintf(
     round(100 * min(1, max(0, (float) ($focal['y'] ?? 0.5))), 2)
 );
 
+$ratios     = ['16/10' => 'aspect-[16/10]', '4/3' => 'aspect-[4/3]', '4/5' => 'aspect-[4/5]'];
 $imageAlt   = trim((string) ($attributes['imageAlt'] ?? ''));
 $imageClass = $isCover
     ? 'absolute inset-0 -z-20 size-full object-cover'
-    : 'aspect-[16/10] w-full rounded-2xl object-cover shadow-[0_30px_60px_-20px_color-mix(in_oklch,var(--color-navy-deep)_60%,transparent)] ring-1 ring-white/10';
+    : ($ratios[$attributes['imageRatio'] ?? ''] ?? $ratios['16/10']) . ' w-full rounded-2xl object-cover shadow-[0_30px_60px_-20px_color-mix(in_oklch,var(--color-navy-deep)_60%,transparent)] ring-1 ring-white/10';
 $imageAttrs = [
     'class'         => $imageClass,
     'alt'           => $imageAlt,
@@ -80,8 +114,15 @@ $wrapper = get_block_wrapper_attributes([
         <div class="lg:col-span-6">
 <?php endif; ?>
 
+        <?php if ($text('backText') !== '' && $backUrl !== '') : ?>
+            <a href="<?php echo esc_url($backUrl); ?>" class="group flex w-fit items-center gap-2 [font-family:var(--font-figtree)] text-sm font-semibold text-white/70 transition-colors hover:text-yellow">
+                <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover:-translate-x-1">←</span>
+                <?php echo $text('backText'); // phpcs:ignore WordPress.Security.EscapeOutput -- wp_kses() with no allowed tags. ?>
+            </a>
+        <?php endif; ?>
+
         <?php if ($text('eyebrow') !== '') : ?>
-            <p class="<?php echo $isCover ? 'rounded-full bg-navy-deep/85 px-3.5 py-1.5 ring-1 ring-white/10 ' : ''; ?>inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.25em] text-yellow">
+            <p class="<?php echo $text('backText') !== '' && $backUrl !== '' ? 'mt-6 ' : ''; ?><?php echo $isCover ? 'rounded-full bg-navy-deep/85 px-3.5 py-1.5 ring-1 ring-white/10 ' : ''; ?>inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.25em] text-yellow">
                 <span aria-hidden="true" class="inline-block size-1.5 rounded-full bg-yellow"></span>
                 <?php echo $text('eyebrow'); // phpcs:ignore WordPress.Security.EscapeOutput -- wp_kses() with no allowed tags. ?>
             </p>
@@ -95,27 +136,40 @@ $wrapper = get_block_wrapper_attributes([
         </h1>
 
         <?php if ($intro !== '') : ?>
-            <p class="<?php echo $isCover ? 'mt-5 max-w-[54ch] text-white/85' : 'mt-6 max-w-[46ch] text-white/75'; ?> [font-family:var(--font-figtree)] text-pretty text-base lg:text-lg">
+            <p class="<?php echo $isCover ? 'mt-5 max-w-[54ch] text-white/85' : 'mt-6 max-w-[46ch] text-white/75'; ?> [font-family:var(--font-figtree)] text-pretty text-base lg:text-lg [&_strong]:font-semibold [&_strong]:text-white">
                 <?php echo $intro; // phpcs:ignore WordPress.Security.EscapeOutput -- filtered by wp_kses() above. ?>
             </p>
+        <?php endif; ?>
+
+        <?php if ($chips !== []) : ?>
+            <ul class="mt-6 flex flex-wrap gap-2" role="list">
+                <?php foreach ($chips as $chip) : ?>
+                    <li class="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-3.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-white/85 ring-1 ring-white/15">
+                        <?php echo $chip['people'] ? $icon('people', 'size-3.5 text-yellow') : ''; // phpcs:ignore WordPress.Security.EscapeOutput -- static SVG. ?>
+                        <?php echo $chip['text']; // phpcs:ignore WordPress.Security.EscapeOutput -- wp_kses() with no allowed tags. ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         <?php endif; ?>
 
         <?php if ($text('primaryText') !== '' || $text('secondaryText') !== '' || $text('badge') !== '') : ?>
             <div class="<?php echo $isCover ? 'mt-7' : 'mt-8'; ?> flex flex-wrap items-center gap-x-4 gap-y-3">
                 <?php if ($text('primaryText') !== '') : ?>
-                    <a href="<?php echo esc_url((string) ($attributes['primaryUrl'] ?? '')); ?>" class="group inline-flex items-center gap-3 bg-yellow px-6 py-3 [font-family:var(--font-figtree)] text-sm font-bold uppercase tracking-[0.14em] text-navy-deep transition-colors duration-300 hover:bg-yellow-soft focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-yellow">
+                    <a href="<?php echo esc_url($primaryUrl); ?>"<?php echo $primaryExternal ? ' target="_blank" rel="noopener"' : ''; ?> class="group inline-flex items-center gap-3 bg-yellow px-6 py-3 [font-family:var(--font-figtree)] text-sm font-bold uppercase tracking-[0.14em] text-navy-deep transition-colors duration-300 hover:bg-yellow-soft focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-yellow">
                         <?php echo $text('primaryText'); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-                        <span aria-hidden="true" class="inline-block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1.5">→</span>
+                        <span aria-hidden="true" class="inline-block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] <?php echo esc_attr($arrowMotion); ?>"><?php echo $arrow; // phpcs:ignore WordPress.Security.EscapeOutput -- fixed character. ?></span>
                     </a>
                 <?php endif; ?>
-                <?php if ($text('secondaryText') !== '') : ?>
-                    <a href="<?php echo esc_url((string) ($attributes['secondaryUrl'] ?? '')); ?>" class="inline-flex min-h-[44px] items-center px-2 [font-family:var(--font-figtree)] text-sm font-bold uppercase tracking-[0.14em] text-white underline decoration-yellow decoration-[3px] underline-offset-[7px] transition-colors hover:decoration-white/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-yellow">
+                <?php if ($text('secondaryText') !== '' && $isReservation) : ?>
+                    <button type="button" data-resa-open data-salle="<?php echo esc_attr(html_entity_decode($text('title'), ENT_QUOTES, 'UTF-8')); ?>" class="inline-flex min-h-[44px] items-center px-2 [font-family:var(--font-figtree)] text-sm font-bold uppercase tracking-[0.14em] text-white underline decoration-yellow decoration-[3px] underline-offset-[7px] transition-colors hover:decoration-white/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-yellow"><?php echo $text('secondaryText'); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+                <?php elseif ($text('secondaryText') !== '') : ?>
+                    <a href="<?php echo esc_url($secondaryUrl); ?>"<?php echo $isExternal($secondaryUrl) ? ' target="_blank" rel="noopener"' : ''; ?> class="inline-flex min-h-[44px] items-center px-2 [font-family:var(--font-figtree)] text-sm font-bold uppercase tracking-[0.14em] text-white underline decoration-yellow decoration-[3px] underline-offset-[7px] transition-colors hover:decoration-white/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-yellow">
                         <?php echo $text('secondaryText'); // phpcs:ignore WordPress.Security.EscapeOutput ?>
                     </a>
                 <?php endif; ?>
                 <?php if ($text('badge') !== '') : ?>
                     <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 [font-family:var(--font-figtree)] text-sm font-semibold text-white ring-1 ring-white/20 backdrop-blur-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="size-4 text-yellow"><path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" /></svg>
+                        <?php echo $icon($badgeIcon, 'size-4 text-yellow'); // phpcs:ignore WordPress.Security.EscapeOutput -- static SVG. ?>
                         <?php echo $text('badge'); // phpcs:ignore WordPress.Security.EscapeOutput ?>
                     </span>
                 <?php endif; ?>

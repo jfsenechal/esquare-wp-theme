@@ -48,7 +48,21 @@ add_action('init', static function (): void {
     Esquare\Theme\Block\Machines::register();
 
     // JS editor blocks, built from blocks-src/ by `npm run build`.
-    register_block_type(__DIR__ . '/blocks/hero');
+    foreach (['hero', 'contact'] as $blockName) {
+        $blockType = register_block_type(__DIR__ . '/blocks/' . $blockName);
+        if (! $blockType instanceof WP_Block_Type) {
+            continue;
+        }
+        // Block styles are versioned with block.json's "version" (scripts use the
+        // build hash), so rebuilt CSS would stay cached: version it by file date.
+        foreach ($blockType->editor_style_handles as $handle) {
+            $style = wp_styles()->query($handle);
+            $path  = $style ? ($style->extra['path'] ?? '') : '';
+            if ($path !== '' && is_file($path)) {
+                $style->ver = (string) filemtime($path);
+            }
+        }
+    }
 
     add_rewrite_rule('^actualites/?$', 'index.php?category_name=actualites', 'top');
     add_rewrite_rule('^actualites/page/([0-9]+)/?$', 'index.php?category_name=actualites&paged=$matches[1]', 'top');

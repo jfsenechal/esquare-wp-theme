@@ -204,11 +204,13 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
             <InspectorControls>
                 <PanelBody title={__('Liens des boutons', 'esquare')}>
                     <URLInput
+                        className="esquare-url-input"
                         label={__('Bouton principal', 'esquare')}
                         value={primaryUrl}
                         onChange={(value) => setAttributes({ primaryUrl: value })}
                     />
                     <URLInput
+                        className="esquare-url-input"
                         label={__('Lien secondaire', 'esquare')}
                         value={secondaryUrl}
                         onChange={(value) => setAttributes({ secondaryUrl: value })}

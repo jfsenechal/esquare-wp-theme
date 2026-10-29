@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "esquare/texte-image",
+    "version": "1.0.0",
+    "title": "Texte + image",
+    "category": "theme",
+    "icon": "align-pull-left",
+    "description": "Section texte à côté d’une photo, avec en option une fiche (intitulé / valeur), un bouton et une rangée de colonnes en dessous.",
+    "textdomain": "esquare",
+    "supports": {
+        "html": false,
+        "align": ["full"],
+        "anchor": true
+    },
+    "attributes": {
+        "align": { "type": "string", "default": "full" },
+        "theme": { "type": "string", "enum": ["light", "dark"], "default": "light" },
+        "imagePosition": { "type": "string", "enum": ["left", "right"], "default": "right" },
+        "imageRatio": { "type": "string", "enum": ["16/10", "4/3", "4/5"], "default": "4/3" },
+        "imageId": { "type": "number", "default": 0 },
+        "imageUrl": { "type": "string", "default": "" },
+        "imageAlt": { "type": "string", "default": "" },
+        "eyebrow": { "type": "string", "default": "" },
+        "title": { "type": "string", "default": "" },
+        "lead": { "type": "string", "default": "" },
+        "text": { "type": "string", "default": "" },
+        "facts": { "type": "array", "default": [] },
+        "buttonText": { "type": "string", "default": "" },
+        "buttonUrl": { "type": "string", "default": "" },
+        "columns": { "type": "array", "default": [] }
+    },
+    "example": {
+        "attributes": {
+            "eyebrow": "L’espace",
+            "title": "Un poste équipé, et tout ce qui va autour."
+        }
+    },
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "render": "file:./render.php"
+}

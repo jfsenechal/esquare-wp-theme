@@ -43,6 +43,8 @@ $themes  = [
         'columnTitle' => 'text-navy',
         'columnText'  => 'text-navy/75',
         'columnLink'  => 'text-navy hover:decoration-navy/40',
+        'checkTitle'  => 'text-navy/70',
+        'checkText'   => 'text-navy',
     ],
     'dark'  => [
         'section'     => 'bg-navy-deep px-6 py-20 text-white lg:px-8 lg:py-24',
@@ -62,6 +64,8 @@ $themes  = [
         'columnTitle' => 'text-white',
         'columnText'  => 'text-white/75',
         'columnLink'  => 'text-white hover:decoration-white/40',
+        'checkTitle'  => 'text-white/65',
+        'checkText'   => 'text-white',
     ],
 ];
 $ratios     = ['16/10' => 'aspect-[16/10]', '4/3' => 'aspect-[4/3]', '4/5' => 'aspect-[4/5]'];
@@ -103,6 +107,11 @@ $columns = array_values(array_filter(
     static fn (array $c): bool => $c['title'] !== '' || $c['text'] !== ''
 ));
 $hasFacts = $facts !== [];
+$checklistTitle = $plain($attributes['checklistTitle'] ?? '');
+$checklist      = array_values(array_filter(
+    array_map(static fn (mixed $c): string => trim(wp_kses((string) $c, ['strong' => []])), (array) ($attributes['checklist'] ?? [])),
+    static fn (string $c): bool => $c !== ''
+));
 
 $imageAlt = trim((string) ($attributes['imageAlt'] ?? ''));
 $imageCls = "$ratio w-full rounded-2xl object-cover {$t['image']}";
@@ -175,6 +184,24 @@ $wrapper = get_block_wrapper_attributes([
                 <?php endif; ?>
             </div>
         </div>
+
+        <?php if ($checklist !== []) : ?>
+            <div class="mt-16 lg:mt-20">
+                <?php if ($checklistTitle !== '') : ?>
+                    <h3 class="font-mono text-[11px] font-semibold uppercase tracking-[0.25em] <?php echo esc_attr($t['checkTitle']); ?>"><?php echo $checklistTitle; // phpcs:ignore WordPress.Security.EscapeOutput ?></h3>
+                <?php endif; ?>
+                <ul role="list" class="mt-6 border-t <?php echo esc_attr($t['factRow']); ?>">
+                    <?php foreach ($checklist as $item) : ?>
+                        <li class="flex items-start gap-5 border-b py-6 <?php echo esc_attr($t['factRow']); ?>">
+                            <span aria-hidden="true" class="mt-1.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-yellow">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-3.5 text-navy-deep"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" /></svg>
+                            </span>
+                            <p class="<?php echo esc_attr("max-w-[62ch] $figtree text-pretty text-lg lg:text-xl [&_strong]:font-semibold {$t['checkText']}"); ?>"><?php echo $item; // phpcs:ignore WordPress.Security.EscapeOutput -- wp_kses() allowing <strong>. ?></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
 
         <?php if ($columns !== []) : ?>
             <div class="mt-16 grid grid-cols-1 divide-y border-t lg:mt-20 lg:divide-x lg:divide-y-0 <?php echo esc_attr(($columnGrid[count($columns)] ?? $columnGrid[3]) . ' ' . $t['columns']); ?>">

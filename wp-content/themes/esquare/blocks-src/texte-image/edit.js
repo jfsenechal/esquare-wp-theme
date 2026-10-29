@@ -39,6 +39,8 @@ const THEMES = {
         columnTitle: 'text-navy',
         columnText: 'text-navy/75',
         columnLink: 'text-navy hover:decoration-navy/40',
+        checkTitle: 'text-navy/70',
+        checkText: 'text-navy',
     },
     dark: {
         section: 'bg-navy-deep px-6 py-20 text-white lg:px-8 lg:py-24',
@@ -58,10 +60,14 @@ const THEMES = {
         columnTitle: 'text-white',
         columnText: 'text-white/75',
         columnLink: 'text-white hover:decoration-white/40',
+        checkTitle: 'text-white/65',
+        checkText: 'text-white',
     },
 };
 const RATIOS = { '16/10': 'aspect-[16/10]', '4/3': 'aspect-[4/3]', '4/5': 'aspect-[4/5]' };
 const COLUMN_GRID = { 1: 'lg:grid-cols-1', 2: 'lg:grid-cols-2', 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4' };
+const CHECK_PATH =
+    'M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z';
 const FACT_LINK = '[&_a]:font-semibold [&_a]:underline [&_a]:decoration-yellow [&_a]:decoration-2 [&_a]:underline-offset-4';
 
 const isExternal = (url) => /^https?:\/\//i.test(url ?? '') && !(url ?? '').includes(window.location.host);
@@ -69,7 +75,7 @@ const isExternal = (url) => /^https?:\/\//i.test(url ?? '') && !(url ?? '').incl
 export default function Edit({ attributes, setAttributes, isSelected }) {
     const {
         theme, imagePosition, imageRatio, imageId, imageUrl, imageAlt,
-        eyebrow, title, lead, text, facts, buttonText, buttonUrl, columns,
+        eyebrow, title, lead, text, facts, buttonText, buttonUrl, columns, checklistTitle, checklist,
     } = attributes;
     const t = THEMES[theme] ?? THEMES.light;
     const blockProps = useBlockProps({ className: t.section });
@@ -164,6 +170,23 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
                         variant="secondary"
                         onClick={() => setAttributes({ facts: [...facts, { label: '', value: '', note: '' }] })}
                     >
+                        {__('Ajouter une ligne', 'esquare')}
+                    </Button>
+                </PanelBody>
+                <PanelBody title={__('Liste à cocher sous la section', 'esquare')} initialOpen={false}>
+                    {checklist.map((item, index) => (
+                        <p key={index}>
+                            {decodeEntities(item.replace(/<[^>]+>/g, '')) || __('ligne vide', 'esquare')}{' '}
+                            <Button
+                                variant="link"
+                                isDestructive
+                                onClick={() => setAttributes({ checklist: checklist.filter((_, i) => i !== index) })}
+                            >
+                                {__('Retirer', 'esquare')}
+                            </Button>
+                        </p>
+                    ))}
+                    <Button variant="secondary" onClick={() => setAttributes({ checklist: [...checklist, ''] })}>
                         {__('Ajouter une ligne', 'esquare')}
                     </Button>
                 </PanelBody>
@@ -311,6 +334,38 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
                             )}
                         </div>
                     </div>
+
+                    {checklist.length > 0 && (
+                        <div className="mt-16 lg:mt-20">
+                            <RichText
+                                tagName="h3"
+                                className={`font-mono text-[11px] font-semibold uppercase tracking-[0.25em] ${t.checkTitle}`}
+                                value={checklistTitle}
+                                onChange={(value) => setAttributes({ checklistTitle: value })}
+                                placeholder={__('Titre de la liste (optionnel)', 'esquare')}
+                                allowedFormats={[]}
+                            />
+                            <ul role="list" className={`mt-6 border-t ${t.factRow}`}>
+                                {checklist.map((item, index) => (
+                                    <li key={index} className={`flex items-start gap-5 border-b py-6 ${t.factRow}`}>
+                                        <span aria-hidden="true" className="mt-1.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-yellow">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-3.5 text-navy-deep">
+                                                <path fillRule="evenodd" d={CHECK_PATH} clipRule="evenodd" />
+                                            </svg>
+                                        </span>
+                                        <RichText
+                                            tagName="p"
+                                            className={`max-w-[62ch] ${FIGTREE} text-pretty text-lg lg:text-xl [&_strong]:font-semibold ${t.checkText}`}
+                                            value={item}
+                                            onChange={(value) => setAttributes({ checklist: checklist.map((c, i) => (i === index ? value : c)) })}
+                                            placeholder={__('Ligne à cocher', 'esquare')}
+                                            allowedFormats={['core/bold']}
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
 
                     {columns.length > 0 && (
                         <div className={`mt-16 grid grid-cols-1 divide-y border-t lg:mt-20 lg:divide-x lg:divide-y-0 ${COLUMN_GRID[columns.length] ?? COLUMN_GRID[3]} ${t.columns}`}>

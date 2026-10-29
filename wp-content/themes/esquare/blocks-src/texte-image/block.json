@@ -6,7 +6,7 @@
     "title": "Texte + image",
     "category": "theme",
     "icon": "align-pull-left",
-    "description": "Section texte à côté d’une photo, avec en option une fiche (intitulé / valeur), un bouton et une rangée de colonnes en dessous.",
+    "description": "Section texte à côté d’une photo, avec en option une fiche (intitulé / valeur), un bouton, et en dessous une liste à cocher ou une rangée de colonnes.",
     "textdomain": "esquare",
     "supports": {
         "html": false,
@@ -28,7 +28,9 @@
         "facts": { "type": "array", "default": [] },
         "buttonText": { "type": "string", "default": "" },
         "buttonUrl": { "type": "string", "default": "" },
-        "columns": { "type": "array", "default": [] }
+        "columns": { "type": "array", "default": [] },
+        "checklistTitle": { "type": "string", "default": "" },
+        "checklist": { "type": "array", "default": [] }
     },
     "example": {
         "attributes": {

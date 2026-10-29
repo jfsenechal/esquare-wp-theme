@@ -1,0 +1,118 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "esquare/tarifs",
+  "version": "1.0.0",
+  "title": "Tarifs",
+  "category": "theme",
+  "icon": "money-alt",
+  "description": "Section de tarifs : formules en cartes ou en liste, avec prix, points inclus, notes et bouton.",
+  "textdomain": "esquare",
+  "supports": {
+    "html": false,
+    "align": [
+      "full"
+    ],
+    "anchor": true
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    },
+    "anchor": {
+      "type": "string",
+      "default": "tarifs"
+    },
+    "theme": {
+      "type": "string",
+      "enum": [
+        "light",
+        "dark"
+      ],
+      "default": "light"
+    },
+    "layout": {
+      "type": "string",
+      "enum": [
+        "cards",
+        "list"
+      ],
+      "default": "cards"
+    },
+    "featureFirst": {
+      "type": "boolean",
+      "default": true
+    },
+    "eyebrow": {
+      "type": "string",
+      "default": "Tarifs"
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "intro": {
+      "type": "string",
+      "default": ""
+    },
+    "listTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "offers": {
+      "type": "array",
+      "default": [
+        {
+          "name": "",
+          "tag": "",
+          "text": "",
+          "prices": [
+            {
+              "label": "",
+              "amount": "",
+              "unit": ""
+            }
+          ],
+          "features": [],
+          "note": ""
+        },
+        {
+          "name": "",
+          "tag": "",
+          "text": "",
+          "prices": [
+            {
+              "label": "",
+              "amount": "",
+              "unit": ""
+            }
+          ],
+          "features": [],
+          "note": ""
+        }
+      ]
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "footnote": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "example": {
+    "attributes": {
+      "eyebrow": "Tarifs 2026",
+      "title": "Trois façons d’accéder au FabLab."
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "render": "file:./render.php"
+}

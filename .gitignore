@@ -93,3 +93,5 @@ node_modules
 *.sql
 /data/api.txt
 /data/notion-php
+# Esquare theme: Tailwind build cache (DB content export + standalone binary)
+/wp-content/themes/esquare/build/

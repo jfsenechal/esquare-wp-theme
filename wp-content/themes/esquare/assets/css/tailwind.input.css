@@ -1,0 +1,35 @@
+/*
+ * Tailwind source. Do not enqueue this file: run bin/build-css.sh, which
+ * compiles it to assets/css/tailwind.css (loaded on the site and in the editor).
+ */
+@import "tailwindcss";
+
+@source "../../templates";
+@source "../../parts";
+@source "../../src";
+@source "../js";
+/* Post, page, pattern and template content exported from the database by bin/build-css.sh. */
+@source "../../build/content.html";
+
+@theme {
+    --color-white: oklch(0.992 0.004 78);
+    --color-black: oklch(0.18 0.012 250);
+    --color-navy: #0E1F33;
+    --color-navy-soft: #1A2D4A;
+    --color-navy-deep: #081523;
+    --color-yellow: #F2B33D;
+    --color-yellow-soft: #FDE3A6;
+    --color-cream: #FAF8F3;
+    --color-stone-warm: #F1ECE3;
+    --font-sans: "Figtree", system-ui, sans-serif;
+    --font-serif: "Instrument Serif", Georgia, serif;
+    --font-figtree: "Figtree", system-ui, sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, monospace;
+}
+
+@utility poster-grid {
+    background-image:
+        linear-gradient(color-mix(in oklch, var(--color-navy-deep) 50%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in oklch, var(--color-navy-deep) 50%, transparent) 1px, transparent 1px);
+    background-size: 88px 88px;
+}

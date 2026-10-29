@@ -6,10 +6,19 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+const ESQUARE_FONTS_URL = 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap';
+
 add_action('after_setup_theme', static function (): void {
     add_theme_support('wp-block-styles');
     add_theme_support('responsive-embeds');
     add_theme_support('editor-styles');
+    // Editor styles also reach the Custom HTML block preview iframe, so the
+    // Tailwind markup renders in the editor as it does on the site.
+    add_editor_style([
+        ESQUARE_FONTS_URL,
+        'style.css',
+        'assets/css/tailwind.css',
+    ]);
     add_theme_support('html5', [
         'search-form',
         'comment-form',
@@ -43,12 +52,7 @@ add_action('init', static function (): void {
 });
 
 add_action('wp_enqueue_scripts', static function (): void {
-    wp_enqueue_style(
-        'esquare-fonts',
-        'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap',
-        [],
-        null
-    );
+    wp_enqueue_style('esquare-fonts', ESQUARE_FONTS_URL, [], null);
 
     $stylePath = get_stylesheet_directory() . '/style.css';
     wp_enqueue_style(
@@ -58,12 +62,13 @@ add_action('wp_enqueue_scripts', static function (): void {
         is_file($stylePath) ? (string) filemtime($stylePath) : false
     );
 
-    wp_enqueue_script(
+    // Built by bin/build-css.sh from assets/css/tailwind.input.css.
+    $tailwindPath = get_theme_file_path('assets/css/tailwind.css');
+    wp_enqueue_style(
         'esquare-tailwind',
-        'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4',
-        [],
-        null,
-        false
+        get_theme_file_uri('assets/css/tailwind.css'),
+        ['esquare-theme'],
+        is_file($tailwindPath) ? (string) filemtime($tailwindPath) : false
     );
 
     if (! is_category()) {
@@ -110,31 +115,3 @@ add_action('wp_head', static function (): void {
         printf('<link rel="apple-touch-icon" href="%s" />' . "\n", esc_url($icon180));
     }
 }, 2);
-
-add_action('wp_head', static function (): void {
-    ?>
-<style type="text/tailwindcss">
-    @theme {
-        --color-white: oklch(0.992 0.004 78);
-        --color-black: oklch(0.18 0.012 250);
-        --color-navy: #0E1F33;
-        --color-navy-soft: #1A2D4A;
-        --color-navy-deep: #081523;
-        --color-yellow: #F2B33D;
-        --color-yellow-soft: #FDE3A6;
-        --color-cream: #FAF8F3;
-        --color-stone-warm: #F1ECE3;
-        --font-sans: "Figtree", system-ui, sans-serif;
-        --font-serif: "Instrument Serif", Georgia, serif;
-        --font-figtree: "Figtree", system-ui, sans-serif;
-        --font-mono: "Geist Mono", ui-monospace, monospace;
-    }
-    @utility poster-grid {
-        background-image:
-            linear-gradient(color-mix(in oklch, var(--color-navy-deep) 50%, transparent) 1px, transparent 1px),
-            linear-gradient(90deg, color-mix(in oklch, var(--color-navy-deep) 50%, transparent) 1px, transparent 1px);
-        background-size: 88px 88px;
-    }
-</style>
-    <?php
-}, 5);

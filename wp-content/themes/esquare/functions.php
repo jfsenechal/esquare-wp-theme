@@ -48,7 +48,7 @@ add_action('init', static function (): void {
     Esquare\Theme\Block\Machines::register();
 
     // JS editor blocks, built from blocks-src/ by `npm run build`.
-    foreach (['hero', 'contact', 'horaires', 'cartes', 'cta', 'texte-image', 'tarifs'] as $blockName) {
+    foreach (['hero', 'contact', 'horaires', 'cartes', 'cta', 'texte-image', 'tarifs', 'bande-photo'] as $blockName) {
         $blockType = register_block_type(__DIR__ . '/blocks/' . $blockName);
         if (! $blockType instanceof WP_Block_Type) {
             continue;

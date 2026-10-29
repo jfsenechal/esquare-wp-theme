@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "esquare/bande-photo",
+  "version": "1.0.0",
+  "title": "Bande photo",
+  "category": "theme",
+  "icon": "format-gallery",
+  "description": "Deux à quatre photos bord à bord, sur toute la largeur de la page.",
+  "textdomain": "esquare",
+  "supports": {
+    "html": false,
+    "align": [
+      "full"
+    ],
+    "anchor": true
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    },
+    "label": {
+      "type": "string",
+      "default": ""
+    },
+    "images": {
+      "type": "array",
+      "default": []
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

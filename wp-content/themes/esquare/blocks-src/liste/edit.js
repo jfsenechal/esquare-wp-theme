@@ -27,6 +27,7 @@ const THEMES = {
         intro: `max-w-[54ch] ${FIGTREE} text-pretty text-base text-navy/75 lg:text-lg`,
         rule: 'border-navy/12',
         itemTitle: 'text-navy',
+        itemSubtitle: 'text-navy/70',
         itemText: 'text-navy/75',
         link: `${LINK} text-navy hover:decoration-navy/40`,
         bulletsTitle: 'text-navy/70',
@@ -41,6 +42,7 @@ const THEMES = {
         intro: `max-w-[54ch] ${FIGTREE} text-pretty text-base text-white/70 lg:text-lg`,
         rule: 'border-white/15',
         itemTitle: 'text-white',
+        itemSubtitle: 'text-yellow',
         itemText: 'text-white/70',
         link: `${LINK} text-white hover:decoration-white/50`,
         bulletsTitle: 'text-white/65',
@@ -75,6 +77,22 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
     );
     const itemTitle = (item, index) =>
         field('h3', `${FIGTREE} text-xl font-bold tracking-tight lg:text-2xl ${t.itemTitle}`, item.title, (v) => updateItem(index, { title: v }), __('Titre', 'esquare'));
+    // Title alone, or title + optional subtitle grouped in one grid cell (as in render.php).
+    const itemHeading = (item, index) =>
+        isSelected || item.subtitle ? (
+            <div>
+                {itemTitle(item, index)}
+                {field(
+                    'p',
+                    `mt-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] ${t.itemSubtitle}`,
+                    item.subtitle ?? '',
+                    (v) => updateItem(index, { subtitle: v }),
+                    __('Sous-titre (optionnel)', 'esquare')
+                )}
+            </div>
+        ) : (
+            itemTitle(item, index)
+        );
     const linkText = (item, index) =>
         field('span', t.link, item.linkText, (v) => updateItem(index, { linkText: v }), __('Texte du lien (optionnel)', 'esquare'));
 
@@ -99,7 +117,7 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
                     <ToolbarButton
                         icon="plus-alt2"
                         label={__('Ajouter un élément', 'esquare')}
-                        onClick={() => setAttributes({ items: [...items, { title: '', text: '', linkText: '', linkUrl: '' }] })}
+                        onClick={() => setAttributes({ items: [...items, { title: '', subtitle: '', text: '', linkText: '', linkUrl: '' }] })}
                     />
                 </ToolbarGroup>
             </BlockControls>
@@ -190,7 +208,7 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
                         <ul role="list" className="mt-14 grid grid-cols-1 gap-x-10 gap-y-9 sm:grid-cols-2">
                             {items.map((item, index) => (
                                 <li key={index} className={`border-t pt-6 ${t.rule}`}>
-                                    {itemTitle(item, index)}
+                                    {itemHeading(item, index)}
                                     <p className={`mt-3 max-w-[46ch] ${FIGTREE} text-pretty ${t.itemText}`}>
                                         {field('span', '', item.text, (v) => updateItem(index, { text: v }), __('Texte', 'esquare'), ['core/bold', 'core/italic'])}
                                         {(isSelected || item.linkText) && <> {linkText(item, index)}</>}
@@ -205,7 +223,7 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
                                     key={index}
                                     className={`grid grid-cols-1 items-baseline gap-x-8 gap-y-2 border-t py-6 lg:grid-cols-[15rem_minmax(0,1fr)_auto] lg:py-7 ${t.rule}${index === items.length - 1 ? ' border-b' : ''}`}
                                 >
-                                    {itemTitle(item, index)}
+                                    {itemHeading(item, index)}
                                     {field('p', `${FIGTREE} text-base ${t.itemText}`, item.text, (v) => updateItem(index, { text: v }), __('Texte', 'esquare'), ['core/bold', 'core/italic'])}
                                     <p className={`${FIGTREE} text-base lg:text-right`}>{(isSelected || item.linkText) && linkText(item, index)}</p>
                                 </li>

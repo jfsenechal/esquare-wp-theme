@@ -6,7 +6,7 @@
   "title": "Liste de services",
   "category": "theme",
   "icon": "editor-ul",
-  "description": "Section avec titre et liste d’éléments (titre, texte, lien) en lignes ou en grille, avec une liste à puces et un paragraphe de conclusion en option.",
+  "description": "Section avec titre et liste d’éléments (titre, sous-titre, texte, lien) en lignes ou en grille, avec une liste à puces et un paragraphe de conclusion en option.",
   "textdomain": "esquare",
   "supports": {
     "html": false,

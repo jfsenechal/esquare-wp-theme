@@ -33,6 +33,7 @@ $themes  = [
         'intro'        => "max-w-[54ch] $figtree text-pretty text-base text-navy/75 lg:text-lg",
         'rule'         => 'border-navy/12',
         'itemTitle'    => 'text-navy',
+        'itemSubtitle' => 'text-navy/70',
         'itemText'     => 'text-navy/75',
         'link'         => "$link text-navy hover:decoration-navy/40",
         'bulletsTitle' => 'text-navy/70',
@@ -47,6 +48,7 @@ $themes  = [
         'intro'        => "max-w-[54ch] $figtree text-pretty text-base text-white/70 lg:text-lg",
         'rule'         => 'border-white/15',
         'itemTitle'    => 'text-white',
+        'itemSubtitle' => 'text-yellow',
         'itemText'     => 'text-white/70',
         'link'         => "$link text-white hover:decoration-white/50",
         'bulletsTitle' => 'text-white/65',
@@ -68,6 +70,7 @@ $items   = array_values(array_filter(
     array_map(
         static fn (mixed $i): array => [
             'title'    => $plain($i['title'] ?? ''),
+            'subtitle' => $plain($i['subtitle'] ?? ''),
             'text'     => trim(wp_kses((string) ($i['text'] ?? ''), ['strong' => [], 'em' => []])),
             'linkText' => $plain($i['linkText'] ?? ''),
             'linkUrl'  => trim((string) ($i['linkUrl'] ?? '')),
@@ -99,6 +102,20 @@ $wrapper = get_block_wrapper_attributes([
     'aria-labelledby' => $titleId,
 ]);
 $itemTitleClass = "$figtree text-xl font-bold tracking-tight lg:text-2xl {$t['itemTitle']}";
+// Title alone, or title + optional subtitle (person, access…) grouped in one grid cell.
+$itemHeading = static function (array $item) use ($itemTitleClass, $t): string {
+    $h3 = sprintf('<h3 class="%s">%s</h3>', esc_attr($itemTitleClass), $item['title']);
+    if ($item['subtitle'] === '') {
+        return $h3;
+    }
+
+    return sprintf(
+        "<div>%s\n<p class=\"%s\">%s</p></div>",
+        $h3,
+        esc_attr("mt-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] {$t['itemSubtitle']}"),
+        $item['subtitle']
+    );
+};
 ?>
 <section <?php echo $wrapper; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped by get_block_wrapper_attributes(). ?>>
     <?php if ($theme === 'dark') : ?>
@@ -126,7 +143,7 @@ $itemTitleClass = "$figtree text-xl font-bold tracking-tight lg:text-2xl {$t['it
                     $a = $itemLink($item);
                     ?>
                     <li class="border-t pt-6 <?php echo esc_attr($t['rule']); ?>">
-                        <h3 class="<?php echo esc_attr($itemTitleClass); ?>"><?php echo $item['title']; // phpcs:ignore WordPress.Security.EscapeOutput ?></h3>
+                        <?php echo $itemHeading($item); // phpcs:ignore WordPress.Security.EscapeOutput -- built from filtered parts. ?>
                         <p class="<?php echo esc_attr("mt-3 max-w-[46ch] $figtree text-pretty {$t['itemText']}"); ?>"><?php echo $item['text'] . ($a !== '' ? ' ' . $a : ''); // phpcs:ignore WordPress.Security.EscapeOutput -- filtered above. ?></p>
                     </li>
                 <?php endforeach; ?>
@@ -137,7 +154,7 @@ $itemTitleClass = "$figtree text-xl font-bold tracking-tight lg:text-2xl {$t['it
                     $a = $itemLink($item);
                     ?>
                     <li class="grid grid-cols-1 items-baseline gap-x-8 gap-y-2 border-t py-6 lg:grid-cols-[15rem_minmax(0,1fr)_auto] lg:py-7 <?php echo esc_attr($t['rule']); ?><?php echo $index === count($items) - 1 ? ' border-b' : ''; ?>">
-                        <h3 class="<?php echo esc_attr($itemTitleClass); ?>"><?php echo $item['title']; // phpcs:ignore WordPress.Security.EscapeOutput ?></h3>
+                        <?php echo $itemHeading($item); // phpcs:ignore WordPress.Security.EscapeOutput -- built from filtered parts. ?>
                         <p class="<?php echo esc_attr("$figtree text-base {$t['itemText']}"); ?>"><?php echo $item['text']; // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
                         <?php if ($a !== '') : ?>
                             <p class="<?php echo esc_attr("$figtree text-base lg:text-right"); ?>"><?php echo $a; // phpcs:ignore WordPress.Security.EscapeOutput -- built from escaped parts. ?></p>

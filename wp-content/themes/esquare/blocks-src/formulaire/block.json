@@ -1,0 +1,28 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "esquare/formulaire",
+    "version": "1.0.0",
+    "title": "Formulaire",
+    "category": "theme",
+    "icon": "feedback",
+    "description": "Un formulaire Fluent Forms avec son texte : texte à gauche et formulaire en carte sur fond crème, ou panneau jaune (newsletter).",
+    "textdomain": "esquare",
+    "supports": {
+        "html": false,
+        "align": ["full"],
+        "anchor": true
+    },
+    "attributes": {
+        "align": { "type": "string", "default": "full" },
+        "variant": { "type": "string", "enum": ["split", "poster"], "default": "split" },
+        "formId": { "type": "integer", "default": 0 },
+        "eyebrow": { "type": "string", "default": "" },
+        "title": { "type": "string", "default": "" },
+        "text": { "type": "string", "default": "" },
+        "note": { "type": "string", "default": "" }
+    },
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "render": "file:./render.php"
+}

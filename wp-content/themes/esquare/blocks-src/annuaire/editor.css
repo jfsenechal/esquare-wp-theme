@@ -1,0 +1,7 @@
+/* URLInput has a fixed 300px (min-)width that overflows a narrow sidebar. */
+.block-editor-url-input.esquare-url-input,
+.block-editor-url-input.esquare-url-input input[type="text"] {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}

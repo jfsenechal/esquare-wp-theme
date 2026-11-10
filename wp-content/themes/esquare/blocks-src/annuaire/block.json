@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "esquare/annuaire",
+    "version": "1.0.0",
+    "title": "Annuaire",
+    "category": "theme",
+    "icon": "index-card",
+    "description": "Annuaire de services : un sommaire de liens rapides, puis une fiche par service (nom, sous-titre, coordonnées, description).",
+    "textdomain": "esquare",
+    "supports": {
+        "html": false,
+        "align": ["full"],
+        "anchor": true
+    },
+    "attributes": {
+        "align": { "type": "string", "default": "full" },
+        "anchor": { "type": "string", "default": "annuaire" },
+        "showToc": { "type": "boolean", "default": true },
+        "tocTitle": { "type": "string", "default": "Aller directement à" },
+        "eyebrow": { "type": "string", "default": "L'annuaire" },
+        "title": { "type": "string", "default": "" },
+        "intro": { "type": "string", "default": "" },
+        "services": {
+            "type": "array",
+            "default": [
+                { "anchor": "", "name": "", "subtitle": "", "tocLabel": "", "contacts": [], "paragraphs": [""], "bullets": [] }
+            ]
+        }
+    },
+    "example": {
+        "attributes": {
+            "title": "Les différents services de la ville."
+        }
+    },
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "render": "file:./render.php"
+}

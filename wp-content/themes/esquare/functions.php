@@ -47,6 +47,8 @@ add_action('init', static function (): void {
 
     Esquare\Theme\Block\Machines::register();
 
+    Esquare\Theme\Block\Typography::register();
+
     // JS editor blocks, built from blocks-src/ by `npm run build`.
     foreach (['hero', 'contact', 'horaires', 'cartes', 'cta', 'texte-image', 'tarifs', 'bande-photo', 'liste', 'logos', 'annuaire', 'coordonnees', 'formulaire'] as $blockName) {
         $blockType = register_block_type(__DIR__ . '/blocks/' . $blockName);

@@ -29,6 +29,8 @@ final class Typography
     {
         add_filter('render_block_data', [self::class, 'flagInnerBlock'], 10, 3);
         add_filter('render_block', [self::class, 'filter'], 10, 2);
+        // The <title> tag: core already runs wptexturize() on it.
+        add_filter('document_title', [self::class, 'spaces']);
     }
 
     /**
@@ -86,16 +88,23 @@ final class Typography
             if ($i % 2 === 1 || trim($part) === '') {
                 continue;
             }
-            $text = str_replace(['&#039;', '&#39;', '&apos;'], "'", $part);
-            // A plain space (or none after «) becomes a no-break space.
-            $text = preg_replace('/ (?=[?!;:»])/u', "\u{00A0}", $text) ?? $text;
-            $text = preg_replace('/«(?: |(?!\x{00A0}|&nbsp;))/u', "«\u{00A0}", $text) ?? $text;
-            $parts[$i] = $text;
+            $parts[$i] = self::spaces(str_replace(['&#039;', '&#39;', '&apos;'], "'", $part));
         }
 
         // One pass over the whole document keeps the context wptexturize()
         // needs to tell opening from closing quotes; it skips tags itself.
         return self::restore(wptexturize(implode('', $parts)), $raw);
+    }
+
+    /**
+     * A plain space before ? ! ; : » (or none after «) becomes a no-break
+     * space. Expects text without tags.
+     */
+    public static function spaces(string $text): string
+    {
+        $text = preg_replace('/ (?=[?!;:»])/u', "\u{00A0}", $text) ?? $text;
+
+        return preg_replace('/«(?: |(?!\x{00A0}|&nbsp;))/u', "«\u{00A0}", $text) ?? $text;
     }
 
     /**

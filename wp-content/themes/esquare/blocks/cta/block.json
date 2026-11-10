@@ -1,0 +1,79 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "esquare/cta",
+  "version": "1.0.0",
+  "title": "Appel à l’action",
+  "category": "theme",
+  "icon": "megaphone",
+  "description": "Bande d’appel à l’action : titre, texte et boutons, en bande bleu nuit, panneau jaune ou carte blanche avec logo.",
+  "textdomain": "esquare",
+  "supports": {
+    "html": false,
+    "align": [
+      "full"
+    ],
+    "anchor": true
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    },
+    "variant": {
+      "type": "string",
+      "enum": [
+        "band",
+        "poster",
+        "card"
+      ],
+      "default": "band"
+    },
+    "eyebrow": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "buttons": {
+      "type": "array",
+      "default": [
+        {
+          "text": "Nous contacter",
+          "url": "/contact/"
+        }
+      ]
+    },
+    "note": {
+      "type": "string",
+      "default": ""
+    },
+    "logoId": {
+      "type": "number",
+      "default": 0
+    },
+    "logoUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "logoAlt": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "example": {
+    "attributes": {
+      "eyebrow": "Réservation",
+      "title": "Une question sur nos espaces ?"
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "render": "file:./render.php"
+}

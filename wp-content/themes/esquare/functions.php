@@ -47,8 +47,45 @@ add_action('init', static function (): void {
 
     Esquare\Theme\Block\Machines::register();
 
+    Esquare\Theme\Block\Typography::register();
+
+    // JS editor blocks, built from blocks-src/ by `npm run build`.
+    foreach (['hero', 'contact', 'horaires', 'cartes', 'cta', 'texte-image', 'tarifs', 'bande-photo', 'liste', 'logos', 'annuaire', 'coordonnees', 'formulaire'] as $blockName) {
+        $blockType = register_block_type(__DIR__ . '/blocks/' . $blockName);
+        if (! $blockType instanceof WP_Block_Type) {
+            continue;
+        }
+        // Block styles are versioned with block.json's "version" (scripts use the
+        // build hash), so rebuilt CSS would stay cached: version it by file date.
+        foreach ($blockType->editor_style_handles as $handle) {
+            $style = wp_styles()->query($handle);
+            $path  = $style ? ($style->extra['path'] ?? '') : '';
+            if ($path !== '' && is_file($path)) {
+                $style->ver = (string) filemtime($path);
+            }
+        }
+    }
+
     add_rewrite_rule('^actualites/?$', 'index.php?category_name=actualites', 'top');
     add_rewrite_rule('^actualites/page/([0-9]+)/?$', 'index.php?category_name=actualites&paged=$matches[1]', 'top');
+});
+
+// The esquare/formulaire block picks a Fluent Forms form from this list.
+add_action('enqueue_block_editor_assets', static function (): void {
+    global $wpdb;
+    $table = $wpdb->prefix . 'fluentform_forms';
+    if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) !== $table) {
+        return;
+    }
+    $forms = array_map(
+        static fn (array $row): array => ['id' => (int) $row['id'], 'title' => (string) $row['title']],
+        (array) $wpdb->get_results("SELECT id, title FROM {$table} ORDER BY id", ARRAY_A) // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name only.
+    );
+    wp_add_inline_script(
+        generate_block_asset_handle('esquare/formulaire', 'editorScript'),
+        'window.esquareForms = ' . wp_json_encode($forms) . ';',
+        'before'
+    );
 });
 
 add_action('wp_enqueue_scripts', static function (): void {

@@ -7,6 +7,7 @@
 @source "../../templates";
 @source "../../parts";
 @source "../../src";
+@source "../../blocks-src";
 @source "../js";
 /* Post, page, pattern and template content exported from the database by bin/build-css.sh. */
 @source "../../build/content.html";

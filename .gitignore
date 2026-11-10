@@ -95,3 +95,4 @@ node_modules
 /data/notion-php
 # Esquare theme: Tailwind build cache (DB content export + standalone binary)
 /wp-content/themes/esquare/build/
+/wp-content/themes/esquare/node_modules/

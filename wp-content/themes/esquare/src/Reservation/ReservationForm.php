@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Esquare\Theme\Reservation;
 
+use Esquare\Theme\Block\Typography;
+
 /**
  * Custom (no Fluent Forms) salle reservation flow.
  *
@@ -407,6 +409,8 @@ final class ReservationForm
             // overlaps an existing booking. Same source as buildEntry().
             'slotTimes' => self::SLOT_TIMES,
         ];
+        // Same French typography as the block content (curly quotes, no-break spaces).
+        ob_start();
         ?>
 <dialog id="resa-modal" class="resa-modal" aria-labelledby="resa-modal-title">
     <div class="relative flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl bg-white shadow-[0_24px_48px_-12px_rgba(14,31,51,0.4)]">
@@ -854,5 +858,6 @@ final class ReservationForm
 })();
 </script>
         <?php
+        echo Typography::apply((string) ob_get_clean()); // phpcs:ignore WordPress.Security.EscapeOutput -- markup built above.
     }
 }

@@ -1,0 +1,47 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "esquare/contact",
+    "version": "1.0.0",
+    "title": "Contact",
+    "category": "theme",
+    "icon": "email-alt",
+    "description": "Bande de contact : titre, introduction, boutons et cartes d’informations (adresse, e-mail…).",
+    "textdomain": "esquare",
+    "supports": {
+        "html": false,
+        "align": ["full"],
+        "anchor": true
+    },
+    "attributes": {
+        "align": { "type": "string", "default": "full" },
+        "anchor": { "type": "string", "default": "contact" },
+        "eyebrow": { "type": "string", "default": "Contact" },
+        "title": { "type": "string", "default": "" },
+        "intro": { "type": "string", "default": "" },
+        "buttons": {
+            "type": "array",
+            "default": [
+                { "text": "Nous écrire", "url": "mailto:info@esquare.be" },
+                { "text": "084 / 32.70.54", "url": "tel:+3284327054" },
+                { "text": "Formulaire de contact", "url": "/contact/" }
+            ]
+        },
+        "cards": {
+            "type": "array",
+            "default": [
+                { "label": "Adresse", "value": "Rue Victor Libert 36 J, 6900 Marche-en-Famenne", "note": "" },
+                { "label": "E-mail", "value": "info@esquare.be", "note": "" }
+            ]
+        }
+    },
+    "example": {
+        "attributes": {
+            "title": "Racontez-nous votre projet.",
+            "intro": "Écrivez-nous ou appelez, nous fixons le rendez-vous."
+        }
+    },
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "render": "file:./render.php"
+}

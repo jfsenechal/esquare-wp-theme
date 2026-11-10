@@ -1,0 +1,40 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "esquare/cartes",
+    "version": "1.0.0",
+    "title": "Grille de cartes",
+    "category": "theme",
+    "icon": "grid-view",
+    "description": "Section avec titre et grille de cartes à icône ou à photo (équipements, services, activités…).",
+    "textdomain": "esquare",
+    "supports": {
+        "html": false,
+        "align": ["full"],
+        "anchor": true
+    },
+    "attributes": {
+        "align": { "type": "string", "default": "full" },
+        "eyebrow": { "type": "string", "default": "" },
+        "title": { "type": "string", "default": "" },
+        "intro": { "type": "string", "default": "" },
+        "cardStyle": { "type": "string", "enum": ["icon", "photo"], "default": "icon" },
+        "columns": { "type": "number", "enum": [3, 4, 6], "default": 4 },
+        "cards": {
+            "type": "array",
+            "default": [
+                { "icon": "ordinateur", "tag": "", "tagStyle": "dark", "title": "", "text": "", "imageId": 0, "imageUrl": "", "imageAlt": "" },
+                { "icon": "wifi", "tag": "", "tagStyle": "dark", "title": "", "text": "", "imageId": 0, "imageUrl": "", "imageAlt": "" },
+                { "icon": "imprimante", "tag": "", "tagStyle": "dark", "title": "", "text": "", "imageId": 0, "imageUrl": "", "imageAlt": "" }
+            ]
+        }
+    },
+    "example": {
+        "attributes": {
+            "eyebrow": "À votre disposition",
+            "title": "L’équipement à portée de main."
+        }
+    },
+    "editorScript": "file:./index.js",
+    "render": "file:./render.php"
+}

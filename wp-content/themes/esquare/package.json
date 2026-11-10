@@ -1,0 +1,12 @@
+{
+    "name": "esquare-theme",
+    "private": true,
+    "description": "Editor blocks of the Esquare theme (sources in blocks-src/, built to blocks/).",
+    "scripts": {
+        "build": "wp-scripts build --webpack-src-dir=blocks-src --output-path=blocks --webpack-copy-php",
+        "start": "wp-scripts start --webpack-src-dir=blocks-src --output-path=blocks --webpack-copy-php"
+    },
+    "devDependencies": {
+        "@wordpress/scripts": "36.1.0"
+    }
+}

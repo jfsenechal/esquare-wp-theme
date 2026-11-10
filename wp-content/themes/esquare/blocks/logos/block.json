@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "esquare/logos",
+  "version": "1.0.0",
+  "title": "Logos partenaires",
+  "category": "theme",
+  "icon": "awards",
+  "description": "Un encadré « Avec le soutien de » : une image qui regroupe tous les logos, ou plusieurs logos sur une rangée, chacun avec un lien facultatif.",
+  "textdomain": "esquare",
+  "supports": {
+    "html": false,
+    "align": [
+      "full"
+    ],
+    "anchor": true
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    },
+    "title": {
+      "type": "string",
+      "default": "Avec le soutien de"
+    },
+    "logos": {
+      "type": "array",
+      "default": []
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,500 @@
+{
+    "source": "https://e-square.marche.be/fablab/equipements/",
+    "machines": [
+        {
+            "legacy_id": 3393,
+            "slug": "fraiseuse-numerique-cyborg-1325",
+            "title": "Fraiseuse numérique CNC Cyborg 1325",
+            "excerpt": "Fraiseuse numérique grand format permettant la découpe, le fraisage ou la gravure de matériaux (différents types de bois). Idéale pour réaliser des pièces de mobilier, des enseignes ou des prototypes techniques avec une grande précision.",
+            "price": "Hors consommables (martyr), temps opérateur compris. Vous apportez vos matériaux.",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/vU4D3pNlpcm2/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2020/03/large_machine_image.jpg",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Aire de travail : 1300 x 2500 x 200 mm",
+                        "Logiciels de commande et de pilotage : Machine Tools Suite 4.6",
+                        "Broche 7 kW HSD (6 000 à 24 000 tours), capacité des pinces 3-4 / 5-6 / 8 mm",
+                        "Porte-outils : pour fraises de 4, 6 et 8 mm de diamètre d’embout",
+                        "Table à dépression : 4 zones pour la fixation de la matière à fraiser au moyen d’un panneau martyr en MDF",
+                        "Logiciel : Fusion 360",
+                        "Fichiers 2D vectoriels importables : .ai, .bmp, .jpg, .scv, .dwg, .dxf, .rou, .enr, .eps, .fs, .plt, .cut, .xmc, .mmo, .mmr, .cnc, .mpr, .pdf",
+                        "Fichiers 3D importables : .stl, .3ds, .obj",
+                        "Matériaux usinables : bois, Trespa, Dibond, mousse PU, mousse PE, mousse PS, résine, plastiques, cire usinable, métaux légers comme l’aluminium, le cuivre, le laiton…"
+                    ]
+                ],
+                [
+                    "p",
+                    "Consultez-nous si vous avez une question sur un matériau."
+                ],
+                [
+                    "h",
+                    "Pour aller plus loin"
+                ],
+                [
+                    "ul",
+                    [
+                        "<a href=\"https://www.autodesk.com/learn/ondemand/collection/self-paced-learning-for-fusion\">Tutoriels d’apprentissage Fusion 360</a>"
+                    ]
+                ]
+            ],
+            "order": 10
+        },
+        {
+            "legacy_id": 3475,
+            "slug": "fraiseuse-numerique-mekanika",
+            "title": "Fraiseuse numérique CNC Mekanika",
+            "excerpt": "Machine CNC compacte, parfaite pour le fraisage de petites pièces. Pratique pour l’usinage de précision et les projets techniques.",
+            "price": "Hors consommables (martyr). Vous apportez vos matériaux.",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/vU4D3pNlpcm2/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2020/03/0000124_cnc-milling-machine_550.jpeg",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Aire de travail : 1000 x 600 x 200 mm (la hauteur dépend des fraises utilisées)",
+                        "Format de fichier : la fraiseuse numérique fonctionne via des fichiers gcode (*.nc)",
+                        "Vitesse de déplacement maximale X / Y : 10 000 mm/min",
+                        "Vitesse de déplacement maximale Z : 3 000 mm/min",
+                        "Pinces de serrage : pour fraises de 4, 6 et 8 mm",
+                        "Logiciel de pilotage de la machine : <a href=\"https://planet-cnc.com/\">Planet CNC</a>",
+                        "Règles en matière de sécurité : un casque auditif, des lunettes et un masque sont obligatoires",
+                        "Matériaux usinables : bois, Trespa, Dibond, mousse PU, mousse PE, mousse PS, résine, plastiques, cire usinable, métaux légers comme l’aluminium, le cuivre, le laiton…"
+                    ]
+                ],
+                [
+                    "p",
+                    "Consultez-nous si vous avez une question sur un matériau."
+                ],
+                [
+                    "h",
+                    "Pour aller plus loin"
+                ],
+                [
+                    "ul",
+                    [
+                        "<a href=\"https://wikifab.org/wiki/D%C3%A9marrage_CNC_MEKANIKA\">Manuel d’utilisation</a>"
+                    ]
+                ]
+            ],
+            "order": 20
+        },
+        {
+            "legacy_id": 3399,
+            "slug": "decoupeuse-graveuse-laser",
+            "title": "Découpeuse-graveuse laser Trotec 80 W",
+            "excerpt": "Permet de découper et graver avec une extrême précision sur bois, plexi, cuir, carton, et plus encore. Idéale pour les créations personnalisées et les prototypes rapides.",
+            "price": "Vous apportez vos matériaux.",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/mELoj1GSo%252BN1I%252Bc01/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2022/11/IMG_20221123_114623.jpg",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Laser 80 W CO²",
+                        "Surface de travail max. en mode découpe : 1016 x 610 mm",
+                        "Fichiers pour la découpe et le marquage : vectoriels (svg, ai, cdr, pdf, dxf)",
+                        "Fichiers pour la gravure : pdf, jpg, png, svg",
+                        "<a href=\"https://www.troteclaser.com/static/images/News/FR/2018-12/Speedy_400_NEW_Brochure_TLF.pdf\">Toutes les caractéristiques de la machine</a>",
+                        "<a href=\"https://www.troteclaser.com/fr/machines-laser/machine-de-decoupe-laser#c226270\">Liste des matériaux autorisés</a>",
+                        "<a href=\"https://www.troteclaser.com/fr/ressources/faqs/materiaux-inadaptes-traitement-laser\">Liste des matériaux NON compatibles</a>"
+                    ]
+                ],
+                [
+                    "h",
+                    "Pour aller plus loin"
+                ],
+                [
+                    "ul",
+                    [
+                        "<a href=\"https://www.troteclaser.com/fr/support-technique/matieres/conseils-sur-lutilisation-des-materiaux\">Conseils d’utilisation des matériaux</a>",
+                        "Sites pour trouver des modèles : <a href=\"https://www.ameede.com/category/products/\">Ameede</a>, <a href=\"https://3axis.co/\">3Axis</a>, <a href=\"https://etsy.com/\">Etsy</a>"
+                    ]
+                ]
+            ],
+            "order": 30
+        },
+        {
+            "legacy_id": 3409,
+            "slug": "bambulab-x1carbonams",
+            "title": "Imprimante 3D multicouleur Bambu Lab X1 Carbon AMS",
+            "excerpt": "Imprimante 3D rapide et précise, équipée d’un système multi-matériaux (AMS) pour imprimer en plusieurs couleurs ou types de filaments. Idéale pour les prototypes complexes.",
+            "price": "Compris dans l’abonnement, hors consommables",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/wne5ct4Z1_sbWGM01/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2025/04/pack-starter-bambu-lab-x1-carbon-combo-avec-ams.webp",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Technologie : FDM",
+                        "Espace d’impression : 256 x 256 x 256 mm",
+                        "Hauteur de couches : 0,05 - 0,30 mm",
+                        "Vitesse d’impression : normale 200 mm/s, max. 600 mm/s",
+                        "Filament : 1,75 mm",
+                        "Matériaux : PLA, PETG, Flex, PVA, PC, PP, CPE, PVB, ABS, ASA, HIPS, PA",
+                        "Types de fichiers : STL, OBJ, 3mf",
+                        "<a href=\"https://wiki.bambulab.com/en/x1\">Description complète</a>"
+                    ]
+                ],
+                [
+                    "h",
+                    "Pour aller plus loin"
+                ],
+                [
+                    "ul",
+                    [
+                        "<a href=\"https://makerworld.com/en/3d-models\">Obtenir des modèles pour l’impression</a>",
+                        "<a href=\"https://makerworld.com/en/makerlab?from=blog&amp;ref=blog.bambulab.com\">Modéliser en ligne</a>"
+                    ]
+                ]
+            ],
+            "order": 40
+        },
+        {
+            "legacy_id": 4778,
+            "slug": "prusa-mk4",
+            "title": "Imprimante 3D haute performance Prusa MK4",
+            "excerpt": "Imprimante 3D fiable et conviviale, parfaite pour les impressions en PLA, PETG et autres matériaux courants. Très appréciée pour sa qualité d’impression constante.",
+            "price": "Compris dans l’abonnement, hors consommables",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/wne5ct4Z1_sbWGM01/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2025/01/MK4.jpg",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Technologie : FDM",
+                        "Espace d’impression : 250 x 210 x 220 mm",
+                        "Hauteur de couches : 0,05 - 0,30 mm",
+                        "Vitesse d’impression : normale 100 mm/s, max. 600 mm/s",
+                        "Filament : 1,75 mm",
+                        "Matériaux : PLA, PETG, Flex, PVA, PC, PP, CPE, PVB, ABS, ASA, HIPS, PA",
+                        "Types de fichiers : STL, OBJ, g-code",
+                        "<a href=\"https://www.prusa3d.com/fr/produit/imprimante-3d-original-prusa-mk4s/#description\">Description complète</a>"
+                    ]
+                ],
+                [
+                    "h",
+                    "Pour aller plus loin"
+                ],
+                [
+                    "ul",
+                    [
+                        "<a href=\"https://www.printables.com/model?lang=fr\">Obtenir des modèles pour l’impression</a>",
+                        "<a href=\"https://www.prusa3d.com/fr/categorie/prusa-academy/\">Se former à l’impression 3D</a>"
+                    ]
+                ]
+            ],
+            "order": 50
+        },
+        {
+            "legacy_id": 3411,
+            "slug": "imprimante-msla-saturn-2-8k",
+            "title": "Imprimante 3D résine MSLA Elegoo Saturn 2 8K",
+            "excerpt": "Imprimante 3D résine ultra-haute définition, idéale pour des pièces détaillées comme des figurines, bijoux ou prototypes de haute précision.",
+            "price": "Compris dans l’abonnement, hors consommables",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/wne5ct4Z1_sbWGM01/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2023/03/IMG_20230309_095858-scaled.jpg",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Volume de construction : 219 x 123 x 250 mm",
+                        "Hauteur de couche : de 0,01 à 0,2 mm",
+                        "Vitesse d’impression : 30-70 mm/h",
+                        "<a href=\"https://wiki.fablab.sorbonne-universite.fr/BookStack/books/appareils-biologie-chimie/page/imprimante-elego-saturn-2-guide-utilisation\">Guide d’utilisation</a>",
+                        "<a href=\"https://eu.elegoo.com/fr-be/collections/resin\">Matériaux</a>"
+                    ]
+                ],
+                [
+                    "p",
+                    "<strong>Attention :</strong> l’utilisation de cette machine nécessite de porter un masque et des gants de protection (non fournis)."
+                ]
+            ],
+            "order": 60
+        },
+        {
+            "legacy_id": 3423,
+            "slug": "scanner-3d-portable-einscan-pro",
+            "title": "Scanner 3D portable EinScan Pro",
+            "excerpt": "Scanner 3D portable monochrome photométrique non laser, pour les grands objets. Permet de scanner des objets de plusieurs centimètres, voire mètres de dimension en une seule fois.",
+            "price": "Compris dans l’abonnement",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/%252BSERd2t%252Bv_yU7LY01/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2020/03/large_machine_image-3.jpg",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Applications : recherche et design, infographie, scan d’humain, éducation, patrimoine",
+                        "Modes : scan automatique, scan à la main, scan libre",
+                        "Précision : de 0,05 mm à 0,3 mm, nuages de points de 90 000 à 550 000 points/seconde",
+                        "Types de fichiers : .obj, .stl, .asc, .ply",
+                        "Éviter la lumière directe du soleil, préférer le scan en extérieur la nuit ou en atmosphère sombre"
+                    ]
+                ],
+                [
+                    "p",
+                    "<strong>NB :</strong> pour les objets réfléchissants, transparents ou très sombres, recouvrir au préalable d’une poudre spéciale (se renseigner auprès du FabLab)."
+                ]
+            ],
+            "order": 70
+        },
+        {
+            "legacy_id": 3421,
+            "slug": "scanner-3d-fixe-einscan-se",
+            "title": "Scanner 3D rotatif EinScan SE",
+            "excerpt": "Scanner de bureau offrant une numérisation facile et précise d’objets de petite et moyenne taille. Parfait pour les modèles destinés à l’impression 3D ou au design.",
+            "price": "Compris dans l’abonnement",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/%252BSERd2t%252Bv_yU7LY01/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2020/03/large_machine_image-2-1.jpg",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Dimensions de scan minimum : 30 x 30 x 30 mm",
+                        "Dimensions de scan maximum en fixe : 700 x 700 x 700 mm",
+                        "Dimensions de scan maximum en rotation automatique 360° : 200 x 200 x 200 mm",
+                        "Vitesse de scan : moins de 8 s en fixe, moins de 2 min en automatique",
+                        "Types de fichiers : .obj, .stl, .asc, .ply",
+                        "Éviter la lumière directe du soleil, scanner de préférence en atmosphère sombre"
+                    ]
+                ],
+                [
+                    "p",
+                    "<strong>NB :</strong> pour les objets réfléchissants, transparents ou très sombres, recouvrir au préalable d’une poudre spéciale (se renseigner auprès du FabLab)."
+                ]
+            ],
+            "order": 80
+        },
+        {
+            "legacy_id": 3425,
+            "slug": "thermoformeuse",
+            "title": "Thermoformeuse Vaquform",
+            "excerpt": "Thermoformeuse de bureau pour projets de packaging et de design. Permet de créer des moules et des emballages sur mesure en chauffant des feuilles plastiques. Utile pour le prototypage, l’artisanat et la fabrication de petites séries.",
+            "price": "Compris dans l’abonnement, hors consommables",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/UwoI4CzDZKp3oUI01/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2020/03/large_machine_image-4.jpg",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Épaisseur de la plaque : 0,3 mm à 3 mm",
+                        "Dimensions de la plaque : 320 x 240 mm",
+                        "Zone de formation : 280 x 200 mm",
+                        "Profondeur maximale : 200 mm",
+                        "Matières compatibles : HIPS, ABS, PVC, PETG, acrylique, polycarbonate, polyéthylène, polypropylène, EVA, Kydex"
+                    ]
+                ]
+            ],
+            "order": 90
+        },
+        {
+            "legacy_id": 3417,
+            "slug": "machine-a-coudre-pro-pfaff-335",
+            "title": "Machine à coudre pro Pfaff 335",
+            "excerpt": "Machine à coudre professionnelle à bras libre, parfaite pour la maroquinerie, le cuir et les tissus épais. Permet des coutures nettes et robustes.",
+            "price": "Vous apportez vos fils et tissus, canette et aiguille spécifique.",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/6ZoL4LO1J30Z8Vw01/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2020/03/large_machine_image-2.jpg",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Machine à base cylindrique, 1 aiguille, triple entraînement pour border tout type de vêtements en cuir et matériaux synthétiques",
+                        "Spécialement utilisée pour coudre des chaussures, de la maroquinerie et pour la confection de valises et sacs de sport, etc.",
+                        "Équipée d’un crochet de grande capacité (40 % de plus qu’un crochet de capacité normale)",
+                        "Diamètre de la base cylindrique : 46,5 mm",
+                        "Qualité exceptionnelle des coutures et performances élevées",
+                        "Rentrée précise et régulière des points",
+                        "Bordage impeccable même sur les arcs intérieurs et extérieurs grâce au bordeur accompagnant et à la bande tout près du bord",
+                        "Accessoire : tablette Pfaff 335 fixée sur le canon pour travailler à plat",
+                        "<a href=\"https://www.glasman.fr/photos/pfaff/335/manuel-utilisation-pfaff-335.pdf\">Manuel d’utilisation</a>"
+                    ]
+                ],
+                [
+                    "h",
+                    "Pour aller plus loin"
+                ],
+                [
+                    "ul",
+                    [
+                        "<a href=\"https://youtu.be/6Ae0fXOC_rI?list=PLzeG3k2OBxg4XFx0Bz39XPusdqGrjP8M2\">Enfilage du fil</a>",
+                        "<a href=\"https://youtu.be/yICmFysQoX8?list=PLzeG3k2OBxg4XFx0Bz39XPusdqGrjP8M2\">Préparer la canette</a>"
+                    ]
+                ]
+            ],
+            "order": 100
+        },
+        {
+            "legacy_id": 3415,
+            "slug": "machine-a-broder-numerique",
+            "title": "Brodeuse numérique Brother Innov-is F440",
+            "excerpt": "Machine permettant de broder automatiquement des motifs ou logos à partir de fichiers numériques. Idéale pour la personnalisation textile.",
+            "price": "Vous apportez vos fils, tissus, canette et aiguille spécifique.",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/6ZoL4LO1J30Z8Vw01/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2020/03/large_machine_image-4.png",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Monofil, avec logiciel de création",
+                        "Cadres de broderie disponibles : 25 x 60 mm, 100 x 100 mm, 130 x 180 mm, 130 x 300 mm",
+                        "À prévoir : fils de broderie, entoilage",
+                        "Fichiers importables dans le logiciel de broderie Brother : .jpg, .svg, .bmp, .tif, .png, .gif, .wmf, .emf",
+                        "Logiciel fourni avec la machine : PE Design Plus 2 (accessible au FabLab)",
+                        "Logiciel préconisé pour le dessin : Inkscape (open source)",
+                        "Logiciel pour les réglages de broderie : extension Inkstitch à installer dans Inkscape",
+                        "<a href=\"https://www.shopty.com/fr/machines-a-coudre/brodeuses/brother-innov-is-f440-machine-a-broder\">Description complète de la machine</a>"
+                    ]
+                ],
+                [
+                    "h",
+                    "Pour aller plus loin"
+                ],
+                [
+                    "ul",
+                    [
+                        "<a href=\"https://youtu.be/d2sj3mjzbaA\">Vidéo de formation PE Design Plus 2</a>",
+                        "<a href=\"https://inkstitch.org/fr/tutorials/\">Se former à Inkstitch</a>"
+                    ]
+                ]
+            ],
+            "order": 110
+        },
+        {
+            "legacy_id": 3419,
+            "slug": "presse-a-chaud",
+            "title": "Presse à chaud",
+            "excerpt": "Permet de transférer des motifs sur textile (t-shirts, sacs, etc.) à l’aide de chaleur et pression. Compatible avec les flex thermocollants et la sublimation.",
+            "price": "Compris dans l’abonnement, hors consommables",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/Z9EJjJJsr0jSVc001/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2020/03/large_machine_image-1-1.jpg",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Plateau presse (revêtu de téflon) : 38 x 30 cm",
+                        "Presse chapeau / casquette : 152 x 56 mm (courbe)",
+                        "Presse mug n° 1 : 50 mm de diamètre (170 ml)",
+                        "Presse mug n° 2 : 75 mm de diamètre (300 ml)",
+                        "Presse mug n° 3 : mug café crème 340 ml (conique)",
+                        "Presse mug n° 4 : mug café crème 480 ml (conique)",
+                        "Plateau presse n° 1 : 127 mm de diamètre maxi",
+                        "Plateau presse n° 2 : 152 mm de diamètre maxi",
+                        "Matériaux : coton, polyester, fibre, céramique, métal",
+                        "Formats de fichiers : svg, pdf"
+                    ]
+                ]
+            ],
+            "order": 120
+        },
+        {
+            "legacy_id": 3427,
+            "slug": "traceur-de-decoupe-plotter-gcc-ex-ii-24lx",
+            "title": "Traceur de découpe / plotter GCC EX II 24LX",
+            "excerpt": "Découpe des vinyles adhésifs ou thermocollants avec grande précision. Parfait pour la signalétique, les stickers ou les transferts textiles.",
+            "price": "Compris dans l’abonnement, hors consommables",
+            "booking": "https://fablab.esquare.be/login?redirect_url=/index.php/apps/appointments/pub/Z9EJjJJsr0jSVc001/form",
+            "image": "https://e-square.marche.be/wp-content/uploads/2020/03/large_machine_image.jpeg",
+            "content": [
+                [
+                    "h",
+                    "Caractéristiques techniques"
+                ],
+                [
+                    "ul",
+                    [
+                        "Largeurs de support acceptées : de 50 mm à 700 mm",
+                        "Largeur de découpe maximum : 600 mm",
+                        "Vitesse de découpe maximale : 705 mm/s",
+                        "Pression de coupe : 350 g",
+                        "Résolution mécanique : 0,0125 mm/pas",
+                        "Matériaux : principalement du vinyle, vinyle réfléchissant, flex",
+                        "Fichiers vectoriels : PDF, SVG"
+                    ]
+                ],
+                [
+                    "h",
+                    "Pour aller plus loin"
+                ],
+                [
+                    "ul",
+                    [
+                        "<a href=\"https://e-square.marche.be/wp-content/uploads/2020/03/Tuto-D_coupe-Vinyle.pdf\">Manuel d’utilisation</a>"
+                    ]
+                ]
+            ],
+            "order": 130
+        },
+        {
+            "legacy_id": null,
+            "slug": "decoupe-fil-plateau",
+            "title": "Découpe fil chaud, plateau",
+            "excerpt": "Découpe au fil chaud du polystyrène expansé.",
+            "price": "Compris dans l’abonnement. Vous apportez vos matériaux.",
+            "booking": "",
+            "image": "",
+            "content": [],
+            "order": 140
+        },
+        {
+            "legacy_id": null,
+            "slug": "decoupe-fil-a-main",
+            "title": "Découpe fil chaud, à main",
+            "excerpt": "Découpe au fil chaud du polystyrène expansé.",
+            "price": "Compris dans l’abonnement. Vous apportez vos matériaux.",
+            "booking": "",
+            "image": "",
+            "content": [],
+            "order": 150
+        }
+    ]
+}

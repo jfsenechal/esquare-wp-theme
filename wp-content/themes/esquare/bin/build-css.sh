@@ -35,7 +35,7 @@ if [[ ! -x "$TAILWIND_BIN" ]]; then
 fi
 
 wp --path="$WP_PATH" post list \
-    --post_type=post,page,wp_block,wp_template,wp_template_part \
+    --post_type=post,page,esquare_machine,wp_block,wp_template,wp_template_part \
     --post_status=any \
     --posts_per_page=-1 \
     --field=post_content \

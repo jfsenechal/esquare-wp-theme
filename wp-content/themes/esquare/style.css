@@ -1660,3 +1660,9 @@ body {
 .esq-form-brass .ff-message-success {
     background-color: #FCFAF5;
 }
+
+/* Machine sheet: the content starts right under the photo. */
+.machine-body { margin-left: 0; }
+.machine-body > :first-child { margin-top: 0; }
+.machine-body > p:first-child { font-size: inherit; line-height: 1.72; color: inherit; }
+.machine-body > :is(p, ul, ol) + :is(p, ul, ol) { margin-top: 1.15rem; }

@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Esquare\Theme\Block;
 
-use Esquare\Theme\Notion\Machine;
-use Esquare\Theme\Notion\MachineRepository;
-use Esquare\Theme\Notion\NotionException;
+use Esquare\Theme\Machine\MachinePostType;
 
 /**
  * Server-rendered "Le parc de machines" section of the Fablab page, fed by the
- * Notion "Machines" database (DB_MATERIALS).
+ * "Machines" content type (Esquare\Theme\Machine\MachinePostType).
  *
- * Machines with a photo in Notion get a card; the others go to the compact
- * "Et aussi au FabLab" list. Adding a photo in Notion promotes a machine.
+ * Machines with a photo get a card; the others go to the compact "Et aussi au
+ * FabLab" list. Adding a photo to a machine promotes it.
  */
 final class Machines
 {
@@ -33,23 +31,20 @@ final class Machines
 
     public static function render(array $attrs = [], string $content = ''): string
     {
-        $failed   = false;
-        $machines = [];
+        $machines = MachinePostType::published();
 
-        try {
-            $machines = MachineRepository::create()->published();
-        } catch (NotionException $e) {
-            // The section stays (the hero links to #equipements) and says so plainly.
-            error_log('[esquare] machines: ' . $e->getMessage());
-            $failed = true;
-        }
-
-        $featured = array_values(array_filter($machines, static fn (Machine $m): bool => $m->coverImage() !== null));
-        $others   = array_values(array_filter($machines, static fn (Machine $m): bool => $m->coverImage() === null));
+        $featured = array_values(array_filter($machines, static fn (\WP_Post $m): bool => has_post_thumbnail($m)));
+        $others   = array_values(array_filter($machines, static fn (\WP_Post $m): bool => ! has_post_thumbnail($m)));
 
         ob_start();
         require __DIR__ . '/machines-template.php';
 
         return (string) ob_get_clean();
+    }
+
+    /** Whether the machine has a sheet worth linking to (some only have a name and a line). */
+    public static function hasSheet(\WP_Post $machine): bool
+    {
+        return trim($machine->post_content) !== '';
     }
 }

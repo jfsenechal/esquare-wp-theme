@@ -45,7 +45,10 @@ add_action('init', static function (): void {
 
     Esquare\Theme\Block\ActivityDetail::register();
 
+    Esquare\Theme\Machine\MachinePostType::register();
+    Esquare\Theme\Machine\ImportCommand::register();
     Esquare\Theme\Block\Machines::register();
+    Esquare\Theme\Block\MachineDetail::register();
 
     Esquare\Theme\Block\Typography::register();
 

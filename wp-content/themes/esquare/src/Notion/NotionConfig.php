@@ -16,7 +16,6 @@ final class NotionConfig
     public const KEY_API      = 'NOTION_API_KEY';
     public const KEY_VERSION  = 'NOTION_VERSION';
     public const KEY_ACTIVITIES = 'DB_ACTIVITIES';
-    public const KEY_MATERIALS  = 'DB_MATERIALS';
 
     public static function apiKey(): string
     {
@@ -32,12 +31,6 @@ final class NotionConfig
     public static function activitiesDatabaseId(): string
     {
         return self::normalizeId(self::env(self::KEY_ACTIVITIES));
-    }
-
-    /** Raw DB_MATERIALS value (the FabLab "Machines" base), normalised the same way. */
-    public static function materialsDatabaseId(): string
-    {
-        return self::normalizeId(self::env(self::KEY_MATERIALS));
     }
 
     public static function isConfigured(): bool

@@ -45,7 +45,13 @@ $cards = array_values(array_filter(
             'tag'      => $plain($c['tag'] ?? ''),
             'tagStyle' => (string) ($c['tagStyle'] ?? 'dark'),
             'title'    => $plain($c['title'] ?? ''),
-            'text'     => $inline($c['text'] ?? ''),
+            // Shift+Enter in the editor: one item per line.
+            'text'     => trim(wp_kses((string) ($c['text'] ?? ''), [
+                'strong' => [],
+                'em'     => [],
+                'br'     => [],
+                'a'      => ['href' => true, 'target' => true, 'rel' => true],
+            ])),
             'imageId'  => (int) ($c['imageId'] ?? 0),
             'imageUrl' => (string) ($c['imageUrl'] ?? ''),
             'imageAlt' => trim((string) ($c['imageAlt'] ?? '')),
